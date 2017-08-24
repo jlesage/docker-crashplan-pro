@@ -24,7 +24,12 @@ is protected and easily accessible.
       <category>Backup:</category>
       <extra_description>
     [span style='color: red;'][b]Warning:[/b][/span] Make sure to read the
-    [i]Taking Over Existing Backup[/i] section from the documentation if you are
+    [i]Migrating From CrashPlan for Home[/i] section of the documentation if
+    you are installing this container to migrate from [i]CrashPlan for Home[/i]
+    version.
+    [br][br]
+    [span style='color: red;'][b]Warning:[/b][/span] Make sure to read the
+    [i]Taking Over Existing Backup[/i] section of the documentation if you are
     installing this container to replace another CrashPlan installation (from
     Windows, Linux, Mac or even another Docker container).
       </extra_description>
@@ -140,7 +145,7 @@ article.
     <history>
       <release>
         <version>1.0.0</version>
-        <date>2017-09-22</date>
+        <date>2017-09-24</date>
         <change>Initial release.</change>
       </release>
     </history>

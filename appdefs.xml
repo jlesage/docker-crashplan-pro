@@ -1,0 +1,185 @@
+<!--
+Definitions for CrashPlan PRO docker container.
+
+This file is used as data source to generate README.md and unRAID template files
+from Jinja2 templates.
+-->
+<defs>
+  <app>
+    <id>10</id>
+    <gui>True</gui>
+    <friendly_name>CrashPlan PRO</friendly_name>
+    <name>{{ defs.app.friendly_name|lower|replace(' ', '-') }}</name>
+    <project>
+      <description>
+CrashPlan offers the most comprehensive online backup solution to tens of
+thousands of businesses around the world.  The highly secure, automatic and
+continuous service provides customers the peace of mind that their digital life
+is protected and easily accessible.
+      </description>
+      <url>https://www.crashplan.com/en-us/business/</url>
+    </project>
+    <unraid>
+      <support_url>https://forums.lime-technology.com/topic/XXXXX-support-crashplan-pro/</support_url>
+      <category>Backup:</category>
+      <extra_description>
+    [span style='color: red;'][b]Warning:[/b][/span] Make sure to read the
+    [i]Taking Over Existing Backup[/i] section from the documentation if you are
+    installing this container to replace another CrashPlan installation (from
+    Windows, Linux, Mac or even another Docker container).
+      </extra_description>
+    </unraid>
+    <container>
+      <rough_download_size>160MB</rough_download_size>
+      <storage_permissions>ro</storage_permissions>
+    </container>
+    <!-- Extra stuff to be added to the documentation. -->
+    <documentation>
+      <important>
+> **_IMPORTANT_**: This container can be used to migrate from *CrashPlan for 
+> Home*.  Make sure to read the
+> [Migrating From CrashPlan for Home](#migrating-from-crashPlan-for-home)
+> section for more details.
+      </important>
+      <section>
+        <title level="2">Taking Over Existing Backup</title>
+        <content>
+If this container is replacing a CrashPlan installation (from Linux, Windows,
+MAC or another Docker container), your existing backup can be taken over to
+avoid re-uploading all your data.
+
+To proceed, make sure to carefully read the [official documentation].
+
+Here is a summary of what needs to be done:
+  1. Start CrashPlan Docker container.  Make sure the configuration directory
+     is not mapped to a folder used by a different CrashPlan container.
+  2. Sign in to your account.
+  3. Perform an adoption.  There is a gray banner asking you to do so.
+  4. Once done, you will probably see missing items in the file selection.  This
+     is normal, since path to your files is different in the container.
+  5. Update the file selection by re-adding your files.  **Do not unselect
+     missing items yet**.
+  6. Perform a backup.  Because of deduplication, files will not be uploaded
+     again.
+  7. Once the backup is terminated, you can remove missing items **if you
+     don't care about file versions**.  Else, keep missing items.
+        </content>
+      </section>
+      <section>
+        <title level="2">Migrating From CrashPlan for Home</title>
+        <content>
+*CrashPlan for Home* [being decommissioned], users using this version have the
+choice to migrate their account to *CrashPlan PRO* (aka *CrashPlan for Small
+Business*).  Thus, using this container becomes a great choice for these
+users.
+
+To perform the transition, you need to:
+  - [Migrate your account].
+  - If *CrashPlan for Home* installation is provided by the `jlesage/crashplan`
+    Docker container:
+    - Keep the configuration directory used by `jlesage/crashplan` container
+      (i.e. the host directory mapped to `/config`).
+    - Run this container by re-using the same configuration directory.  To do
+      so, map the `/config` folder to the same host directory used by the
+      `jlesage/crashplan` container.
+  - Else, for all other installations (Windows, Linux, Mac, other Docker
+    containers):
+    - Start this container, by making sure the configuration directory is
+      mapped to a new, empty host directory.
+    - Follow instructions detailed in the
+      [Taking Over Existing Backup](#taking-over-existing-backup) section.
+        </content>
+      </section>
+      <section>
+        <title level="2">Troubleshooting</title>
+        <content/>
+      </section>
+      <section>
+        <title level="3">Crashes / Maximum Amount of Allocated Memory</title>
+        <content>
+If CrashPlan crashes unexpectedly with large backups, try to increase the
+maximum amount of memory CrashPlan is allowed to use. This can be done by:
+
+  1. Setting the `CRASHPLAN_SRV_MAX_MEM` environment variable.  See the
+     [Environment Variables](#environment-variables) section for more details.
+  2. Using the [solution provided by CrashPlan] from its support site.
+        </content>
+      </section>
+      <section>
+        <title level="3">Inotify's Watch Limit</title>
+        <content>
+If CrashPlan exceeds inotify's max watch limit, real-time file watching cannot
+work properly and the inotify watch limit needs to be increased on the **host**.
+
+For more details, see the CrashPlan's [Linux real-time file watching errors]
+article.
+        </content>
+      </section>
+      <link>
+        <name>official documentation</name>
+        <url>https://support.code42.com/CrashPlan/4/Configuring/Replacing_Your_Device</url>
+      </link>
+      <link>
+        <name>solution provided by CrashPlan</name>
+        <url>https://support.code42.com/CrashPlan/4/Troubleshooting/Adjusting_CrashPlan_Settings_For_Memory_Usage_With_Large_Backups</url>
+      </link>
+      <link>
+        <name>Linux real-time file watching errors</name>
+        <url>https://support.code42.com/CrashPlan/4/Troubleshooting/Linux_real-time_file_watching_errors</url>
+      </link>
+      <link>
+        <name>being decommissioned</name>
+        <url>https://www.crashplan.com/en-us/consumer/nextsteps/</url>
+      </link>
+      <link>
+        <name>Migrate your account</name>
+        <url>https://crashplanpro.com/migration/?&amp;_ga=2.236229060.497742288.1503424785-1699368865.1503424785#</url>
+      </link>
+    </documentation>
+    <!-- Changelog of the application. -->
+    <history>
+      <release>
+        <version>1.0.0</version>
+        <date>2017-09-22</date>
+        <change>Initial release.</change>
+      </release>
+    </history>
+  </app>
+  <container>
+    <!-- Environment variables -->
+    <environment_variables>
+      <environment_variable>
+        <name>CRASHPLAN_SRV_MAX_MEM</name>
+        <description>Maximum amount of memory the CrashPlan Engine is allowed to use. One of the following memory unit (case insensitive) should be added as a suffix to the size: `G`, `M` or `K`.  By default, when this variable is not set, a maximum of 1024MB (`1024M`) of memory is allowed.</description>
+        <unraid_template>
+          <title>Maximum Memory</title>
+          <description>Maximum amount of memory the CrashPlan Engine is allowed to use.  One of the following memory unit (case insensitive) should be added as a suffix to the size: [b][i]G[/i][/b], [b][i]M[/i][/b] or [b][i]K[/i][/b]. By default, when this variable is not set, a maximum of 1024MB ([b][i]1024M[/i][/b]) of memory is allowed.</description>
+          <display>advanced</display>
+          <required>false</required>
+          <mask>false</mask>
+        </unraid_template>
+      </environment_variable>
+    </environment_variables>
+    <!-- Volumes -->
+    <volumes>
+      <volume>
+        <container_path>/flash</container_path>
+        <host_path_example/>
+        <description/>
+        <permissions>ro</permissions>
+        <unraid_template>
+          <title>Flash</title>
+          <description>This is where data on your unRAID flash device is located.  Useful to backup your unRAID configuration.[br]Container path: /flash</description>
+          <default>/boot</default>
+          <display>always</display>
+          <required>false</required>
+          <mask>false</mask>
+        </unraid_template>
+      </volume>
+    </volumes>
+    <!-- Network ports -->
+    <ports/>
+    <!-- Devices -->
+    <devices/>
+  </container>
+</defs>

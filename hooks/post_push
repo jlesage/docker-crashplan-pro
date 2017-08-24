@@ -1,0 +1,38 @@
+#!/bin/bash
+#
+# Post push hook for Docker Automated Build.
+#
+# This hook adds the 'latest' tag to the image.
+#
+
+set -e # Exit immediately if a command exits with a non-zero status.
+set -u # Treat unset variables as an error.
+
+source custom_hook_env
+
+echo "Environment variables:
+    IMAGE_NAME=$IMAGE_NAME
+    DOCKER_REPO=$DOCKER_REPO
+    DOCKER_TAG=$DOCKER_TAG
+    SOURCE_BRANCH=$SOURCE_BRANCH
+    IMAGE_VERSION=$IMAGE_VERSION
+"
+
+MAJOR="$(echo "${DOCKER_TAG:1}" | cut -d'.' -f1)"
+
+if [[ "$DOCKER_TAG" =~ -alpha[0-9]*$ ]]; then
+    DOCKER_NEWTAG="$(echo "$DOCKER_TAG" | sed 's/-alpha[0-9]*$/-alpha-latest/')"
+elif [[ "$DOCKER_TAG" =~ -beta[0-9]*$ ]]; then
+    DOCKER_NEWTAG="$(echo "$DOCKER_TAG" | sed 's/-beta[0-9]*$/-beta-latest/')"
+elif [[ "$DOCKER_TAG" =~ -rc[0-9]*$ ]]; then
+    DOCKER_NEWTAG="$(echo "$DOCKER_TAG" | sed 's/-rc[0-9]*$/-rc-latest/')"
+else
+    DOCKER_NEWTAG="latest"
+fi
+
+echo "Adding tag '$DOCKER_NEWTAG' to image..."
+docker tag $IMAGE_NAME ${DOCKER_REPO}:$DOCKER_NEWTAG
+echo "Pushing image..."
+docker push ${DOCKER_REPO}:$DOCKER_NEWTAG
+
+echo "post_push hook terminated successfully."

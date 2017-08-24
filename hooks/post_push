@@ -19,11 +19,11 @@ echo "Environment variables:
 "
 
 if [[ "$DOCKER_TAG" =~ v[0-9]+\.[0-9]+\.[0-9]+-alpha[0-9]+$ ]]; then
-    DOCKER_NEWTAG="$(echo "$DOCKER_TAG" | sed 's/-alpha[0-9]\+$/-alpha-latest/')"
+    DOCKER_NEWTAG="$(echo "$DOCKER_TAG" | sed 's/-alpha[0-9]\+$/-alpha/')"
 elif [[ "$DOCKER_TAG" =~ v[0-9]+\.[0-9]+\.[0-9]+-beta[0-9]+$ ]]; then
-    DOCKER_NEWTAG="$(echo "$DOCKER_TAG" | sed 's/-beta[0-9]\+$/-beta-latest/')"
+    DOCKER_NEWTAG="$(echo "$DOCKER_TAG" | sed 's/-beta[0-9]\+$/-beta/')"
 elif [[ "$DOCKER_TAG" =~ v[0-9]+\.[0-9]+\.[0-9]+-rc[0-9]+$ ]]; then
-    DOCKER_NEWTAG="$(echo "$DOCKER_TAG" | sed 's/-rc[0-9]\+$/-rc-latest/')"
+    DOCKER_NEWTAG="$(echo "$DOCKER_TAG" | sed 's/-rc[0-9]\+$/-rc/')"
 elif [[ "$DOCKER_TAG" =~ v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
     DOCKER_NEWTAG="latest"
 else

@@ -7,7 +7,7 @@ The GUI of the application is accessed through a modern web browser (no installa
 
 > **_IMPORTANT_**: This container can be used to migrate from *CrashPlan for 
 > Home*.  Make sure to read the
-> [Migrating From CrashPlan for Home](#migrating-from-crashPlan-for-home)
+> [Migrating From CrashPlan for Home](#migrating-from-crashplan-for-home)
 > section for more details.
 
 ---

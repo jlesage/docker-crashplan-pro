@@ -29,7 +29,6 @@ RUN \
     # Extract CrashPlan.
     cat $(ls crashplan-install/*.cpi) | gzip -d -c - | cpio -i --no-preserve-owner --directory=${TARGETDIR} && \
     # Keep a copy of the default config.
-    mkdir /defaults && \
     mv ${TARGETDIR}/conf /defaults/conf && \
     cp crashplan-install/scripts/run.conf /defaults/ && \
     # The configuration directory should be stored outside the container.

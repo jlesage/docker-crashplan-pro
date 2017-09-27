@@ -1,5 +1,5 @@
 # Docker container for CrashPlan PRO
-[![Docker Automated build](https://img.shields.io/docker/automated/jlesage/crashplan-pro.svg)](https://hub.docker.com/r/jlesage/crashplan-pro/) [![](https://images.microbadger.com/badges/image/jlesage/crashplan-pro.svg)](http://microbadger.com/#/images/jlesage/crashplan-pro "Get your own image badge on microbadger.com") [![Build Status](https://travis-ci.org/jlesage/docker-crashplan-pro.svg?branch=master)](https://travis-ci.org/jlesage/docker-crashplan-pro)
+[![Docker Automated build](https://img.shields.io/docker/automated/jlesage/crashplan-pro.svg)](https://hub.docker.com/r/jlesage/crashplan-pro/) [![](https://images.microbadger.com/badges/image/jlesage/crashplan-pro.svg)](http://microbadger.com/#/images/jlesage/crashplan-pro "Get your own image badge on microbadger.com") [![Build Status](https://travis-ci.org/jlesage/docker-crashplan-pro.svg?branch=master)](https://travis-ci.org/jlesage/docker-crashplan-pro) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage)
 
 This is a Docker container for CrashPlan PRO.
 

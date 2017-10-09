@@ -144,6 +144,13 @@ article.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.1.0</version>
+        <date>2017-10-08</date>
+        <change>Now using baseimage v3.0.0, which brings the following changes:</change>
+        <change level="2">Better support for service dependencies.</change>
+        <change level="2">Added support for secure access to the application's GUI.</change>
+      </release>
+      <release>
         <version>1.0.1</version>
         <date>2017-09-08</date>
         <change>Now using baseimage v2.0.8, which brings the following changes (from last used version):</change>

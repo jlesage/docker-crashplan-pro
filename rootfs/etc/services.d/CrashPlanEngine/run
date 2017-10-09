@@ -9,7 +9,7 @@ FULL_CP="$CRASHPLAN_DIR/lib/com.backup42.desktop.jar:$CRASHPLAN_DIR/lang:$CRASHP
 
 source $CRASHPLAN_DIR/bin/run.conf
 
-echo "Starting CrashPlan Engine..."
+echo "[$(basename "$(pwd)")] starting..."
 cd $CRASHPLAN_DIR
 exec $APP_NICE_CMD s6-setuidgid $USER_ID:$GROUP_ID $JAVACOMMON $SRV_JAVA_OPTS -classpath $FULL_CP com.backup42.service.CPService >> /config/log/engine_output.log 2>> /config/log/engine_error.log
 

@@ -265,3 +265,10 @@ article.
 [Linux real-time file watching errors]: https://support.code42.com/CrashPlan/4/Troubleshooting/Linux_real-time_file_watching_errors
 [being decommissioned]: https://www.crashplan.com/en-us/consumer/nextsteps/
 [Migrate your account]: https://crashplanpro.com/migration/?&_ga=2.236229060.497742288.1503424785-1699368865.1503424785#
+
+## Support or Contact
+
+Having troubles with the container or have questions?  Please
+[create a new issue].
+
+[open an issue]: https://github.com/jlesage/docker-crashplan-pro/issues

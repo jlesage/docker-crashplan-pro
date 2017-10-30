@@ -1,0 +1,1 @@
+More than 95% of allocated memory is used.  Consider increasing memory allocation to avoid unexpected crashes.  This can be done via the CRASHPLAN_SRV_MAX_MEM environment variable.

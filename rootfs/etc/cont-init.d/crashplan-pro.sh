@@ -35,6 +35,12 @@ rm -f /config/log/engine_output.log \
       /config/log/ui_output.log \
       /config/log/ui_error.log
 
+# Make sure monitored log files exist.
+for LOGFILE in /config/log/service.log.0 /config/log/app.log
+do
+    [ -f "$LOGFILE" ] || touch "$LOGFILE"
+done
+
 # Adjust ownership of /config.
 chown -R $USER_ID:$GROUP_ID /config
 

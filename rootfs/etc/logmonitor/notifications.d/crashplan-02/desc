@@ -1,0 +1,1 @@
+Real-time file watching cannot work properly.  The inotify watch limit needs to be increased on the host.

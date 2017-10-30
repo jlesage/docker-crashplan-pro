@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -e # Exit immediately if a command exits with a non-zero status.
+set -u # Treat unset variables as an error.
+
+LINE="$1"
+DIRNAME="$(basename "$(dirname "$0")")"
+
+if echo "$LINE" | grep -q "^memory "; then
+    MAX_MEM="$(echo "$LINE" | cut -d'=' -f3 | cut -d'M' -f1 | cut -d'.' -f1)"
+    USED_MEM="$(echo "$LINE" | cut -d'=' -f6 | cut -d'M' -f1 | cut -d'.' -f1)"
+    PERCENT_USED_MEM="$(expr "$USED_MEM" \* 100 / "$MAX_MEM")"
+    if [ "$PERCENT_USED_MEM" -gt 75 ] && [ "$PERCENT_USED_MEM" -le 85 ]; then
+        exit 0
+    fi
+fi
+
+# No match found.
+exit 1
+
+# vim: set ft=sh :

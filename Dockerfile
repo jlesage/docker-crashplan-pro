@@ -82,7 +82,8 @@ RUN \
 COPY rootfs/ /
 
 # Set environment variables.
-ENV APP_NAME="CrashPlan PRO" \
+ENV S6_WAIT_FOR_SERVICE_MAXTIME=9000 \
+    APP_NAME="CrashPlan PRO" \
     KEEP_GUIAPP_RUNNING=1 \
     CRASHPLAN_DIR=${TARGETDIR} \
     JAVACOMMON="${TARGETDIR}/jre/bin/java"

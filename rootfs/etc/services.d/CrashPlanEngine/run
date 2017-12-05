@@ -4,6 +4,6 @@ set -e # Exit immediately if a command exits with a non-zero status.
 set -u # Treat unset variables as an error.
 
 echo "[$(basename "$(pwd)")] starting..."
-exec /bin/s6-notifyoncheck $APP_NICE_CMD s6-setuidgid $USER_ID:$GROUP_ID /usr/local/crashplan/bin/startCrashPlanEngine.sh >> /config/log/engine_output.log 2>> /config/log/engine_error.log
+exec /bin/s6-notifyoncheck -n 0 $APP_NICE_CMD s6-setuidgid $USER_ID:$GROUP_ID /usr/local/crashplan/bin/startCrashPlanEngine.sh >> /config/log/engine_output.log 2>> /config/log/engine_error.log
 
 # vim: set ft=sh :

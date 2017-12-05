@@ -8,10 +8,10 @@
 FROM jlesage/baseimage-gui:alpine-3.6-glibc-v3.1.3
 
 # Define software versions.
-ARG CRASHPLANPRO_VERSION=4.9.0_1436674888490_33
+ARG CRASHPLANPRO_VERSION=6.6.0_1506661200660_4347
 
 # Define software download URLs.
-ARG CRASHPLANPRO_URL=https://web-lbm-msp.crashplanpro.com/client/installers/CrashPlanPRO_${CRASHPLANPRO_VERSION}_Linux.tgz
+ARG CRASHPLANPRO_URL=https://web-lbm-msp.crashplanpro.com/client/installers/CrashPlanSmb_${CRASHPLANPRO_VERSION}_Linux.tgz
 
 # Define container build variables.
 ARG TARGETDIR=/usr/local/crashplan
@@ -28,6 +28,8 @@ RUN \
     mkdir -p ${TARGETDIR} && \
     # Extract CrashPlan.
     cat $(ls crashplan-install/*.cpi) | gzip -d -c - | cpio -i --no-preserve-owner --directory=${TARGETDIR} && \
+    mv "${TARGETDIR}"/*.asar "${TARGETDIR}/electron/resources" && \
+    chmod 755 "${TARGETDIR}/electron/crashplan" && \
     # Keep a copy of the default config.
     mv ${TARGETDIR}/conf /defaults/conf && \
     cp crashplan-install/scripts/run.conf /defaults/ && \
@@ -42,6 +44,8 @@ RUN \
     ln -s /config/log $TARGETDIR/log && \
     # The '/var/lib/crashplan' directory should be stored outside the container.
     ln -s /config/var /var/lib/crashplan && \
+    # The '/repository' directory should be stored outside the container.
+    ln -s /config/repository /repository && \
     # Download and install the JRE.
     echo "Installing JRE..." && \
     source crashplan-install/install.defaults && \
@@ -51,10 +55,21 @@ RUN \
     del-pkg build-dependencies && \
     rm -rf /tmp/*
 
+# Clear stuff from /etc/fstab to avoid showing irrelevant devices in the open
+# file dialog window.
+RUN echo > /etc/fstab
+
 # Install dependencies.
 RUN \
+    echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
     add-pkg \
         gtk+2.0 \
+        libxscrnsaver \
+        nss \
+        eudev \
+        gconf \
+        libselinux@edge \
+
         # For the monitor.
         yad \
         bc
@@ -62,10 +77,10 @@ RUN \
 # Adjust the openbox config.
 RUN \
     # Maximize only the main/initial window.
-    sed-patch 's/<application type="normal">/<application type="normal" class="CrashPlan PRO">/' \
+    sed-patch 's/<application type="normal">/<application type="normal" title="Code42">/' \
         /etc/xdg/openbox/rc.xml && \
     # Make sure the main window is always in the background.
-    sed-patch '/<application type="normal" class="CrashPlan PRO">/a \    <layer>below</layer>' \
+    sed-patch '/<application type="normal" title="Code42">/a \    <layer>below</layer>' \
         /etc/xdg/openbox/rc.xml
 
 # Enable log monitoring.
@@ -82,8 +97,8 @@ RUN \
 COPY rootfs/ /
 
 # Set environment variables.
-ENV S6_WAIT_FOR_SERVICE_MAXTIME=9000 \
-    APP_NAME="CrashPlan PRO" \
+ENV S6_WAIT_FOR_SERVICE_MAXTIME=10000 \
+    APP_NAME="CrashPlan for Small Business" \
     KEEP_GUIAPP_RUNNING=1 \
     CRASHPLAN_DIR=${TARGETDIR} \
     JAVACOMMON="${TARGETDIR}/jre/bin/java"
@@ -91,10 +106,6 @@ ENV S6_WAIT_FOR_SERVICE_MAXTIME=9000 \
 # Define mountable directories.
 VOLUME ["/config"]
 VOLUME ["/storage"]
-
-# Expose ports.
-#   - 4243: Connection to the CrashPlan service.
-EXPOSE 4243
 
 # Metadata.
 LABEL \

@@ -33,6 +33,10 @@ RUN \
     # Keep a copy of the default config.
     mv ${TARGETDIR}/conf /defaults/conf && \
     cp crashplan-install/scripts/run.conf /defaults/ && \
+    # Set manifest directory to default config.  It should not be used, but do
+    # like the install script.
+    sed-patch "s|<backupConfig>|<backupConfig>\n\t\t\t<manifestPath>/usr/local/var/crashplan</manifestPath>|g" /defaults/conf/default.service.xml && \
+    mkdir -p /usr/local/var/crashplan && \
     # The configuration directory should be stored outside the container.
     ln -s /config/conf $TARGETDIR/conf && \
     # The run.conf file should be stored outside the container.

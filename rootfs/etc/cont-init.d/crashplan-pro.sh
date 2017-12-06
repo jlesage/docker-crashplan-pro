@@ -18,7 +18,7 @@ mkdir -p /config/var
 mkdir -p /config/repository
 
 # Install default configuration if needed.
-[ -d /config/conf ] || cp -pr /defaults/conf /config/conf
+cp -pr /defaults/conf /config/
 [ -f /config/bin/run.conf ] || cp /defaults/run.conf /config/bin/run.conf
 
 # Update CrashPlan Engine max memory if needed.

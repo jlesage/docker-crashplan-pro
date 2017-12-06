@@ -55,9 +55,13 @@ RUN \
     del-pkg build-dependencies && \
     rm -rf /tmp/*
 
-# Clear stuff from /etc/fstab to avoid showing irrelevant devices in the open
-# file dialog window.
-RUN echo > /etc/fstab
+# Misc adjustments.
+RUN  \
+    # Clear stuff from /etc/fstab to avoid showing irrelevant devices in the open
+    # file dialog window.
+    echo > /etc/fstab && \
+    # CrashPlan requires the machine-id to be the same to avoid re-login.
+    ln -s /config/machine-id /etc/machine-id
 
 # Install dependencies.
 RUN \
@@ -69,7 +73,6 @@ RUN \
         eudev \
         gconf \
         libselinux@edge \
-
         # For the monitor.
         yad \
         bc

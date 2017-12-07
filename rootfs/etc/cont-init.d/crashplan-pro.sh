@@ -36,7 +36,7 @@ if [ "${CRASHPLAN_SRV_MAX_MEM:-UNSET}" != "UNSET" ]; then
   fi
 
   CUR_MEM_VAL="$(cat /config/bin/run.conf | sed -n 's/.*SRV_JAVA_OPTS=.* -Xmx\([0-9]\+[g|G|m|M|k|K]\?\) .*$/\1/p')"
-  if [ "$CRASHPLAN_SRV_MAX_MEM" != "$CUR_MEM_VAL" ]
+  if [ "${CUR_MEM_VAL:-UNSET}" != "UNSET" ] && [ "$CRASHPLAN_SRV_MAX_MEM" != "$CUR_MEM_VAL" ]
   then
     log "updating CrashPlan Engine maximum memory from $CUR_MEM_VAL to $CRASHPLAN_SRV_MAX_MEM."
     sed -i "s/^\(SRV_JAVA_OPTS=.* -Xmx\)[0-9]\+[g|G|m|M|k|K]\? /\1$CRASHPLAN_SRV_MAX_MEM /" /config/bin/run.conf

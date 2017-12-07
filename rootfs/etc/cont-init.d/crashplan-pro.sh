@@ -3,9 +3,13 @@
 set -e # Exit immediately if a command exits with a non-zero status.
 set -u # Treat unset variables as an error.
 
+log() {
+    echo "[cont-init.d] $(basename $0): $*"
+}
+
 # Generate machine id.
 if [ ! -f /config/machine-id ]; then
-    echo "Generating machine-id..."
+    log "generating machine-id..."
     cat /proc/sys/kernel/random/uuid | tr -d '-' > /config/machine-id
 fi
 
@@ -27,14 +31,14 @@ cp -pr /defaults/conf /config/
 if [ "${CRASHPLAN_SRV_MAX_MEM:-UNSET}" != "UNSET" ]; then
   if ! echo "$CRASHPLAN_SRV_MAX_MEM" | grep -q "^[0-9]\+[g|G|m|M|k|K]\?$"
   then
-    echo "ERROR: Invalid value for CRASHPLAN_SRV_MAX_MEM variable: '$CRASHPLAN_SRV_MAX_MEM'"
+    log "ERROR: invalid value for CRASHPLAN_SRV_MAX_MEM variable: '$CRASHPLAN_SRV_MAX_MEM'."
     exit 1
   fi
 
   CUR_MEM_VAL="$(cat /config/bin/run.conf | sed -n 's/.*SRV_JAVA_OPTS=.* -Xmx\([0-9]\+[g|G|m|M|k|K]\?\) .*$/\1/p')"
   if [ "$CRASHPLAN_SRV_MAX_MEM" != "$CUR_MEM_VAL" ]
   then
-    echo "Updating CrashPlan Engine maximum memory from $CUR_MEM_VAL to $CRASHPLAN_SRV_MAX_MEM."
+    log "updating CrashPlan Engine maximum memory from $CUR_MEM_VAL to $CRASHPLAN_SRV_MAX_MEM."
     sed -i "s/^\(SRV_JAVA_OPTS=.* -Xmx\)[0-9]\+[g|G|m|M|k|K]\? /\1$CRASHPLAN_SRV_MAX_MEM /" /config/bin/run.conf
   fi
 fi

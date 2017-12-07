@@ -35,7 +35,7 @@ is protected and easily accessible.
       </extra_description>
     </unraid>
     <container>
-      <rough_download_size>160MB</rough_download_size>
+      <rough_download_size>250MB</rough_download_size>
       <storage_permissions>ro</storage_permissions>
     </container>
     <!-- Extra stuff to be added to the documentation. -->

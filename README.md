@@ -206,9 +206,12 @@ Here is a summary of what needs to be done:
   1. Start CrashPlan Docker container.  Make sure the configuration directory
      is not mapped to a folder used by a different CrashPlan container.
   2. Sign in to your account.
-  3. Perform an adoption.  There is a gray banner asking you to do so.
-  4. Once done, you will probably see missing items in the file selection.  This
-     is normal, since path to your files is different in the container.
+  3. Click the **Replace Existing** button to start the wizard.
+  4. Skip *Step 2 - File Transfert*.
+  4. Once done with the wizard, go to your device's details and click
+     *Manage Files*.  You will probably see missing items in the file
+     selection.  This is normal, since path to your files may be different in
+     the container.
   5. Update the file selection by re-adding your files.  **Do not unselect
      missing items yet**.
   6. Perform a backup.  Because of deduplication, files will not be uploaded
@@ -258,9 +261,37 @@ work properly and the inotify watch limit needs to be increased on the **host**.
 For more details, see the CrashPlan's [Linux real-time file watching errors]
 article.
 
+### Empty `/storage`
+
+If the `/storage` folder inside the container is empty:
+
+  - Make sure the folder is properly mapped to the host.  This is done via the
+    `-v` parameter of the `docker run` command.  See the [Usage](#usage)
+    section.
+  - Make sure permissions and ownership of files on the host are correct and are
+    compatible with the user under which the container application is running
+    (defined by the `USER_ID` and `GROUP_ID` environment variables).  See the
+    [User/Group IDs](#usergroup-ids) section.
+
+NOTE: If running the application as root (`USER_ID=0` and `GROUP_ID=0`) makes
+the files visible, it confirms that there is a permission issue.
+
+### First Sign In
+
+When starting the container with a fresh/clean `/config` directory, the first
+sign in can take a long time (few minutes) before the following error message
+appears:
+
+  > Unable to sign in. Unknown error.
+
+If this situation occurs, just click the *Continue* button.  The application
+should then be able to successfully sign in.
+
+This issue also exists with standard CrashPlan installation on Linux.
+
 [TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-[official documentation]: https://support.code42.com/CrashPlan/4/Configuring/Replacing_Your_Device
-[solution provided by CrashPlan]: https://support.code42.com/CrashPlan/4/Troubleshooting/Adjusting_CrashPlan_Settings_For_Memory_Usage_With_Large_Backups
+[official documentation]: https://support.code42.com/CrashPlan/6/Configuring/Replace_your_device
+[solution provided by CrashPlan]: https://support.code42.com/CrashPlan/6/Troubleshooting/Adjust_Code42_app_settings_for_memory_usage_with_large_backups
 [Linux real-time file watching errors]: https://support.code42.com/CrashPlan/4/Troubleshooting/Linux_real-time_file_watching_errors
 [being decommissioned]: https://www.crashplan.com/en-us/consumer/nextsteps/
 [Migrate your account]: https://crashplanpro.com/migration/?&_ga=2.236229060.497742288.1503424785-1699368865.1503424785#

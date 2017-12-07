@@ -8,10 +8,11 @@
 FROM jlesage/baseimage-gui:alpine-3.6-glibc-v3.1.3
 
 # Define software versions.
-ARG CRASHPLANPRO_VERSION=6.6.0_1506661200660_4347
+ARG CRASHPLANPRO_VERSION=6.6.0
+ARG CRASHPLANPRO_VERSION_SUFFIX=1506661200660_4347
 
 # Define software download URLs.
-ARG CRASHPLANPRO_URL=https://web-lbm-msp.crashplanpro.com/client/installers/CrashPlanSmb_${CRASHPLANPRO_VERSION}_Linux.tgz
+ARG CRASHPLANPRO_URL=https://web-lbm-msp.crashplanpro.com/client/installers/CrashPlanSmb_${CRASHPLANPRO_VERSION}_${CRASHPLANPRO_VERSION_SUFFIX}_Linux.tgz
 
 # Define container build variables.
 ARG TARGETDIR=/usr/local/crashplan
@@ -65,7 +66,9 @@ RUN  \
     # file dialog window.
     echo > /etc/fstab && \
     # CrashPlan requires the machine-id to be the same to avoid re-login.
-    ln -s /config/machine-id /etc/machine-id
+    ln -s /config/machine-id /etc/machine-id && \
+    # Save the current CrashPlan version.
+    echo "${CRASHPLANPRO_VERSION}" > /defaults/cp_version
 
 # Install dependencies.
 RUN \

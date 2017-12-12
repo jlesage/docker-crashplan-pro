@@ -179,6 +179,12 @@ This issue also exists with standard CrashPlan installation on Linux.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>2.0.1</version>
+        <date>2017-12-12</date>
+        <change>Now using baseimage v3.1.4, which brings the following changes:</change>
+        <change>Set 2 worker processes for nginx.</change>
+      </release>
+      <release>
         <version>2.0.0</version>
         <date>2017-12-08</date>
         <change>Upgraded CrashPlan to version 6.6.0.</change>

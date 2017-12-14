@@ -34,6 +34,8 @@ RUN \
     # Keep a copy of the default config.
     mv ${TARGETDIR}/conf /defaults/conf && \
     cp crashplan-install/scripts/run.conf /defaults/ && \
+    # Make sure the UI connects by default to the engine using the loopback IP address (127.0.0.1).
+    sed-patch '/<orgType>BUSINESS<\/orgType>/a \\t<serviceUIConfig>\n\t\t<serviceHost>127.0.0.1<\/serviceHost>\n\t<\/serviceUIConfig>' /defaults/conf/default.service.xml && \
     # Set manifest directory to default config.  It should not be used, but do
     # like the install script.
     sed-patch "s|<backupConfig>|<backupConfig>\n\t\t\t<manifestPath>/usr/local/var/crashplan</manifestPath>|g" /defaults/conf/default.service.xml && \

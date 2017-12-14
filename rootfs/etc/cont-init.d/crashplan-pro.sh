@@ -81,6 +81,19 @@ if [ "${CRASHPLAN_SRV_MAX_MEM:-UNSET}" != "UNSET" ]; then
   fi
 fi
 
+# On some systems (e.g QNAP NAS), instead of the loopback IP address
+# (127.0.0.1), the IP address of the host is used by the CrashPlan UI to connect
+# to the engine.  This connection cannot succeed when using the Docker `bridge`
+# network mode.
+# Make sure to fix this situation by forcing the loopback IP address in
+# concerned configuration files.
+if [ -f /config/conf/my.service.xml ]; then
+    sed -i 's|<serviceHost>.*</serviceHost>|<serviceHost>127.0.0.1</serviceHost>|' /config/conf/my.service.xml
+fi
+if [ -f /config/var/.ui_info ]; then
+    sed -i 's|,[0-9.]\+$|,127.0.0.1|' /config/var/.ui_info
+fi
+
 # Clear some log files.
 rm -f /config/log/engine_output.log \
       /config/log/engine_error.log \

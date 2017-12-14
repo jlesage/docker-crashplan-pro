@@ -40,6 +40,9 @@ RUN \
     # like the install script.
     sed-patch "s|<backupConfig>|<backupConfig>\n\t\t\t<manifestPath>/usr/local/var/crashplan</manifestPath>|g" /defaults/conf/default.service.xml && \
     mkdir -p /usr/local/var/crashplan && \
+    # Prevent automatic updates.
+    rm -r /usr/local/crashplan/upgrade && \
+    touch /usr/local/crashplan/upgrade && chmod 400 /usr/local/crashplan/upgrade && \
     # The configuration directory should be stored outside the container.
     ln -s /config/conf $TARGETDIR/conf && \
     # The run.conf file should be stored outside the container.

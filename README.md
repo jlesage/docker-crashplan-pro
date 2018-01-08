@@ -137,7 +137,7 @@ docker stop crashplan-pro
 ```
   3. Remove the container:
 ```
-docker stop crashplan-pro
+docker rm crashplan-pro
 ```
   4. Start the container using the `docker run` command.
 

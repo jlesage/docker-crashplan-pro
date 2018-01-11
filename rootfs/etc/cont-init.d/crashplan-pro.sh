@@ -106,7 +106,7 @@ do
     [ -f "$LOGFILE" ] || touch "$LOGFILE"
 done
 
-# Adjust ownership of /config.
-chown -R $USER_ID:$GROUP_ID /config
+# Take ownership of the config directory content.
+chown -R $USER_ID:$GROUP_ID /config/*
 
 # vim: set ft=sh :

@@ -179,6 +179,11 @@ This issue also exists with standard CrashPlan installation on Linux.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>2.0.4</version>
+        <date>2018-01-11</date>
+        <change>Fixed issue where libraries were not found.</change>
+      </release>
+      <release>
         <version>2.0.3</version>
         <date>2018-01-11</date>
         <change>Now using baseimage v3.2.2, which brings the following changes (since last used version):</change>

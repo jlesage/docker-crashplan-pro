@@ -23,6 +23,9 @@ is protected and easily accessible.
 
 ## Quick Start
 
+**NOTE**: The Docker command provided in this quick start is given as an example
+and parameters should be adjusted to your need.
+
 Launch the CrashPlan PRO docker container with the following command:
 ```
 docker run -d \

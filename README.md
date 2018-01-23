@@ -322,6 +322,21 @@ If the `/storage` folder inside the container is empty:
 NOTE: If running the application as root (`USER_ID=0` and `GROUP_ID=0`) makes
 the files visible, it confirms that there is a permission issue.
 
+### Device Status Is Waiting For Connection
+
+If the status of your device is stuck on *Waiting for connection*, clearing the
+the cache of CrashPlan can help resolve the issue:
+
+  - Stop the container.
+  - Remove all the content of the `cache` directory found under the container's
+    configuration directory.  For example, if the `/config` folder of the
+    container is mapped to `/docker/appdata/crashplan-pro` on the host, the
+    following command (ran on the host) would clear the cache:
+    ```
+    rm -rf /docker/appdata/crashplan-pro/cache/*
+    ```
+  - Start the container.
+
 [TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 [official documentation]: https://support.code42.com/CrashPlan/6/Configuring/Replace_your_device
 [solution provided by CrashPlan]: https://support.code42.com/CrashPlan/6/Troubleshooting/Adjust_Code42_app_settings_for_memory_usage_with_large_backups

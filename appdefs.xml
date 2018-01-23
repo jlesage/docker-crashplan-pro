@@ -140,6 +140,23 @@ NOTE: If running the application as root (`USER_ID=0` and `GROUP_ID=0`) makes
 the files visible, it confirms that there is a permission issue.
         </content>
       </section>
+      <section>
+        <title level="3">Device Status Is Waiting For Connection</title>
+        <content>
+If the status of your device is stuck on *Waiting for connection*, clearing the
+the cache of CrashPlan can help resolve the issue:
+
+  - Stop the container.
+  - Remove all the content of the `cache` directory found under the container's
+    configuration directory.  For example, if the `/config` folder of the
+    container is mapped to `/docker/appdata/crashplan-pro` on the host, the
+    following command (ran on the host) would clear the cache:
+    ```
+    rm -rf /docker/appdata/crashplan-pro/cache/*
+    ```
+  - Start the container.
+        </content>
+      </section>
       <link>
         <name>official documentation</name>
         <url>https://support.code42.com/CrashPlan/6/Configuring/Replace_your_device</url>

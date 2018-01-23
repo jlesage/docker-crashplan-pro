@@ -337,6 +337,20 @@ the cache of CrashPlan can help resolve the issue:
     ```
   - Start the container.
 
+### Cannot Restore Files
+
+If CrashPlan fails to restore files, make sure the location where files are
+restored have write permission.
+
+A typical installation has the data to be backup under the `/storage` folder.
+This folder is usually mapped to the host with *read-only* permission.  Thus,
+restoring files to `/storage` won't be allowed.  The solution is to temporarily
+change the permission of the volume to *read-write*.
+
+For example, if `/storage` is mapped to `$HOME` on the host, the container would
+need to be deleted and then re-created with the same arguments, with the exception
+of `-v $HOME:/storage:ro` that is replaced with `-v $HOME:/storage:rw`.
+
 [TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 [official documentation]: https://support.code42.com/CrashPlan/6/Configuring/Replace_your_device
 [solution provided by CrashPlan]: https://support.code42.com/CrashPlan/6/Troubleshooting/Adjust_Code42_app_settings_for_memory_usage_with_large_backups

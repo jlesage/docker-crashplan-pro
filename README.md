@@ -322,19 +322,6 @@ If the `/storage` folder inside the container is empty:
 NOTE: If running the application as root (`USER_ID=0` and `GROUP_ID=0`) makes
 the files visible, it confirms that there is a permission issue.
 
-### First Sign In
-
-When starting the container with a fresh/clean `/config` directory, the first
-sign in can take a long time (few minutes) before the following error message
-appears:
-
-  > Unable to sign in. Unknown error.
-
-If this situation occurs, just click the *Continue* button.  The application
-should then be able to successfully sign in.
-
-This issue also exists with standard CrashPlan installation on Linux.
-
 [TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 [official documentation]: https://support.code42.com/CrashPlan/6/Configuring/Replace_your_device
 [solution provided by CrashPlan]: https://support.code42.com/CrashPlan/6/Troubleshooting/Adjust_Code42_app_settings_for_memory_usage_with_large_backups

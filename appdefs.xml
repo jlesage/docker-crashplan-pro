@@ -140,21 +140,6 @@ NOTE: If running the application as root (`USER_ID=0` and `GROUP_ID=0`) makes
 the files visible, it confirms that there is a permission issue.
         </content>
       </section>
-      <section>
-        <title level="3">First Sign In</title>
-        <content>
-When starting the container with a fresh/clean `/config` directory, the first
-sign in can take a long time (few minutes) before the following error message
-appears:
-
-  > Unable to sign in. Unknown error.
-
-If this situation occurs, just click the *Continue* button.  The application
-should then be able to successfully sign in.
-
-This issue also exists with standard CrashPlan installation on Linux.
-        </content>
-      </section>
       <link>
         <name>official documentation</name>
         <url>https://support.code42.com/CrashPlan/6/Configuring/Replace_your_device</url>

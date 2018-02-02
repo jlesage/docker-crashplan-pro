@@ -1,5 +1,5 @@
 # Docker container for CrashPlan PRO
-[![Docker Automated build](https://img.shields.io/docker/automated/jlesage/crashplan-pro.svg)](https://hub.docker.com/r/jlesage/crashplan-pro/) [![](https://images.microbadger.com/badges/image/jlesage/crashplan-pro.svg)](http://microbadger.com/#/images/jlesage/crashplan-pro "Get your own image badge on microbadger.com") [![Build Status](https://travis-ci.org/jlesage/docker-crashplan-pro.svg?branch=master)](https://travis-ci.org/jlesage/docker-crashplan-pro) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage)
+[![Docker Automated build](https://img.shields.io/docker/automated/jlesage/crashplan-pro.svg)](https://hub.docker.com/r/jlesage/crashplan-pro/) [![Docker Image](https://images.microbadger.com/badges/image/jlesage/crashplan-pro.svg)](http://microbadger.com/#/images/jlesage/crashplan-pro) [![Build Status](https://travis-ci.org/jlesage/docker-crashplan-pro.svg?branch=master)](https://travis-ci.org/jlesage/docker-crashplan-pro) [![GitHub Release](https://img.shields.io/github/release/jlesage/docker-crashplan-pro.svg)](https://github.com/jlesage/docker-crashplan-pro/releases/latest) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage)
 
 This is a Docker container for CrashPlan PRO.
 
@@ -108,6 +108,7 @@ container cannot be changed, but you are free to use any port on the host side.
 | 5900 | Optional | Port used to access the application's GUI via the VNC protocol.  Optional if no VNC client is used. |
 
 ## Docker Compose File
+
 Here is an example of a `docker-compose.yml` file that can be used with
 [Docker Compose](https://docs.docker.com/compose/overview/).
 

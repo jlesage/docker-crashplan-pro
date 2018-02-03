@@ -197,6 +197,11 @@ of `-v $HOME:/storage:ro` that is replaced with `-v $HOME:/storage:rw`.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>2.2.0</version>
+        <date>2018-02-02</date>
+        <change>Updated CrashPlan PRO to version 6.7.0.</change>
+      </release>
+      <release>
         <version>2.1.1</version>
         <date>2018-01-30</date>
         <change>Adjusted the way some ressources are accessed to better support reverse proxy to the container.</change>

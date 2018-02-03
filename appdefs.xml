@@ -197,6 +197,13 @@ of `-v $HOME:/storage:ro` that is replaced with `-v $HOME:/storage:rw`.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>2.2.1</version>
+        <date>2018-02-03</date>
+        <change>Now using baseimage v3.3.2, which brings the following changes:</change>
+        <change level="2">Restored timezone support in Alpine Linux images with glibc.</change>
+        <change level="2">Fixed issue in `add-pkg` helper where a package could be incorrectly detected as installed.</change>
+      </release>
+      <release>
         <version>2.2.0</version>
         <date>2018-02-02</date>
         <change>Updated CrashPlan PRO to version 6.7.0.</change>

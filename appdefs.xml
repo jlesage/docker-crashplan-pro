@@ -348,5 +348,7 @@ of `-v $HOME:/storage:ro` that is replaced with `-v $HOME:/storage:rw`.
     <ports/>
     <!-- Devices -->
     <devices/>
+    <!-- Extra parameters -->
+    <extra_params/>
   </container>
 </defs>

@@ -197,6 +197,15 @@ of `-v $HOME:/storage:ro` that is replaced with `-v $HOME:/storage:rw`.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>2.3.0</version>
+        <date>2018-03-02</date>
+        <change>Now using baseimage v3.3.4, which brings the following changes (since last used version):</change>
+        <change level="2">Make sure the log monitor is started after the X server.</change>
+        <change level="2">Fixed an issue where the log monitor `yad` target would use XDG folders of the application.</change>
+        <change level="2">Fixed issue where log monitor states were not cleared during container startup.</change>
+        <change>Trigger a notification when file restore fails due to `/storage` being read-only.</change>
+      </release>
+      <release>
         <version>2.2.1</version>
         <date>2018-02-03</date>
         <change>Now using baseimage v3.3.2, which brings the following changes:</change>

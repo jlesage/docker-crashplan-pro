@@ -1,0 +1,1 @@
+One or more files failed to be restored because the mapping of the /storage volume is read-only.  This can be fixed by re-creating the container with the volume mapped with read/write permissions.  Please see the documentation at https://github.com/jlesage/docker-crashplan-pro for more details.

@@ -113,7 +113,7 @@ COPY rootfs/ /
 # Set environment variables.
 ENV S6_WAIT_FOR_SERVICE_MAXTIME=10000 \
     APP_NAME="CrashPlan for Small Business" \
-    KEEP_GUIAPP_RUNNING=1 \
+    KEEP_APP_RUNNING=1 \
     CRASHPLAN_DIR=${TARGETDIR} \
     JAVACOMMON="${TARGETDIR}/jre/bin/java"
 

@@ -38,6 +38,9 @@ is protected and easily accessible.
       * [Security](#security)
          * [Certificates](#certificates)
          * [VNC Password](#vnc-password)
+      * [Reverse Proxy](#reverse-proxy)
+         * [Routing Based on Hostname](#routing-based-on-hostname)
+         * [Routing Based on URL Path](#routing-based-on-url-path)
       * [Taking Over Existing Backup](#taking-over-existing-backup)
       * [Migrating From CrashPlan for Home](#migrating-from-crashplan-for-home)
       * [Troubleshooting](#troubleshooting)
@@ -46,9 +49,6 @@ is protected and easily accessible.
          * [Empty /storage](#empty-storage)
          * [Device Status Is Waiting For Connection](#device-status-is-waiting-for-connection)
          * [Cannot Restore Files](#cannot-restore-files)
-      * [Reverse Proxy](#reverse-proxy)
-         * [Routing Based on Hostname](#routing-based-on-hostname)
-         * [Routing Based on URL Path](#routing-based-on-url-path)
       * [Support or Contact](#support-or-contact)
 
 ## Quick Start
@@ -296,6 +296,103 @@ the Remote Framebuffer Protocol [RFC](https://tools.ietf.org/html/rfc6143) (see
 section [7.2.2](https://tools.ietf.org/html/rfc6143#section-7.2.2)).  Any
 characters beyhond the limit are ignored.
 
+## Reverse Proxy
+
+The following sections contains NGINX configuration that need to be added in
+order to reverse proxy to this container.
+
+A reverse proxy server can route HTTP requests based on the hostname or the URL
+path.
+
+### Routing Based on Hostname
+
+In this scenario, each hostname is routed to a different application/container.
+
+For example, let's say the reverse proxy server is running on the same machine
+as this container.  The server would proxy all HTTP requests sent to
+`crashplan-pro.domain.tld` to the container at `127.0.0.1:5800`.
+
+Here are the relevant configuration elements that would be added to the NGINX
+configuration:
+
+```
+map $http_upgrade $connection_upgrade {
+	default upgrade;
+	''      close;
+}
+
+upstream docker-crashplan-pro {
+	# If the reverse proxy server is not running on the same machine as the
+	# Docker container, use the IP of the Docker host here.
+	# Make sure to adjust the port according to how port 5800 of the
+	# container has been mapped on the host.
+	server 127.0.0.1:5800;
+}
+
+server {
+	[...]
+
+	server_name crashplan-pro.domain.tld;
+
+	location / {
+	        proxy_pass http://docker-crashplan-pro;
+	}
+
+	location /websockify {
+		proxy_pass http://docker-crashplan-pro;
+		proxy_http_version 1.1;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection $connection_upgrade;
+		proxy_read_timeout 86400;
+	}
+}
+
+```
+
+### Routing Based on URL Path
+
+In this scenario, the hostname is the same, but different URL paths are used to
+route to different applications/containers.
+
+For example, let's say the reverse proxy server is running on the same machine
+as this container.  The server would proxy all HTTP requests for
+`server.domain.tld/crashplan-pro` to the container at `127.0.0.1:5800`.
+
+Here are the relevant configuration elements that would be added to the NGINX
+configuration:
+
+```
+map $http_upgrade $connection_upgrade {
+	default upgrade;
+	''      close;
+}
+
+upstream docker-crashplan-pro {
+	# If the reverse proxy server is not running on the same machine as the
+	# Docker container, use the IP of the Docker host here.
+	# Make sure to adjust the port according to how port 5800 of the
+	# container has been mapped on the host.
+	server 127.0.0.1:5800;
+}
+
+server {
+	[...]
+
+	location = /crashplan-pro {return 301 $scheme://$http_host/crashplan-pro/;}
+	location /crashplan-pro/ {
+		proxy_pass http://docker-crashplan-pro/;
+		location /crashplan-pro/websockify {
+			proxy_pass http://docker-crashplan-pro/websockify/;
+			proxy_http_version 1.1;
+			proxy_set_header Upgrade $http_upgrade;
+			proxy_set_header Connection $connection_upgrade;
+			proxy_read_timeout 86400;
+		}
+	}
+}
+
+```
+
 ## Taking Over Existing Backup
 
 If this container is replacing a CrashPlan installation (from Linux, Windows,
@@ -413,103 +510,6 @@ of `-v $HOME:/storage:ro` that is replaced with `-v $HOME:/storage:rw`.
 [Linux real-time file watching errors]: https://support.code42.com/CrashPlan/4/Troubleshooting/Linux_real-time_file_watching_errors
 [being decommissioned]: https://www.crashplan.com/en-us/consumer/nextsteps/
 [Migrate your account]: https://crashplanpro.com/migration/?&_ga=2.236229060.497742288.1503424785-1699368865.1503424785#
-
-## Reverse Proxy
-
-The following sections contains NGINX configuration that need to be added in
-order to reverse proxy to this container.
-
-A reverse proxy server can route HTTP requests based on the hostname or the URL
-path.
-
-### Routing Based on Hostname
-
-In this scenario, each hostname is routed to a different application/container.
-
-For example, let's say the reverse proxy server is running on the same machine
-as this container.  The server would proxy all HTTP requests sent to
-`crashplan-pro.domain.tld` to the container at `127.0.0.1:5800`.
-
-Here are the relevant configuration elements that would be added to the NGINX
-configuration:
-
-```
-map $http_upgrade $connection_upgrade {
-	default upgrade;
-	''      close;
-}
-
-upstream docker-crashplan-pro {
-	# If the reverse proxy server is not running on the same machine as the
-	# Docker container, use the IP of the Docker host here.
-	# Make sure to adjust the port according to how port 5800 of the
-	# container has been mapped on the host.
-	server 127.0.0.1:5800;
-}
-
-server {
-	[...]
-
-	server_name crashplan-pro.domain.tld;
-
-	location / {
-	        proxy_pass http://docker-crashplan-pro;
-	}
-
-	location /websockify {
-		proxy_pass http://docker-crashplan-pro;
-		proxy_http_version 1.1;
-		proxy_set_header Upgrade $http_upgrade;
-		proxy_set_header Connection $connection_upgrade;
-		proxy_read_timeout 86400;
-	}
-}
-
-```
-
-### Routing Based on URL Path
-
-In this scenario, the hostname is the same, but different URL paths are used to
-route to different applications/containers.
-
-For example, let's say the reverse proxy server is running on the same machine
-as this container.  The server would proxy all HTTP requests for
-`server.domain.tld/crashplan-pro` to the container at `127.0.0.1:5800`.
-
-Here are the relevant configuration elements that would be added to the NGINX
-configuration:
-
-```
-map $http_upgrade $connection_upgrade {
-	default upgrade;
-	''      close;
-}
-
-upstream docker-crashplan-pro {
-	# If the reverse proxy server is not running on the same machine as the
-	# Docker container, use the IP of the Docker host here.
-	# Make sure to adjust the port according to how port 5800 of the
-	# container has been mapped on the host.
-	server 127.0.0.1:5800;
-}
-
-server {
-	[...]
-
-	location = /crashplan-pro {return 301 $scheme://$http_host/crashplan-pro/;}
-	location /crashplan-pro/ {
-		proxy_pass http://docker-crashplan-pro/;
-		location /crashplan-pro/websockify {
-			proxy_pass http://docker-crashplan-pro/websockify/;
-			proxy_http_version 1.1;
-			proxy_set_header Upgrade $http_upgrade;
-			proxy_set_header Connection $connection_upgrade;
-			proxy_read_timeout 86400;
-		}
-	}
-}
-
-```
 
 ## Support or Contact
 

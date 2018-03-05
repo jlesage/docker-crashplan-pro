@@ -197,6 +197,11 @@ of `-v $HOME:/storage:ro` that is replaced with `-v $HOME:/storage:rw`.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>2.3.1</version>
+        <date>2018-03-05</date>
+        <change>Use the correct variable to keep the application running.</change>
+      </release>
+      <release>
         <version>2.3.0</version>
         <date>2018-03-02</date>
         <change>Now using baseimage v3.3.4, which brings the following changes (since last used version):</change>

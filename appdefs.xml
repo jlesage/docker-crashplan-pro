@@ -71,6 +71,10 @@ Here is a summary of what needs to be done:
      again.
   7. Once the backup is terminated, you can remove missing items **if you
      don't care about file versions**.  Else, keep missing items.
+
+**NOTE**: Don't be confused by the directory structure from your old being
+visible in the *Manage Files* window.  By default, your files are now located
+under the `/storage` folder.
         </content>
       </section>
       <section>

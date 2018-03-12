@@ -50,6 +50,7 @@ is protected and easily accessible.
          * [Empty /storage](#empty-storage)
          * [Device Status Is Waiting For Connection](#device-status-is-waiting-for-connection)
          * [Cannot Restore Files](#cannot-restore-files)
+         * [Upgrade Failed Error Message](#upgrade-failed-error-message)
       * [Support or Contact](#support-or-contact)
 
 ## Quick Start
@@ -519,6 +520,15 @@ change the permission of the volume to *read-write*.
 For example, if `/storage` is mapped to `$HOME` on the host, the container would
 need to be deleted and then re-created with the same arguments, with the exception
 of `-v $HOME:/storage:ro` that is replaced with `-v $HOME:/storage:rw`.
+
+### Upgrade Failed Error Message
+
+Because the CrashPlan's self-upgrade feature is disabled in this container, an
+error message about failed upgrade can be seen when a new CrashPlan version is
+released.
+
+To fix this, [updating the container's image](#docker-image-update) to the
+latest version will also bring the latest version of CrashPlan.
 
 [TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 [official documentation]: https://support.code42.com/CrashPlan/6/Configuring/Replace_your_device

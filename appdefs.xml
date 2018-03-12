@@ -177,6 +177,17 @@ need to be deleted and then re-created with the same arguments, with the excepti
 of `-v $HOME:/storage:ro` that is replaced with `-v $HOME:/storage:rw`.
         </content>
       </section>
+      <section>
+        <title level="3">Upgrade Failed Error Message</title>
+        <content>
+Because the CrashPlan's self-upgrade feature is disabled in this container, an
+error message about failed upgrade can be seen when a new CrashPlan version is
+released.
+
+To fix this, [updating the container's image](#docker-image-update) to the
+latest version will also bring the latest version of CrashPlan.
+        </content>
+      </section>
       <link>
         <name>official documentation</name>
         <url>https://support.code42.com/CrashPlan/6/Configuring/Replace_your_device</url>

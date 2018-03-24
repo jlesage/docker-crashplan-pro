@@ -175,6 +175,14 @@ the cache of CrashPlan can help resolve the issue:
         </content>
       </section>
       <section>
+        <title level="3">Frequent Backup Destination Disconnections</title>
+        <content>
+If backup is failing because the connection to the backup destination (CrashPlan
+Central) is frequently interrupted, try to clear the cache of CrashPlan, as
+explained in the previous section.
+        </content>
+      </section>
+      <section>
         <title level="3">Cannot Restore Files</title>
         <content>
 If CrashPlan fails to restore files, make sure the location where files are

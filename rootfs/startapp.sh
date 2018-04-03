@@ -1,13 +1,29 @@
 #!/usr/bin/with-contenv sh
 
-set -e # Exit immediately if a command exits with a non-zero status.
-set -u # Treat unset variables as an error.
+#
+# CrashPlan is not shutting down when receiving a signal, unless it is sent
+# twice.
+#
+# This small wrapper is used to prevent CrashPlan to receive termination
+# signals directly.  Instead, the wrapper traps signals and send CTRL+q key
+# presses to CrashPlan, allowing the application to terminate.
+#
 
-export HOME=/config
-export SWT_GTK3=0
-export LD_LIBRARY_PATH=$CRASHPLAN_DIR
+exit_crashplan() {
+    xdotool key "Escape"
+    xdotool key "ctrl+q"
+}
+trap 'exit_crashplan $PID' TERM INT QUIT
 
-cd /config
-exec ${CRASHPLAN_DIR}/electron/crashplan >> /config/log/ui_output.log 2>> /config/log/ui_error.log
+# Start CrashPlan in background.
+$CRASHPLAN_DIR/bin/startCrashPlanGUI.sh &
+
+# And wait for its termination.
+PID=$!
+wait $PID
+
+# Exit this script.
+EXIT_STATUS=$?
+exit $EXIT_STATUS
 
 # vim: set ft=sh :

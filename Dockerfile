@@ -92,6 +92,8 @@ RUN \
         eudev \
         gconf \
         libselinux@edge \
+        # The following package is used to send key presses to the X process.
+        xdotool \
         # For the monitor.
         yad \
         bc

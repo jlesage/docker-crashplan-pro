@@ -52,7 +52,6 @@ is protected and easily accessible.
             * [Synology](#synology-1)
          * [Empty /storage](#empty-storage)
          * [Device Status Is Waiting For Connection](#device-status-is-waiting-for-connection)
-         * [Frequent Backup Destination Disconnections](#frequent-backup-destination-disconnections)
          * [Cannot Restore Files](#cannot-restore-files)
          * [Upgrade Failed Error Message](#upgrade-failed-error-message)
       * [Support or Contact](#support-or-contact)
@@ -547,12 +546,6 @@ the cache of CrashPlan can help resolve the issue:
     rm -rf /docker/appdata/crashplan-pro/cache/*
     ```
   - Start the container.
-
-### Frequent Backup Destination Disconnections
-
-If backup is failing because the connection to the backup destination (CrashPlan
-Central) is frequently interrupted, try to clear the cache of CrashPlan, as
-explained in the previous section.
 
 ### Cannot Restore Files
 

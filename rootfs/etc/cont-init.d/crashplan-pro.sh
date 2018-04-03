@@ -27,7 +27,7 @@ mkdir -p /config/bin
 mkdir -p /config/log
 mkdir -p /config/cache
 mkdir -p /config/var
-mkdir -p /config/repository
+mkdir -p /config/repository/metadata
 
 # Determine if it's a first/initial installation or an upgrade.
 FIRST_INSTALL=0

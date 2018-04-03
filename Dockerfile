@@ -57,7 +57,9 @@ RUN \
     # The '/var/lib/crashplan' directory should be stored outside the container.
     ln -s /config/var /var/lib/crashplan && \
     # The '/repository' directory should be stored outside the container.
-    ln -s /config/repository /repository && \
+    # NOTE: The '/repository/metadata' directory changed in 6.7.0 changed to
+    #       '/usr/local/crashplan/metadata' in 6.7.1.
+    ln -s /config/repository/metadata /usr/local/crashplan/metadata && \
     # Download and install the JRE.
     echo "Installing JRE..." && \
     source crashplan-install/install.defaults && \

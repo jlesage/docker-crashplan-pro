@@ -3,7 +3,12 @@
 set -e # Exit immediately if a command exits with a non-zero status.
 set -u # Treat unset variables as an error.
 
+SUP_GROUP_IDS_OPT=" "
+if [ "${SUP_GROUP_IDS:-UNSET}" != "UNSET" ]; then
+    SUP_GROUP_IDS_OPT="-G $SUP_GROUP_IDS"
+fi
+
 echo "[$(basename "$(pwd)")] starting..."
-exec /bin/s6-notifyoncheck -n 0 $APP_NICE_CMD s6-setuidgid $USER_ID:$GROUP_ID /usr/local/crashplan/bin/startCrashPlanEngine.sh >> /config/log/engine_output.log 2>> /config/log/engine_error.log
+exec /bin/s6-notifyoncheck -n 0 $APP_NICE_CMD s6-applyuidgid -u $USER_ID -g $GROUP_ID $SUP_GROUP_IDS_OPT /usr/local/crashplan/bin/startCrashPlanEngine.sh >> /config/log/engine_output.log 2>> /config/log/engine_error.log
 
 # vim: set ft=sh :

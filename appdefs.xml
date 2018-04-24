@@ -366,7 +366,7 @@ latest version will also bring the latest version of CrashPlan.
     <environment_variables>
       <environment_variable>
         <name>CRASHPLAN_SRV_MAX_MEM</name>
-        <description>Maximum amount of memory the CrashPlan Engine is allowed to use. One of the following memory unit (case insensitive) should be added as a suffix to the size: `G`, `M` or `K`.  By default, when this variable is not set, a maximum of 1024MB (`1024M`) of memory is allowed.</description>
+        <description>Maximum amount of memory the CrashPlan Engine is allowed to use. One of the following memory unit (case insensitive) should be added as a suffix to the size: `G`, `M` or `K`.  By default, when this variable is not set, a maximum of 1024MB (`1024M`) of memory is allowed. **NOTE**: Setting this variable as the same effect as running the `java mx VALUE, restart` command from the CrashPlan command line.</description>
         <unraid_template>
           <title>Maximum Memory</title>
           <description>Maximum amount of memory the CrashPlan Engine is allowed to use.  One of the following memory unit (case insensitive) should be added as a suffix to the size: [b][i]G[/i][/b], [b][i]M[/i][/b] or [b][i]K[/i][/b]. By default, when this variable is not set, a maximum of 1024MB ([b][i]1024M[/i][/b]) of memory is allowed.</description>

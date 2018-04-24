@@ -225,6 +225,11 @@ latest version will also bring the latest version of CrashPlan.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>2.3.3</version>
+        <date>2018-04-23</date>
+        <change>Fixed issue where supplementary groups were not applied to the CrashPlan engine.</change>
+      </release>
+      <release>
         <version>2.3.2</version>
         <date>2018-04-03</date>
         <change>Upgraded CrashPlan to version 6.7.1.</change>

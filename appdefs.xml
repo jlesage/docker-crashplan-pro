@@ -225,6 +225,11 @@ latest version will also bring the latest version of CrashPlan.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>2.3.6</version>
+        <date>2018-06-11</date>
+        <change>Fixed more instances where parsing of CrashPlan memory usage would fail.</change>
+      </release>
+      <release>
         <version>2.3.5</version>
         <date>2018-06-06</date>
         <change>Fixed an issue where parsing of CrashPlan memory usage would fail.</change>

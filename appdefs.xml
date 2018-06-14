@@ -225,6 +225,11 @@ latest version will also bring the latest version of CrashPlan.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>2.3.7</version>
+        <date>2018-06-14</date>
+        <change>To make sure the CrashPlan Engine will start, validate the value of CRASHPLAN_SRV_MAX_MEM variable during startup.</change>
+      </release>
+      <release>
         <version>2.3.6</version>
         <date>2018-06-11</date>
         <change>Fixed more instances where parsing of CrashPlan memory usage would fail.</change>

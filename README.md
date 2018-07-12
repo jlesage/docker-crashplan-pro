@@ -575,7 +575,7 @@ latest version will also bring the latest version of CrashPlan.
 [TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 [official documentation]: https://support.code42.com/CrashPlan/6/Configuring/Replace_your_device
 [solution provided by CrashPlan]: https://support.code42.com/CrashPlan/6/Troubleshooting/Adjust_Code42_app_settings_for_memory_usage_with_large_backups
-[Linux real-time file watching errors]: https://support.code42.com/CrashPlan/4/Troubleshooting/Linux_real-time_file_watching_errors
+[Linux real-time file watching errors]: https://support.code42.com/CrashPlan/6/Troubleshooting/Linux_real-time_file_watching_errors
 [being decommissioned]: https://www.crashplan.com/en-us/consumer/nextsteps/
 [Migrate your account]: https://crashplanpro.com/migration/?&_ga=2.236229060.497742288.1503424785-1699368865.1503424785#
 

@@ -75,8 +75,8 @@ Where:
   - `/docker/appdata/crashplan-pro`: This is where the application stores its configuration, log and any files needing persistency.
   - `$HOME`: This location contains files from your host that need to be accessible by the application.
 
-Browse to `http://your-host-ip:5800` to access the CrashPlan PRO GUI.  Files from
-the host appear under the `/storage` folder in the container.
+Browse to `http://your-host-ip:5800` to access the CrashPlan PRO GUI.
+Files from the host appear under the `/storage` folder in the container.
 
 ## Usage
 

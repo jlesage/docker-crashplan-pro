@@ -225,6 +225,11 @@ latest version will also bring the latest version of CrashPlan.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>2.3.8</version>
+        <date>2018-08-10</date>
+        <change>Fixed and issue where container would fail to start on host running CentOS.</change>
+      </release>
+      <release>
         <version>2.3.7</version>
         <date>2018-06-14</date>
         <change>To make sure the CrashPlan Engine will start, validate the value of CRASHPLAN_SRV_MAX_MEM variable during startup.</change>

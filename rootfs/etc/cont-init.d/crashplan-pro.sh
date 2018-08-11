@@ -14,10 +14,13 @@ get_cp_max_mem() {
 }
 
 # Generate machine id.
+# NOTE: CrashPlan requires the machine-id to be the same to avoid re-login.
+# Thus, it needs to be saved into the config directory.
 if [ ! -f /config/machine-id ]; then
     log "generating machine-id..."
     cat /proc/sys/kernel/random/uuid | tr -d '-' > /config/machine-id
 fi
+ln -sf /config/machine-id /etc/machine-id
 
 # Set a home directory in passwd, needed by the engine.
 sed-patch "s|app:x:$USER_ID:$GROUP_ID::/dev/null:|app:x:$USER_ID:$GROUP_ID::/config:|" /etc/passwd && \

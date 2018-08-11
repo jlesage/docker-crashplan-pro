@@ -79,8 +79,6 @@ RUN  \
     # Clear stuff from /etc/fstab to avoid showing irrelevant devices in the open
     # file dialog window.
     echo > /etc/fstab && \
-    # CrashPlan requires the machine-id to be the same to avoid re-login.
-    ln -s /config/machine-id /etc/machine-id && \
     # Save the current CrashPlan version.
     echo "${CRASHPLANPRO_VERSION}" > /defaults/cp_version
 

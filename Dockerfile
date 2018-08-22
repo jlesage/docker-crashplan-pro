@@ -84,14 +84,13 @@ RUN  \
 
 # Install dependencies.
 RUN \
-    echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
+    add-pkg libselinux --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing && \
     add-pkg \
-        gtk+2.0 \
+        gtk+3.0 \
         libxscrnsaver \
         nss \
         eudev \
         gconf \
-        libselinux@edge \
         # The following package is used to send key presses to the X process.
         xdotool \
         # For the monitor.

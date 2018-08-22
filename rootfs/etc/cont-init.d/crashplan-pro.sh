@@ -31,6 +31,10 @@ mkdir -p /config/log
 mkdir -p /config/cache
 mkdir -p /config/var
 mkdir -p /config/repository/metadata
+mkdir -p /config/.code42
+
+# Redirect log directory.
+ln -sf /config/log /config/.code42/log
 
 # Determine if it's a first/initial installation or an upgrade.
 FIRST_INSTALL=0

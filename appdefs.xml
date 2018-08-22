@@ -225,6 +225,16 @@ latest version will also bring the latest version of CrashPlan.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>2.4.0</version>
+        <date>2018-08-22</date>
+        <change>Upgraded CrashPlan PRO to version 6.8.2.</change>
+        <change>Now using baseimage v3.5.0, which brings the following changes (since last used version):</change>
+        <change level="2">Based on Alpine Linux 3.8.</change>
+        <change level="2">Upgraded s6-overlay to version 1.21.4.0.</change>
+        <change level="2">Wait for a limited time when terminating a service.</change>
+        <change level="2">Set and create the XDG_RUNTIME_DIR directory.</change>
+      </release>
+      <release>
         <version>2.3.8</version>
         <date>2018-08-10</date>
         <change>Fixed and issue where container would fail to start on host running CentOS.</change>

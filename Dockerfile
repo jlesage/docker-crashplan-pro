@@ -8,9 +8,9 @@
 FROM jlesage/baseimage-gui:alpine-3.8-glibc-v3.5.0
 
 # Define software versions.
-ARG CRASHPLANPRO_VERSION=6.7.2
-ARG CRASHPLANPRO_TIMESTAMP=1512021600672
-ARG CRASHPLANPRO_BUILD=5609
+ARG CRASHPLANPRO_VERSION=6.8.2
+ARG CRASHPLANPRO_TIMESTAMP=1525200006682
+ARG CRASHPLANPRO_BUILD=369
 
 # Define software download URLs.
 ARG CRASHPLANPRO_URL=https://download.code42.com/installs/linux/install/CrashPlanSmb/CrashPlanSmb_${CRASHPLANPRO_VERSION}_Linux.tgz

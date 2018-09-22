@@ -46,6 +46,7 @@ is protected and easily accessible.
          * [Routing Based on URL Path](#routing-based-on-url-path)
       * [Taking Over Existing Backup](#taking-over-existing-backup)
       * [Migrating From CrashPlan for Home](#migrating-from-crashplan-for-home)
+      * [Why CrashPlan Self Update Is Disabled](#why-crashplan-self-update-is-disabled)
       * [Troubleshooting](#troubleshooting)
          * [Crashes / Maximum Amount of Allocated Memory](#crashes--maximum-amount-of-allocated-memory)
          * [Inotify's Watch Limit](#inotifys-watch-limit)
@@ -488,6 +489,23 @@ To perform the transition, you need to:
       mapped to a new, empty host directory.
     - Follow instructions detailed in the
       [Taking Over Existing Backup](#taking-over-existing-backup) section.
+
+## Why CrashPlan Self Update Is Disabled
+
+One advantage of a Docker image is that it can be versioned and predictable,
+meaning that a specific version of the image always behaves the same way.  So
+if, for any reason, a new image version has a problem and doesn't work as
+expected, it's easy for one to revert to the previous version and be back on
+track.
+
+Allowing CrashPlan to update itself obviously breaks this benefit.  Also, since
+the container has only the minimal set of libraries and tools required to run
+CrashPlan, it would be easy for an automatic update to break the container by
+requiring new dependencies.  Finally, the automatic update script is not adapted
+for Alpine Linux (the distribution on which this container is based on) and
+assumes it is running on a full-featured distibution.  For example, this image
+doesn't have a desktop like normal installations and some of the tools required
+to perform the update are missing.
 
 ## Troubleshooting
 

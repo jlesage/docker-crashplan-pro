@@ -4,6 +4,13 @@
 # https://github.com/jlesage/docker-crashplan-pro
 #
 
+FROM ubuntu:18.04
+WORKDIR /tmp
+RUN apt update && apt install --no-install-recommends -y build-essential
+COPY uname_wrapper.c /tmp/
+RUN gcc -o /tmp/uname_wrapper.so /tmp/uname_wrapper.c -Wall -Werror -fPIC -shared -ldl
+RUN strip /tmp/uname_wrapper.so
+
 # Pull base image.
 FROM jlesage/baseimage-gui:alpine-3.8-glibc-v3.5.1
 
@@ -120,6 +127,7 @@ RUN \
 
 # Add files.
 COPY rootfs/ /
+COPY --from=0 /tmp/uname_wrapper.so /usr/local/crashplan/
 
 # Set environment variables.
 ENV S6_WAIT_FOR_SERVICE_MAXTIME=10000 \

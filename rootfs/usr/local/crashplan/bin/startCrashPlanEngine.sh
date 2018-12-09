@@ -3,6 +3,7 @@
 set -e # Exit immediately if a command exits with a non-zero status.
 set -u # Treat unset variables as an error.
 
+export LD_PRELOAD=$CRASHPLAN_DIR/uname_wrapper.so
 export LD_LIBRARY_PATH=$CRASHPLAN_DIR
 
 FULL_CP="$CRASHPLAN_DIR/lib/com.backup42.desktop.jar:$CRASHPLAN_DIR/lang:$CRASHPLAN_DIR"

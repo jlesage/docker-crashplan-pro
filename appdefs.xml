@@ -244,6 +244,12 @@ latest version will also bring the latest version of CrashPlan.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>2.6.0</version>
+        <date>2018-12-09</date>
+        <change>Upgraded CrashPlan PRO to version 6.9.0.</change>
+        <change>Make sure only the numerical kernel version is reported to CrashPlan PRO.</change>
+      </release>
+      <release>
         <version>2.5.0</version>
         <date>2018-09-20</date>
         <change>Upgraded CrashPlan PRO to version 6.8.3.</change>

@@ -93,7 +93,7 @@ RUN  \
 
 # Install dependencies.
 RUN \
-    add-pkg libselinux --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing && \
+    add-pkg libselinux --repository http://dl-cdn.alpinelinux.org/alpine/edge/community && \
     add-pkg \
         gtk+3.0 \
         libxscrnsaver \

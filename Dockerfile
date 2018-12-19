@@ -15,15 +15,15 @@ RUN strip /tmp/uname_wrapper.so
 FROM jlesage/baseimage-gui:alpine-3.8-glibc-v3.5.1
 
 # Define software versions.
-ARG CRASHPLANPRO_VERSION=6.9.0
-ARG CRASHPLANPRO_TIMESTAMP=1525200006690
-ARG CRASHPLANPRO_BUILD=827
+ARG CRASHPLAN_VERSION=6.9.0
+ARG CRASHPLAN_TIMESTAMP=1525200006690
+ARG CRASHPLAN_BUILD=827
 
 # Define software download URLs.
 # NOTE: Do not use the folllwing URL, as it may not point to the latest build
 #       number:
-# https://download.code42.com/installs/linux/install/CrashPlanSmb/CrashPlanSmb_${CRASHPLANPRO_VERSION}_Linux.tgz
-ARG CRASHPLANPRO_URL=https://web-eam-msp.crashplanpro.com/client/installers/CrashPlanSmb_${CRASHPLANPRO_VERSION}_${CRASHPLANPRO_TIMESTAMP}_${CRASHPLANPRO_BUILD}_Linux.tgz
+# https://download.code42.com/installs/linux/install/CrashPlanSmb/CrashPlanSmb_${CRASHPLAN_VERSION}_Linux.tgz
+ARG CRASHPLAN_URL=https://web-eam-msp.crashplanpro.com/client/installers/CrashPlanSmb_${CRASHPLAN_VERSION}_${CRASHPLAN_TIMESTAMP}_${CRASHPLAN_BUILD}_Linux.tgz
 
 # Define container build variables.
 ARG TARGETDIR=/usr/local/crashplan
@@ -34,9 +34,9 @@ WORKDIR /tmp
 # Install CrashPlan.
 RUN \
     add-pkg --virtual build-dependencies cpio curl && \
-    echo "Installing CrashPlan PRO..." && \
+    echo "Installing CrashPlan..." && \
     # Download CrashPlan.
-    curl -# -L ${CRASHPLANPRO_URL} | tar -xz && \
+    curl -# -L ${CRASHPLAN_URL} | tar -xz && \
     mkdir -p ${TARGETDIR} && \
     # Extract CrashPlan.
     cat $(ls crashplan-install/*.cpi) | gzip -d -c - | cpio -i --no-preserve-owner --directory=${TARGETDIR} && \
@@ -89,7 +89,7 @@ RUN  \
     # file dialog window.
     echo > /etc/fstab && \
     # Save the current CrashPlan version.
-    echo "${CRASHPLANPRO_VERSION}" > /defaults/cp_version
+    echo "${CRASHPLAN_VERSION}" > /defaults/cp_version
 
 # Install dependencies.
 RUN \

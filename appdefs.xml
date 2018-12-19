@@ -244,6 +244,12 @@ latest version will also bring the latest version of CrashPlan.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>2.6.1</version>
+        <date>2018-12-19</date>
+        <change>Upgraded to build 827 of CrashPlan PRO 6.9.0.</change>
+        <change>Updated logo of Crashplan.</change>
+      </release>
+      <release>
         <version>2.6.0</version>
         <date>2018-12-09</date>
         <change>Upgraded CrashPlan PRO to version 6.9.0.</change>

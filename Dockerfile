@@ -15,9 +15,9 @@ RUN strip /tmp/uname_wrapper.so
 FROM jlesage/baseimage-gui:alpine-3.8-glibc-v3.5.1
 
 # Define software versions.
-ARG CRASHPLAN_VERSION=6.9.2
-ARG CRASHPLAN_TIMESTAMP=1525200006692
-ARG CRASHPLAN_BUILD=759
+ARG CRASHPLAN_VERSION=6.9.4
+ARG CRASHPLAN_TIMESTAMP=1525200006694
+ARG CRASHPLAN_BUILD=502
 
 # Define software download URLs.
 # NOTE: Do not use the folllwing URL, as it may not point to the latest build

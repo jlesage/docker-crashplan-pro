@@ -12,7 +12,7 @@ RUN gcc -o /tmp/uname_wrapper.so /tmp/uname_wrapper.c -Wall -Werror -fPIC -share
 RUN strip /tmp/uname_wrapper.so
 
 # Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.9-glibc-v3.5.2
+FROM jlesage/baseimage-gui:alpine-3.8-glibc-v3.5.2
 
 # Define software versions.
 ARG CRASHPLAN_VERSION=6.9.4

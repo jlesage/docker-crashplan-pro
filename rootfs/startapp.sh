@@ -20,7 +20,6 @@ trap 'exit_crashplan $PID' TERM INT QUIT
 
 # And wait for its termination.
 PID=$!
-
 wait $PID
 
 # Exit this script.

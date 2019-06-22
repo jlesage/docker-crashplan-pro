@@ -9,7 +9,7 @@ log() {
 
 get_cp_max_mem() {
     if [ -f "$1" ]; then
-        cat "$1" | sed -n 's/.*SRV_JAVA_OPTS=.* -Xmx\([0-9]\+[g|G|m|M|k|K]\?\) .*$/\1/p'
+        cat "$1" | sed -n 's/.*<javaMemoryHeapMax>\(.*\)<\/javaMemoryHeapMax>.*/\1/p'
     fi
 }
 
@@ -55,16 +55,6 @@ if [ "$FIRST_INSTALL" -eq 1 ] || [ "$UPGRADE" -eq 1 ]; then
     # Copy default config files.
     cp -r /defaults/conf /config/
 
-    # Copy run.conf.
-    # NOTE: Remember the maximum allocated memory setting before overwritting.
-    if [ "${CRASHPLAN_SRV_MAX_MEM:-UNSET}" = "UNSET" ] && [ -f /config/bin/run.conf ]; then
-        CUR_MEM_VAL="$(get_cp_max_mem /config/bin/run.conf)"
-        if [ "${CUR_MEM_VAL:-UNSET}" != "UNSET" ]; then
-            CRASHPLAN_SRV_MAX_MEM="$CUR_MEM_VAL";
-        fi
-    fi
-    cp /defaults/run.conf /config/bin/run.conf
-
     # Set the current CrashPlan version.
     cp /defaults/cp_version /config/
 
@@ -72,19 +62,37 @@ if [ "$FIRST_INSTALL" -eq 1 ] || [ "$UPGRADE" -eq 1 ]; then
     rm -rf /config/cache/*
 fi
 
+# run.conf was used before CrashPlan 7.0.0.
+if [ -f /config/bin/run.conf ]; then
+    mv /config/bin/run.conf /config/bin/run.conf.old
+fi
+
 # Update CrashPlan Engine max memory if needed.
 if [ "${CRASHPLAN_SRV_MAX_MEM:-UNSET}" != "UNSET" ]; then
+  # Validate the max memory value.
   if ! echo "$CRASHPLAN_SRV_MAX_MEM" | grep -q "^[0-9]\+[g|G|m|M|k|K]\?$"
   then
     log "ERROR: invalid value for CRASHPLAN_SRV_MAX_MEM variable: '$CRASHPLAN_SRV_MAX_MEM'."
     exit 1
   fi
 
-  CUR_MEM_VAL="$(get_cp_max_mem /config/bin/run.conf)"
-  if [ "${CUR_MEM_VAL:-UNSET}" != "UNSET" ] && [ "$CRASHPLAN_SRV_MAX_MEM" != "$CUR_MEM_VAL" ]
+  CUR_MEM_VAL=UNSET
+  if [ -f /config/conf/my.service.xml ]; then
+    SRV_FILE="/config/conf/my.service.xml"
+    CUR_MEM_VAL="$(get_cp_max_mem /config/conf/my.service.xml)"
+  else
+    SRV_FILE="/config/conf/default.service.xml"
+  fi
+
+  # Update the configuration file if the value changed.
+  if [ "${CUR_MEM_VAL:-UNSET}" != "$CRASHPLAN_SRV_MAX_MEM" ]
   then
-    log "updating CrashPlan Engine maximum memory from $CUR_MEM_VAL to $CRASHPLAN_SRV_MAX_MEM."
-    sed -i "s/^\(SRV_JAVA_OPTS=.* -Xmx\)[0-9]\+[g|G|m|M|k|K]\? /\1$CRASHPLAN_SRV_MAX_MEM /" /config/bin/run.conf
+    if [ "${CUR_MEM_VAL:-UNSET}" == "UNSET" ]; then
+      log "updating CrashPlan Engine maximum memory to $CRASHPLAN_SRV_MAX_MEM"
+    else
+      log "updating CrashPlan Engine maximum memory from $CUR_MEM_VAL to $CRASHPLAN_SRV_MAX_MEM"
+    fi
+    sed -i "s/<javaMemoryHeapMax.*/<javaMemoryHeapMax>$CRASHPLAN_SRV_MAX_MEM<\/javaMemoryHeapMax>/" "$SRV_FILE"
   fi
 fi
 
@@ -108,7 +116,7 @@ rm -f /config/log/engine_output.log \
       /config/log/ui_error.log
 
 # Make sure monitored log files exist.
-for LOGFILE in /config/log/service.log.0 /config/log/app.log
+for LOGFILE in /config/log/service.log /config/log/app.log
 do
     [ -f "$LOGFILE" ] || touch "$LOGFILE"
 done

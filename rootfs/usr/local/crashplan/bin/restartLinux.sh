@@ -3,10 +3,12 @@
 APP_NAME="CrashPlanService"
 APP_DESC="CrashPlan Engine"
 
+CRASHPLAN_DIR=/usr/local/crashplan
+
 LOG_FILE="$CRASHPLAN_DIR/log/restart.`date +'%Y-%m-%d_%H.%M.%S'`.log"
 
 _findpid() {
-    /bin/ps -o pid,args | grep "app=$APP_NAME" | grep -v grep | awk '{ print $1 }'
+    /bin/ps -o pid,args | grep "$APP_NAME" | grep -v grep | awk '{ print $1 }'
 }
 
 _log() {

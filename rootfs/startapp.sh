@@ -16,10 +16,11 @@ exit_crashplan() {
 trap 'exit_crashplan $PID' TERM INT QUIT
 
 # Start CrashPlan in background.
-$CRASHPLAN_DIR/bin/startCrashPlanGUI.sh &
+/usr/local/crashplan/bin/startCrashPlanGUI.sh &
 
 # And wait for its termination.
 PID=$!
+
 wait $PID
 
 # Exit this script.

@@ -3,14 +3,14 @@
 set -e # Exit immediately if a command exits with a non-zero status.
 set -u # Treat unset variables as an error.
 
+export CRASHPLAN_DIR=/usr/local/crashplan
+
 export LD_PRELOAD=$CRASHPLAN_DIR/uname_wrapper.so
 export LD_LIBRARY_PATH=$CRASHPLAN_DIR
 
-FULL_CP="$CRASHPLAN_DIR/lib/com.backup42.desktop.jar:$CRASHPLAN_DIR/lang:$CRASHPLAN_DIR"
-
-source $CRASHPLAN_DIR/bin/run.conf
+export JAVACOMMON="$CRASHPLAN_DIR/jre/bin/java"
 
 cd $CRASHPLAN_DIR
-exec $JAVACOMMON $SRV_JAVA_OPTS -classpath $FULL_CP com.backup42.service.CPService
+exec $CRASHPLAN_DIR/bin/CrashPlanService
 
 # vim: set ft=sh :

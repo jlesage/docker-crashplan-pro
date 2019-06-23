@@ -76,6 +76,15 @@ if [ "${CRASHPLAN_SRV_MAX_MEM:-UNSET}" != "UNSET" ]; then
     exit 1
   fi
 
+  # Convert the max memory value to megabytes.
+  MEM_VALUE="$(echo "$CRASHPLAN_SRV_MAX_MEM" | sed 's/[^0-9]*//g')"
+  MEM_UNIT="$(echo "$CRASHPLAN_SRV_MAX_MEM" | sed 's/[0-9]*//g' | tr '[:lower:]' '[:upper:]')"
+  if [ "${MEM_UNIT:-UNSET}" == "G" ]; then
+    CRASHPLAN_SRV_MAX_MEM="$(expr "$MEM_VALUE" \* 1024)m"
+  elif [ "${MEM_UNIT:-UNSET}" == "K" ]; then
+    CRASHPLAN_SRV_MAX_MEM="$(expr "$MEM_VALUE" / 1024)m"
+  fi
+
   CUR_MEM_VAL=UNSET
   if [ -f /config/conf/my.service.xml ]; then
     SRV_FILE="/config/conf/my.service.xml"

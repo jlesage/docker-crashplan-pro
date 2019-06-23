@@ -244,6 +244,11 @@ latest version will also bring the latest version of CrashPlan.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>2.7.1</version>
+        <date>2019-06-22</date>
+        <change>Fixed an issue where setting (via the environment variable) the maximum amount of memory CrashPlan is allowed to use would prevent the engine to start.</change>
+      </release>
+      <release>
         <version>2.7.0</version>
         <date>2019-06-22</date>
         <change>Upgraded CrashPlan PRO to version 7.0.0.</change>

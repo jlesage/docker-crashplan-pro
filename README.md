@@ -5,6 +5,8 @@ This is a Docker container for CrashPlan PRO.
 
 The GUI of the application is accessed through a modern web browser (no installation or configuration needed on client side) or via any VNC client.
 
+Please note that this is *not* developed by Code42 and is *not* supported by them. More information on how to report issues and get support for this can be found at the botom of this readme.
+
 > **_IMPORTANT_**: This container can be used to migrate from *CrashPlan for 
 > Home*.  Make sure to read the
 > [Migrating From CrashPlan for Home](#migrating-from-crashplan-for-home)

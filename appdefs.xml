@@ -244,6 +244,11 @@ latest version will also bring the latest version of CrashPlan.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>2.7.3</version>
+        <date>2019-09-05</date>
+        <change>Fixed misleading message about real-time file watching failure.</change>
+      </release>
+      <release>
         <version>2.7.2</version>
         <date>2019-07-13</date>
         <change>Upgraded CrashPlan PRO to version 7.0.0 build 585.</change>

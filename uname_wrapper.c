@@ -7,6 +7,7 @@
 #include <sys/utsname.h>
 #include <stdio.h>
 
+#if 0
 static const char *extract_version(const char *str)
 {
     static char version[128] = "";
@@ -51,6 +52,7 @@ static const char *extract_version(const char *str)
     }
     return NULL;
 }
+#endif
 
 static void init(void) __attribute__((constructor));
 
@@ -73,10 +75,11 @@ int uname(struct utsname *buf)
 {
     int rc = orig_uname(buf);
     if (rc == 0) {
-        const char *version = extract_version(buf->release);
-        if (version) {
-            strncpy(buf->release, version, sizeof(buf->release));
-        }
+        const char* env = getenv("CRASHPLAN_KERNEL_RELEASE");
+        // Fallback on valid linux kernel version for Ubuntu 18.04.
+        // https://packages.ubuntu.com/bionic-updates/linux-image-generic
+        const char *version = env ? env : "4.15.0-60-generic";
+        strncpy(buf->release, version, sizeof(buf->release));
     }
     return rc;
 }
@@ -84,9 +87,11 @@ int uname(struct utsname *buf)
 /* This function is the entry point for the shared object.
    Running the library as a program will get here. */
 int main (int argc, char *argv[]) {
+#if 0
     if (argc == 2) {
         const char *version = extract_version(argv[1]);
         printf("release: %s\n", version ? version : argv[1]);
     }
+#endif
     return 0;
 }

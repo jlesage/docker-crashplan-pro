@@ -4,6 +4,8 @@
 # https://github.com/jlesage/docker-crashplan-pro
 #
 
+ARG DOCKER_IMAGE_VERSION=unknown
+
 FROM ubuntu:18.04
 WORKDIR /tmp
 RUN apt update && apt install --no-install-recommends -y build-essential
@@ -138,6 +140,6 @@ VOLUME ["/storage"]
 LABEL \
       org.label-schema.name="crashplan-pro" \
       org.label-schema.description="Docker container for CrashPlan PRO" \
-      org.label-schema.version="unknown" \
+      org.label-schema.version="$DOCKER_IMAGE_VERSION" \
       org.label-schema.vcs-url="https://github.com/jlesage/docker-crashplan-pro" \
       org.label-schema.schema-version="1.0"

@@ -4,8 +4,6 @@
 # https://github.com/jlesage/docker-crashplan-pro
 #
 
-ARG DOCKER_IMAGE_VERSION=unknown
-
 FROM ubuntu:18.04
 WORKDIR /tmp
 RUN apt update && apt install --no-install-recommends -y build-essential
@@ -15,6 +13,9 @@ RUN strip /tmp/uname_wrapper.so
 
 # Pull base image.
 FROM jlesage/baseimage-gui:alpine-3.8-glibc-v3.5.2
+
+# Docker image version is provided via build arg.
+ARG DOCKER_IMAGE_VERSION=unknown
 
 # Define software versions.
 ARG CRASHPLAN_VERSION=7.2.0

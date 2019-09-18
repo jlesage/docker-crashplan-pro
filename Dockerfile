@@ -17,15 +17,12 @@ RUN strip /tmp/uname_wrapper.so
 FROM jlesage/baseimage-gui:alpine-3.8-glibc-v3.5.2
 
 # Define software versions.
-ARG CRASHPLAN_VERSION=7.0.0
-ARG CRASHPLAN_TIMESTAMP=1525200006700
-ARG CRASHPLAN_BUILD=585
+ARG CRASHPLAN_VERSION=7.2.0
+ARG CRASHPLAN_TIMESTAMP=1525200006720
+ARG CRASHPLAN_BUILD=1641
 
 # Define software download URLs.
-# NOTE: Do not use the following URL, as it may not point to the latest build
-#       number:
-# https://download.code42.com/installs/linux/install/CrashPlanSmb/CrashPlanSmb_${CRASHPLAN_VERSION}_Linux.tgz
-ARG CRASHPLAN_URL=https://web-eam-msp.crashplanpro.com/client/installers/CrashPlanSmb_${CRASHPLAN_VERSION}_${CRASHPLAN_TIMESTAMP}_${CRASHPLAN_BUILD}_Linux.tgz
+ARG CRASHPLAN_URL=https://download.code42.com/installs/agent/${CRASHPLAN_VERSION}/${CRASHPLAN_BUILD}/install/CrashPlanSmb_${CRASHPLAN_VERSION}_${CRASHPLAN_TIMESTAMP}_${CRASHPLAN_BUILD}_Linux.tgz
 
 # Define container build variables.
 ARG TARGETDIR=/usr/local/crashplan
@@ -43,6 +40,7 @@ RUN \
     # Extract CrashPlan.
     cat $(ls crashplan-install/*.cpi) | gzip -d -c - | cpio -i --no-preserve-owner --directory=${TARGETDIR} && \
     mv "${TARGETDIR}"/*.asar "${TARGETDIR}/electron/resources" && \
+    rm "${TARGETDIR}"/electron/chrome-sandbox && \
     chmod 755 "${TARGETDIR}/electron/crashplan" && \
     chmod 755 "${TARGETDIR}/bin/CrashPlanService" && \
     chmod 755 "${TARGETDIR}/bin/restore-tool" && \

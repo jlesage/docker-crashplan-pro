@@ -11,6 +11,6 @@ export LD_PRELOAD=$CRASHPLAN_DIR/uname_wrapper.so
 export LD_LIBRARY_PATH=$CRASHPLAN_DIR
 
 cd /config
-exec ${CRASHPLAN_DIR}/electron/crashplan >> /config/log/ui_output.log 2>> /config/log/ui_error.log
+exec ${CRASHPLAN_DIR}/electron/crashplan --no-sandbox >> /config/log/ui_output.log 2>> /config/log/ui_error.log
 
 # vim: set ft=sh :

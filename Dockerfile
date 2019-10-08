@@ -114,7 +114,7 @@ RUN \
 
 # Enable log monitoring.
 RUN \
-    sed-patch 's|LOG_FILES=|LOG_FILES=/config/log/service.log|' /etc/logmonitor/logmonitor.conf && \
+    sed-patch 's|LOG_FILES=|LOG_FILES=/config/log/service.log.0|' /etc/logmonitor/logmonitor.conf && \
     sed-patch 's|STATUS_FILES=|STATUS_FILES=/config/log/app.log|' /etc/logmonitor/logmonitor.conf
 
 # Generate and install favicons.

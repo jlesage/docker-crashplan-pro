@@ -244,6 +244,11 @@ latest version will also bring the latest version of CrashPlan.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>2.8.1</version>
+        <date>2019-10-08</date>
+        <change>Fixed issue where the wrong log file was monitored.</change>
+      </release>
+      <release>
         <version>2.8.0</version>
         <date>2019-09-18</date>
         <change>Upgraded CrashPlan Enterprise to version 7.2.0.</change>

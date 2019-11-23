@@ -244,6 +244,14 @@ latest version will also bring the latest version of CrashPlan.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>2.9.0</version>
+        <date>2019-11-22</date>
+        <change>Upgraded CrashPlan PRO to version 7.4.0.</change>
+        <change>Now using baseimage v3.5.3, which brings the following changes:</change>
+        <change level="2">Updated installed packages to get latest security fixes.</change>
+        <change level="2">Make sure the tzdata is installed.</change>
+      </release>
+      <release>
         <version>2.8.2</version>
         <date>2019-10-22</date>
         <change>Fixed a notification message.</change>

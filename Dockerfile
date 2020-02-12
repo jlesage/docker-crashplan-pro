@@ -18,12 +18,12 @@ FROM jlesage/baseimage-gui:alpine-3.8-glibc-v3.5.3
 ARG DOCKER_IMAGE_VERSION=unknown
 
 # Define software versions.
-ARG CRASHPLAN_VERSION=7.4.0
-ARG CRASHPLAN_TIMESTAMP=1525200006740
-ARG CRASHPLAN_BUILD=566
+ARG CRASHPLAN_VERSION=7.7.0
+ARG CRASHPLAN_TIMESTAMP=1525200006770
+ARG CRASHPLAN_BUILD=833
 
 # Define software download URLs.
-ARG CRASHPLAN_URL=https://download.code42.com/installs/agent/${CRASHPLAN_VERSION}/${CRASHPLAN_BUILD}/install/CrashPlanSmb_${CRASHPLAN_VERSION}_${CRASHPLAN_TIMESTAMP}_${CRASHPLAN_BUILD}_Linux.tgz
+ARG CRASHPLAN_URL=https://download.code42.com/installs/agent/cloud/${CRASHPLAN_VERSION}/${CRASHPLAN_BUILD}/install/CrashPlanSmb_${CRASHPLAN_VERSION}_${CRASHPLAN_TIMESTAMP}_${CRASHPLAN_BUILD}_Linux.tgz
 
 # Define container build variables.
 ARG TARGETDIR=/usr/local/crashplan

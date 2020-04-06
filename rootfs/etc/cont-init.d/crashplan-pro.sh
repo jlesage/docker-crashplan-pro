@@ -85,24 +85,8 @@ if [ "${CRASHPLAN_SRV_MAX_MEM:-UNSET}" != "UNSET" ]; then
     CRASHPLAN_SRV_MAX_MEM="$(expr "$MEM_VALUE" / 1024)m"
   fi
 
-  CUR_MEM_VAL=UNSET
-  if [ -f /config/conf/my.service.xml ]; then
-    SRV_FILE="/config/conf/my.service.xml"
-    CUR_MEM_VAL="$(get_cp_max_mem /config/conf/my.service.xml)"
-  else
-    SRV_FILE="/config/conf/default.service.xml"
-  fi
-
-  # Update the configuration file if the value changed.
-  if [ "${CUR_MEM_VAL:-UNSET}" != "$CRASHPLAN_SRV_MAX_MEM" ]
-  then
-    if [ "${CUR_MEM_VAL:-UNSET}" == "UNSET" ]; then
-      log "updating CrashPlan Engine maximum memory to $CRASHPLAN_SRV_MAX_MEM"
-    else
-      log "updating CrashPlan Engine maximum memory from $CUR_MEM_VAL to $CRASHPLAN_SRV_MAX_MEM"
-    fi
-    sed -i "s/<javaMemoryHeapMax.*/<javaMemoryHeapMax>$CRASHPLAN_SRV_MAX_MEM<\/javaMemoryHeapMax>/" "$SRV_FILE"
-  fi
+  log "setting CrashPlan Engine maximum memory to $CRASHPLAN_SRV_MAX_MEM"
+  echo "-Xmx$CRASHPLAN_SRV_MAX_MEM" > /config/conf/jvm_args
 fi
 
 # On some systems (e.g QNAP NAS), instead of the loopback IP address

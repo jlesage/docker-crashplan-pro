@@ -18,9 +18,9 @@ FROM jlesage/baseimage-gui:alpine-3.8-glibc-v3.5.3
 ARG DOCKER_IMAGE_VERSION=unknown
 
 # Define software versions.
-ARG CRASHPLAN_VERSION=8.0.0
-ARG CRASHPLAN_TIMESTAMP=1525200006800
-ARG CRASHPLAN_BUILD=778
+ARG CRASHPLAN_VERSION=8.2.0
+ARG CRASHPLAN_TIMESTAMP=1525200006820
+ARG CRASHPLAN_BUILD=487
 
 # Define software download URLs.
 ARG CRASHPLAN_URL=https://download.code42.com/installs/agent/cloud/${CRASHPLAN_VERSION}/${CRASHPLAN_BUILD}/install/CrashPlanSmb_${CRASHPLAN_VERSION}_${CRASHPLAN_TIMESTAMP}_${CRASHPLAN_BUILD}_Linux.tgz
@@ -36,14 +36,15 @@ RUN \
     add-pkg --virtual build-dependencies cpio curl && \
     echo "Installing CrashPlan..." && \
     # Download CrashPlan.
-    curl -# -L ${CRASHPLAN_URL} | tar -xz && \
+    mkdir crashplan-install && \
+    curl -# -L ${CRASHPLAN_URL} | tar -xz --strip 1 -C crashplan-install && \
     mkdir -p ${TARGETDIR} && \
     # Extract CrashPlan.
     cat $(ls crashplan-install/*.cpi) | gzip -d -c - | cpio -i --no-preserve-owner --directory=${TARGETDIR} && \
     mv "${TARGETDIR}"/*.asar "${TARGETDIR}/electron/resources" && \
     rm "${TARGETDIR}"/electron/chrome-sandbox && \
-    chmod 755 "${TARGETDIR}/electron/crashplan" && \
-    chmod 755 "${TARGETDIR}/bin/CrashPlanService" && \
+    chmod 755 "${TARGETDIR}/electron/code42" && \
+    chmod 755 "${TARGETDIR}/bin/Code42Service" && \
     chmod 755 "${TARGETDIR}/bin/restore-tool" && \
     # Keep a copy of the default config.
     mv ${TARGETDIR}/conf /defaults/conf && \

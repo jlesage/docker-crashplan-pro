@@ -11,6 +11,6 @@ export LD_LIBRARY_PATH=$CRASHPLAN_DIR
 export JAVACOMMON="$CRASHPLAN_DIR/jre/bin/java"
 
 cd $CRASHPLAN_DIR
-exec $CRASHPLAN_DIR/bin/CrashPlanService
+exec $CRASHPLAN_DIR/bin/Code42Service
 
 # vim: set ft=sh :

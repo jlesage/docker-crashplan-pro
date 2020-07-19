@@ -3,7 +3,7 @@
 
 This is a Docker container for [CrashPlan PRO](https://www.crashplan.com/en-us/business/).
 
-The GUI of the application is accessed through a modern web browser (no installation or configuration needed on client side) or via any VNC client.
+The GUI of the application is accessed through a modern web browser (no installation or configuration needed on the client side) or via any VNC client.
 
 > **_IMPORTANT_**: This container can be used to migrate from *CrashPlan for 
 > Home*.  Make sure to read the

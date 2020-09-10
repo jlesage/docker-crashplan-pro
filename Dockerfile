@@ -55,7 +55,6 @@ RUN \
     sed-patch "s|<backupConfig>|<backupConfig>\n\t\t\t<manifestPath>/usr/local/var/crashplan</manifestPath>|g" /defaults/conf/default.service.xml && \
     # Add the javaMemoryHeapMax setting to the default service file.
     sed-patch '/<serviceUIConfig>/i\\t<javaMemoryHeapMax nil="true"/>' /defaults/conf/default.service.xml && \
-    mkdir -p /usr/local/var/crashplan && \
     # Prevent automatic updates.
     rm -r /usr/local/crashplan/upgrade && \
     touch /usr/local/crashplan/upgrade && chmod 400 /usr/local/crashplan/upgrade && \

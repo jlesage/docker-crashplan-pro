@@ -33,6 +33,11 @@ mkdir -p /config/var
 mkdir -p /config/repository/metadata
 mkdir -p /config/.code42
 
+# Make sure the app can write files into /usr/local/crashplan.  This is needed
+# to restore files.
+chgrp app /usr/local/crashplan
+chmod 0775 /usr/local/crashplan
+
 # Redirect log directory.
 ln -sf /config/log /config/.code42/log
 

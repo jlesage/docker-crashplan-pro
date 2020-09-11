@@ -244,6 +244,12 @@ latest version will also bring the latest version of CrashPlan.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>2.12.2</version>
+        <date>2020-09-10</date>
+        <change>Fixed an issue that was preventing files to be restored.</change>
+        <change>Fixed an issue where the restart command of the console would not work.</change>
+      </release>
+      <release>
         <version>2.12.1</version>
         <date>2020-08-05</date>
         <change>Upgraded CrashPlan PRO to version 8.2.2.</change>

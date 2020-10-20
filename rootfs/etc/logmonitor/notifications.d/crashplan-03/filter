@@ -7,8 +7,16 @@ LINE="$1"
 DIRNAME="$(basename "$(dirname "$0")")"
 
 if echo "$LINE" | grep -q "^memory "; then
-    MAX_MEM="$(echo "$LINE" | cut -d'=' -f3 | cut -d'M' -f1 | tr ',' '.' | cut -d'.' -f1)"
-    USED_MEM="$(echo "$LINE" | cut -d'=' -f6 | cut -d'M' -f1 | tr ',' '.' | cut -d'.' -f1)"
+    MAX_MEM="$(echo "$LINE" | grep -o 'maxMemory=[0-9\.]* GB' | sed 's/maxMemory=\([[:alnum:].]*\) GB/\1 * 1024/' | bc | cut -d'.' -f1)"
+    if [ -z "$MAX_MEM" ]; then
+        MAX_MEM="$(echo "$LINE" | grep -o 'maxMemory=[0-9\.]* MB' | sed 's/maxMemory=\([[:alnum:].]*\) MB/\1/' | cut -d'.' -f1)"
+    fi
+    USED_MEM="$(echo "$LINE" | grep -o 'usedMemory=[0-9\.]* MB' | sed 's/usedMemory=\([[:alnum:].]*\) MB/\1/' | cut -d'.' -f1)"
+    if [ -z "$USED_MEM" ]; then
+        USED_MEM="$(echo "$LINE" | grep -o 'usedMemory=[0-9\.]* GB' | sed 's/usedMemory=\([[:alnum:].]*\) GB/\1 * 1024/' | bc | cut -d'.' -f1)"
+    fi
+echo "MAX_MEM=$MAX_MEM"
+echo "USED_MEM=$USED_MEM"
     PERCENT_USED_MEM="$(expr "$USED_MEM" \* 100 / "$MAX_MEM")"
     if [ "$PERCENT_USED_MEM" -gt 75 ] && [ "$PERCENT_USED_MEM" -le 85 ]; then
         exit 0

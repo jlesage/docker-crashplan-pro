@@ -244,6 +244,11 @@ latest version will also bring the latest version of CrashPlan.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>2.13.1</version>
+        <date>2020-10-29</date>
+        <change>Removed debug messages that were left by mistake.</change>
+      </release>
+      <release>
         <version>2.13.0</version>
         <date>2020-10-20</date>
         <change>Updated CrashPlan PRO to version 8.5.0.</change>

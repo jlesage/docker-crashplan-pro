@@ -25,7 +25,7 @@ ARG YAD_VERSION=7.3
 
 # Define software download URLs.
 ARG CRASHPLAN_URL=https://download.code42.com/installs/agent/cloud/${CRASHPLAN_VERSION}/${CRASHPLAN_BUILD}/install/CrashPlanSmb_${CRASHPLAN_VERSION}_${CRASHPLAN_TIMESTAMP}_${CRASHPLAN_BUILD}_Linux.tgz
-ARG YAD_URL=https://github.com/v1cont/yad/archive/v${YAD_VERSION}.tar.gz
+ARG YAD_URL=https://github.com/v1cont/yad/releases/download/v${YAD_VERSION}/yad-${YAD_VERSION}.tar.xz
 
 # Define container build variables.
 ARG TARGETDIR=/usr/local/crashplan
@@ -84,10 +84,8 @@ RUN \
     # Install packages needed by the build.
     add-pkg --virtual build-dependencies \
         build-base \
-        autoconf \
-        automake \
-        intltool \
         curl \
+        intltool \
         gtk+3.0-dev \
         && \
     # Set same default compilation flags as abuild.
@@ -98,12 +96,15 @@ RUN \
     # Download.
     mkdir yad && \
     echo "Downloading YAD package..." && \
-    curl -# -L ${YAD_URL} | tar xz --strip 1  -C yad && \
+    curl -# -L ${YAD_URL} | tar xJ --strip 1  -C yad && \
     # Compile.
     cd yad && \
-    autoreconf -ivf && intltoolize && \
     ./configure \
         --prefix=/usr \
+        --enable-standalone \
+        --disable-icon-browser \
+        --disable-html \
+        --disable-pfd \
         && \
     make && make install && \
     strip /usr/bin/yad && \

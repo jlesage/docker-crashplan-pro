@@ -21,9 +21,11 @@ ARG DOCKER_IMAGE_VERSION=unknown
 ARG CRASHPLAN_VERSION=8.5.0
 ARG CRASHPLAN_TIMESTAMP=1525200006850
 ARG CRASHPLAN_BUILD=446
+ARG YAD_VERSION=7.3
 
 # Define software download URLs.
 ARG CRASHPLAN_URL=https://download.code42.com/installs/agent/cloud/${CRASHPLAN_VERSION}/${CRASHPLAN_BUILD}/install/CrashPlanSmb_${CRASHPLAN_VERSION}_${CRASHPLAN_TIMESTAMP}_${CRASHPLAN_BUILD}_Linux.tgz
+ARG YAD_URL=https://github.com/v1cont/yad/archive/v${YAD_VERSION}.tar.gz
 
 # Define container build variables.
 ARG TARGETDIR=/usr/local/crashplan
@@ -75,6 +77,41 @@ RUN \
     del-pkg build-dependencies && \
     rm -rf /tmp/*
 
+# Install YAD.
+# NOTE: YAD is compiled manually because the version on the Alpine repository
+#       pulls too much dependencies.
+RUN \
+    # Install packages needed by the build.
+    add-pkg --virtual build-dependencies \
+        build-base \
+        autoconf \
+        automake \
+        intltool \
+        curl \
+        gtk+3.0-dev \
+        && \
+    # Set same default compilation flags as abuild.
+    export CFLAGS="-Os -fomit-frame-pointer" && \
+    export CXXFLAGS="$CFLAGS" && \
+    export CPPFLAGS="$CFLAGS" && \
+    export LDFLAGS="-Wl,--as-needed" && \
+    # Download.
+    mkdir yad && \
+    echo "Downloading YAD package..." && \
+    curl -# -L ${YAD_URL} | tar xz --strip 1  -C yad && \
+    # Compile.
+    cd yad && \
+    autoreconf -ivf && intltoolize && \
+    ./configure \
+        --prefix=/usr \
+        && \
+    make && make install && \
+    strip /usr/bin/yad && \
+    cd .. && \
+    # Cleanup.
+    del-pkg build-dependencies && \
+    rm -rf /tmp/* /tmp/.[!.]*
+
 # Misc adjustments.
 RUN  \
     # Remove the 'nobody' user.  This is to avoid issue when the container is
@@ -100,7 +137,6 @@ RUN \
         # The following package is used to send key presses to the X process.
         xdotool \
         # For the monitor.
-        yad \
         bc
 
 # Adjust the openbox config.

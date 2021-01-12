@@ -555,12 +555,13 @@ previous section apply, except that the inotify's max watch limit must be set in
 permanent.
 
 **NOTE**: After an upgrade of the DSM software, verify that the content of the
-file has not been overwritten.
+file has not been overwritten. See the following section to ensure this setting
+is automatically updated during boot up.
 
-To make sure this setting stays configured permanently a script can be created 
-that executes during synology startup.
+##### Synology script
 
-This can be done by adding the following script in the Synology Task Scheduler:
+To make sure this setting stays configured permanently the following script can
+be configured to automatically run during boot with the Synology Task Scheduler:
 
 ```
 echo /etc/sysctl.conf before update:

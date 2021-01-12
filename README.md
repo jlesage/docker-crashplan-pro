@@ -573,9 +573,9 @@ echo /etc/sysctl.conf after update:
 cat /etc/sysctl.conf
 ```
 
-![AddTask](readmeimages/AddTask.png)
-
-![EditTask](readmeimages/EditTask.png)
+| 1. Add Task | 2. Configure Task |
+|:--------:|:---------:|
+| ![AddTask](readmeimages/AddTask.png) | ![EditTask](readmeimages/EditTask.png) |
 
 ### Empty `/storage`
 

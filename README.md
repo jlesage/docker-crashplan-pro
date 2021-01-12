@@ -557,6 +557,25 @@ permanent.
 **NOTE**: After an upgrade of the DSM software, verify that the content of the
 file has not been overwritten.
 
+To make sure this setting stays configured permanently a script can be created 
+that executes during synology startup.
+
+This can be done by adding the following script in the Synology Task Scheduler:
+
+```
+echo /etc/sysctl.conf before update:
+cat /etc/sysctl.conf
+grep -v 'fs.inotify.max_user_watches=.*' /etc/sysctl.conf | echo -e "$(cat)\nfs.inotify.max_user_watches=67108864" > sysctl.conf
+sudo cp sysctl.conf /etc/sysctl.conf
+echo
+echo /etc/sysctl.conf after update:
+cat /etc/sysctl.conf
+```
+
+![AddTask](readmeimages/AddTask.png)
+
+![EditTask](readmeimages/EditTask.png)
+
 ### Empty `/storage`
 
 If the `/storage` folder inside the container is empty:

@@ -18,9 +18,9 @@ FROM jlesage/baseimage-gui:alpine-3.8-glibc-v3.5.6
 ARG DOCKER_IMAGE_VERSION=unknown
 
 # Define software versions.
-ARG CRASHPLAN_VERSION=8.5.0
-ARG CRASHPLAN_TIMESTAMP=1525200006850
-ARG CRASHPLAN_BUILD=446
+ARG CRASHPLAN_VERSION=8.6.0
+ARG CRASHPLAN_TIMESTAMP=1525200006860
+ARG CRASHPLAN_BUILD=1059
 ARG YAD_VERSION=7.3
 
 # Define software download URLs.
@@ -48,6 +48,13 @@ RUN \
     chmod 755 "${TARGETDIR}/electron/code42" && \
     chmod 755 "${TARGETDIR}/bin/Code42Service" && \
     chmod 755 "${TARGETDIR}/bin/restore-tool" && \
+    mv "${TARGETDIR}"/nlib/common/* "${TARGETDIR}"/nlib && \
+    mv "${TARGETDIR}"/nlib/ubuntu18/* "${TARGETDIR}"/nlib && \
+    rm -rf "${TARGETDIR}"/nlib/common && \
+    rm -rf "${TARGETDIR}"/nlib/ubuntu20 && \
+    rm -rf "${TARGETDIR}"/nlib/ubuntu18 && \
+    rm -rf "${TARGETDIR}"/nlib/rhel8 && \
+    rm -rf "${TARGETDIR}"/nlib/rhel7 && \
     # Keep a copy of the default config.
     mv ${TARGETDIR}/conf /defaults/conf && \
     # Make sure the UI connects by default to the engine using the loopback IP address (127.0.0.1).

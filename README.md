@@ -182,7 +182,6 @@ version: '3'
 services:
   crashplan-pro:
     image: jlesage/crashplan-pro
-    build: .
     ports:
       - "5800:5800"
     volumes:

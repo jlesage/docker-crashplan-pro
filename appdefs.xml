@@ -23,15 +23,9 @@ is protected and easily accessible.
       <support_url>https://forums.unraid.net/topic/59647-support-crashplan-pro/</support_url>
       <category>Backup:</category>
       <extra_description>
-    [span style='color: red;'][b]Warning:[/b][/span] Make sure to read the
-    [i]Migrating From CrashPlan for Home[/i] section of the documentation if
-    you are installing this container to migrate from [i]CrashPlan for Home[/i]
-    version.
-    [br][br]
-    [span style='color: red;'][b]Warning:[/b][/span] Make sure to read the
-    [i]Taking Over Existing Backup[/i] section of the documentation if you are
-    installing this container to replace another CrashPlan installation (from
-    Windows, Linux, Mac or even another Docker container).
+**Warning**: Make sure to read the *Taking Over Existing Backup* section of the
+documentation if you are installing this container to replace another CrashPlan
+installation (from Windows, Linux, Mac or even another Docker container).
       </extra_description>
     </unraid>
     <container>

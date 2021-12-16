@@ -4,16 +4,6 @@
 # https://github.com/jlesage/docker-crashplan-pro
 #
 
-FROM ubuntu:18.04
-WORKDIR /tmp
-RUN apt update && apt install --no-install-recommends -y build-essential
-COPY uname_wrapper.c /tmp/
-RUN gcc -o /tmp/uname_wrapper.so /tmp/uname_wrapper.c -Wall -Werror -fPIC -shared -ldl
-RUN strip /tmp/uname_wrapper.so
-
-# Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.8-glibc-v3.5.6
-
 # Docker image version is provided via build arg.
 ARG DOCKER_IMAGE_VERSION=unknown
 
@@ -21,11 +11,25 @@ ARG DOCKER_IMAGE_VERSION=unknown
 ARG CRASHPLAN_VERSION=8.8.1
 ARG CRASHPLAN_TIMESTAMP=1525200006881
 ARG CRASHPLAN_BUILD=33
-ARG YAD_VERSION=7.3
 
 # Define software download URLs.
 ARG CRASHPLAN_URL=https://download.code42.com/installs/agent/cloud/${CRASHPLAN_VERSION}/${CRASHPLAN_BUILD}/install/CrashPlanSmb_${CRASHPLAN_VERSION}_${CRASHPLAN_TIMESTAMP}_${CRASHPLAN_BUILD}_Linux.tgz
-ARG YAD_URL=https://github.com/v1cont/yad/releases/download/v${YAD_VERSION}/yad-${YAD_VERSION}.tar.xz
+
+# Build CrashPlan.
+FROM ubuntu:20.04 AS crashplan
+ARG CRASHPLAN_URL
+WORKDIR /tmp
+COPY src/crashplan /crashplan-build
+RUN /crashplan-build/build.sh "${CRASHPLAN_URL}"
+
+# Build YAD.
+FROM alpine:3.14 AS yad
+COPY src/yad/build.sh /build-yad.sh
+RUN /build-yad.sh
+
+# Pull base image.
+FROM jlesage/baseimage-gui:alpine-3.12-v3.5.6
+ARG DOCKER_IMAGE_VERSION
 
 # Define container build variables.
 ARG TARGETDIR=/usr/local/crashplan
@@ -34,34 +38,12 @@ ARG TARGETDIR=/usr/local/crashplan
 WORKDIR /tmp
 
 # Install CrashPlan.
+COPY --from=crashplan /usr/local/crashplan /usr/local/crashplan
 RUN \
-    add-pkg --virtual build-dependencies cpio curl && \
-    echo "Installing CrashPlan..." && \
-    # Download CrashPlan.
-    mkdir crashplan-install && \
-    curl -# -L ${CRASHPLAN_URL} | tar -xz --strip 1 -C crashplan-install && \
-    mkdir -p ${TARGETDIR} && \
-    # Extract CrashPlan.
-    cat $(ls crashplan-install/*.cpi) | gzip -d -c - | cpio -i --no-preserve-owner --directory=${TARGETDIR} && \
-    mv "${TARGETDIR}"/*.asar "${TARGETDIR}/electron/resources" && \
-    rm "${TARGETDIR}"/electron/chrome-sandbox && \
-    chmod 755 "${TARGETDIR}/electron/code42" && \
-    chmod 755 "${TARGETDIR}/bin/Code42Service" && \
-    chmod 755 "${TARGETDIR}/bin/restore-tool" && \
-    mv "${TARGETDIR}"/nlib/common/* "${TARGETDIR}"/nlib && \
-    mv "${TARGETDIR}"/nlib/ubuntu18/* "${TARGETDIR}"/nlib && \
-    rm -rf "${TARGETDIR}"/nlib/common && \
-    rm -rf "${TARGETDIR}"/nlib/ubuntu20 && \
-    rm -rf "${TARGETDIR}"/nlib/ubuntu18 && \
-    rm -rf "${TARGETDIR}"/nlib/rhel8 && \
-    rm -rf "${TARGETDIR}"/nlib/rhel7 && \
     # Keep a copy of the default config.
     mv ${TARGETDIR}/conf /defaults/conf && \
     # Make sure the UI connects by default to the engine using the loopback IP address (127.0.0.1).
     sed-patch '/<orgType>BUSINESS<\/orgType>/a \\t<serviceUIConfig>\n\t\t<serviceHost>127.0.0.1<\/serviceHost>\n\t<\/serviceUIConfig>' /defaults/conf/default.service.xml && \
-    # Set manifest directory to default config.  It should not be used, but do
-    # like the install script.
-    sed-patch "s|<backupConfig>|<backupConfig>\n\t\t\t<manifestPath>/usr/local/var/crashplan</manifestPath>|g" /defaults/conf/default.service.xml && \
     # Add the javaMemoryHeapMax setting to the default service file.
     sed-patch '/<serviceUIConfig>/i\\t<javaMemoryHeapMax nil="true"/>' /defaults/conf/default.service.xml && \
     # Prevent automatic updates.
@@ -79,46 +61,10 @@ RUN \
     # The '/repository' directory should be stored outside the container.
     # NOTE: The '/repository/metadata' directory changed in 6.7.0 changed to
     #       '/usr/local/crashplan/metadata' in 6.7.1.
-    ln -s /config/repository/metadata /usr/local/crashplan/metadata && \
-    # Cleanup
-    del-pkg build-dependencies && \
-    rm -rf /tmp/*
+    ln -s /config/repository/metadata /usr/local/crashplan/metadata
 
 # Install YAD.
-# NOTE: YAD is compiled manually because the version on the Alpine repository
-#       pulls too much dependencies.
-RUN \
-    # Install packages needed by the build.
-    add-pkg --virtual build-dependencies \
-        build-base \
-        curl \
-        intltool \
-        gtk+3.0-dev \
-        && \
-    # Set same default compilation flags as abuild.
-    export CFLAGS="-Os -fomit-frame-pointer" && \
-    export CXXFLAGS="$CFLAGS" && \
-    export CPPFLAGS="$CFLAGS" && \
-    export LDFLAGS="-Wl,--as-needed" && \
-    # Download.
-    mkdir yad && \
-    echo "Downloading YAD package..." && \
-    curl -# -L ${YAD_URL} | tar xJ --strip 1  -C yad && \
-    # Compile.
-    cd yad && \
-    ./configure \
-        --prefix=/usr \
-        --enable-standalone \
-        --disable-icon-browser \
-        --disable-html \
-        --disable-pfd \
-        && \
-    make && make install && \
-    strip /usr/bin/yad && \
-    cd .. && \
-    # Cleanup.
-    del-pkg build-dependencies && \
-    rm -rf /tmp/* /tmp/.[!.]*
+COPY --from=yad /tmp/yad-install/usr/bin/yad /usr/bin/
 
 # Misc adjustments.
 RUN  \
@@ -137,11 +83,6 @@ RUN  \
 RUN \
     add-pkg libselinux --repository http://dl-cdn.alpinelinux.org/alpine/edge/community && \
     add-pkg \
-        gtk+3.0 \
-        libxscrnsaver \
-        nss \
-        eudev \
-        gconf \
         # The following package is used to send key presses to the X process.
         xdotool \
         # For the monitor.
@@ -168,7 +109,6 @@ RUN \
 
 # Add files.
 COPY rootfs/ /
-COPY --from=0 /tmp/uname_wrapper.so /usr/local/crashplan/
 
 # Set environment variables.
 ENV S6_WAIT_FOR_SERVICE_MAXTIME=10000 \

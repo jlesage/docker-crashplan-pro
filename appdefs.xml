@@ -238,6 +238,11 @@ latest version will also bring the latest version of CrashPlan.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>2.16.1</version>
+        <date>2021-12-20</date>
+        <change>Updated CrashPlan to version 8.8.1.36.</change>
+      </release>
+      <release>
         <version>2.16.0</version>
         <date>2021-12-16</date>
         <change>Updated CrashPlan to version 8.8.1.</change>

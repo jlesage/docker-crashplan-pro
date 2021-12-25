@@ -26,6 +26,7 @@ log "Installing build prerequisites..."
 apt upgrade -y
 apt install -y --no-install-recommends \
     build-essential \
+    locales \
     curl \
     rsync \
     ca-certificates \
@@ -37,6 +38,9 @@ apt install -y --no-install-recommends \
     libasound2 \
     libgbm1 \
     libgconf-2-4 \
+
+# Generate locale.
+locale-gen en_US.UTF-8
 
 # Download CrashPlan.
 log "Downloading CrashPlan..."
@@ -137,6 +141,7 @@ ROOTFS_CONTENT="\
     /usr/share/glib-2.0/schemas
     /usr/share/icons/Adwaita/index.theme
     /usr/share/icons/Adwaita/scalable
+    /usr/lib/locale/locale-archive
 "
 echo "$ROOTFS_CONTENT" | while read i
 do

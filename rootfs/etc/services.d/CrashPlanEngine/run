@@ -8,6 +8,9 @@ if [ "${SUP_GROUP_IDS:-UNSET}" != "UNSET" ]; then
     SUP_GROUP_IDS_OPT="-G $SUP_GROUP_IDS"
 fi
 
+# Workaround for https://github.com/jlesage/docker-crashplan-pro/issues/341
+rm -rf /config/log/native/logs
+
 echo "[$(basename "$(pwd)")] starting..."
 exec /bin/s6-notifyoncheck -n 0 $APP_NICE_CMD s6-applyuidgid -u $USER_ID -g $GROUP_ID $SUP_GROUP_IDS_OPT /usr/local/crashplan/bin/startCrashPlanEngine.sh >> /config/log/engine_output.log 2>> /config/log/engine_error.log
 

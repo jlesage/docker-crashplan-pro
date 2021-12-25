@@ -38,7 +38,7 @@ ARG TARGETDIR=/usr/local/crashplan
 WORKDIR /tmp
 
 # Install CrashPlan.
-COPY --from=crashplan /usr/local/crashplan /usr/local/crashplan
+COPY --from=crashplan /tmp/crashplan-rootfs /
 RUN \
     # Keep a copy of the default config.
     mv ${TARGETDIR}/conf /defaults/conf && \

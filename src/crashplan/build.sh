@@ -16,6 +16,7 @@ fi
 
 CRASHPLAN_URL="$1"
 
+CRASHPLAN_ROOTFS="/tmp/crashplan-rootfs"
 CRASHPLAN_INSTALL_DIR="/usr/local/crashplan"
 
 log "Updating APT cache..."
@@ -26,6 +27,7 @@ apt upgrade -y
 apt install -y --no-install-recommends \
     build-essential \
     curl \
+    rsync \
     ca-certificates \
     patchelf \
     cpio \
@@ -50,6 +52,8 @@ sed 's/^start_service/#start_service/' -i /tmp/crashplan/install.sh
 # Perform some post-install fixes.
 mv "$CRASHPLAN_INSTALL_DIR"/nlib/libsdk.so "$CRASHPLAN_INSTALL_DIR"/nlib/libsdk.so.0
 chmod 755 "$CRASHPLAN_INSTALL_DIR"/bin/Code42Service
+cp /usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders.cache "$CRASHPLAN_INSTALL_DIR"/
+sed "s|/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders/|$CRASHPLAN_INSTALL_DIR/nlib/|" -i "$CRASHPLAN_INSTALL_DIR"/loaders.cache
 
 # Remove unneeded libraries.
 find "$CRASHPLAN_INSTALL_DIR"/electron -type f -maxdepth 1 -name "*.so" -not -name "libffmpeg.so" -delete
@@ -70,6 +74,7 @@ EXTRA_LIBS="
     /lib/x86_64-linux-gnu/libnss_dns
     /lib/x86_64-linux-gnu/libnss_files
     /lib/x86_64-linux-gnu/libudev.so.1
+    /usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-svg.so
 "
 
 echo "Copying extra libraries..."
@@ -124,5 +129,20 @@ find "$CRASHPLAN_INSTALL_DIR"/jre/lib -mindepth 2 -type f -name "lib*.so*" -exec
 
 log "Copying interpreter..."
 cp -av /lib/x86_64-linux-gnu/ld-* "$CRASHPLAN_INSTALL_DIR"/nlib/
+
+log "Creating rootfs..."
+mkdir "$CRASHPLAN_ROOTFS"
+ROOTFS_CONTENT="\
+    $CRASHPLAN_INSTALL_DIR
+    /usr/share/glib-2.0/schemas
+    /usr/share/icons/Adwaita/index.theme
+    /usr/share/icons/Adwaita/scalable
+"
+echo "$ROOTFS_CONTENT" | while read i
+do
+    if [ -n "$i" ]; then
+        rsync -Rav "$i" "$CRASHPLAN_ROOTFS"
+    fi
+done
 
 log "CrashPlan built successfully."

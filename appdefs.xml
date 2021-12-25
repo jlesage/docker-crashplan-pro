@@ -238,6 +238,12 @@ latest version will also bring the latest version of CrashPlan.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>2.16.2</version>
+        <date>2021-12-25</date>
+        <change>Fixed an issue where restoring files to an "other" location would crash the UI.</change>
+        <change>Fixed handling of filenames with special characters.</change>
+      </release>
+      <release>
         <version>2.16.1</version>
         <date>2021-12-20</date>
         <change>Updated CrashPlan to version 8.8.1.36.</change>

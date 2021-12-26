@@ -79,6 +79,7 @@ EXTRA_LIBS="
     /lib/x86_64-linux-gnu/libnss_files
     /lib/x86_64-linux-gnu/libudev.so.1
     /usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-svg.so
+    /usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-png.so
 "
 
 echo "Copying extra libraries..."
@@ -142,6 +143,7 @@ ROOTFS_CONTENT="\
     /usr/share/icons/Adwaita/index.theme
     /usr/share/icons/Adwaita/scalable
     /usr/lib/locale/locale-archive
+    /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf
 "
 echo "$ROOTFS_CONTENT" | while read i
 do

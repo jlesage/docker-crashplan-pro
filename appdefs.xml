@@ -238,6 +238,11 @@ latest version will also bring the latest version of CrashPlan.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>2.16.4</version>
+        <date>2021-12-26</date>
+        <change>Fixed, again, an issue where restoring files to an "other" location would crash the UI.</change>
+      </release>
+      <release>
         <version>2.16.3</version>
         <date>2021-12-25</date>
         <change>Added workaround for an issue where the CrashPlan engine would not start on devices running older kernel version.</change>

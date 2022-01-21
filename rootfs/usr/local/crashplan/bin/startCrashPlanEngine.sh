@@ -5,7 +5,7 @@ set -u # Treat unset variables as an error.
 
 export CRASHPLAN_DIR=/usr/local/crashplan
 
-export LD_PRELOAD=$CRASHPLAN_DIR/nlib/uname_wrapper.so
+export LD_PRELOAD=$CRASHPLAN_DIR/nlib/libwrapper.so
 
 export JAVACOMMON="$CRASHPLAN_DIR/jre/bin/java"
 

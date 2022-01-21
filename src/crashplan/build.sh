@@ -66,10 +66,10 @@ rm -r \
     "$CRASHPLAN_INSTALL_DIR"/electron/swiftshader \
     "$CRASHPLAN_INSTALL_DIR"/jre/legal \
 
-# Compile the uname wrapper.
-log "Compiling uname wrapper..."
-gcc -o "$CRASHPLAN_INSTALL_DIR"/nlib/uname_wrapper.so /crashplan-build/uname_wrapper.c -Wall -Werror -fPIC -shared -ldl
-strip /"$CRASHPLAN_INSTALL_DIR"/nlib/uname_wrapper.so
+# Compile the wrapper.
+log "Compiling wrapper..."
+gcc -o "$CRASHPLAN_INSTALL_DIR"/nlib/libwrapper.so /crashplan-build/libwrapper.c -Wall -Werror -fPIC -shared -ldl
+strip /"$CRASHPLAN_INSTALL_DIR"/nlib/libwrapper.so
 
 # Extra libraries that need to be installed into the CrashPlan lib
 # folder.  These libraries are loaded dynamically (dlopen) and are not catched

@@ -76,9 +76,9 @@ int uname(struct utsname *buf)
     int rc = orig_uname(buf);
     if (rc == 0) {
         const char* env = getenv("CRASHPLAN_KERNEL_RELEASE");
-        // Fallback on valid linux kernel version for Ubuntu 18.04.
-        // https://packages.ubuntu.com/bionic-updates/linux-image-generic
-        const char *version = env ? env : "4.15.0-60-generic";
+        // Fallback on valid linux kernel version for Ubuntu 20.04.
+        // https://packages.ubuntu.com/focal-updates/linux-image-generic
+        const char *version = env ? env : "5.4.0-96-generic";
         strncpy(buf->release, version, sizeof(buf->release));
     }
     return rc;

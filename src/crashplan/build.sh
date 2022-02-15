@@ -77,6 +77,7 @@ strip /"$CRASHPLAN_INSTALL_DIR"/nlib/libwrapper.so
 EXTRA_LIBS="
     /lib/x86_64-linux-gnu/libnss_dns
     /lib/x86_64-linux-gnu/libnss_files
+    /lib/x86_64-linux-gnu/libnss_compat
     /lib/x86_64-linux-gnu/libudev.so.1
     /usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-svg.so
     /usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-png.so

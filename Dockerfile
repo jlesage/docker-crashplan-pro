@@ -28,7 +28,7 @@ COPY src/yad/build.sh /build-yad.sh
 RUN /build-yad.sh
 
 # Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.12-v3.5.6
+FROM jlesage/baseimage-gui:alpine-3.14-v3.5.8
 ARG DOCKER_IMAGE_VERSION
 
 # Define container build variables.

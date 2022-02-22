@@ -242,7 +242,7 @@ latest version will also bring the latest version of CrashPlan.
         <date>2022-02-15</date>
         <change>Fixed an issue where restoring files would not work.</change>
         <change>Now using baseimage version 3.5.8, based on Alpine 3.14, which brings the following change:</change>
-        <change>Updated installed packages to get latest security fixes.</change>
+        <change level="2">Updated installed packages to get latest security fixes.</change>
       </release>
       <release>
         <version>2.16.5</version>

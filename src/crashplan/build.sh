@@ -54,7 +54,6 @@ sed 's/^start_service/#start_service/' -i /tmp/crashplan/install.sh
 /tmp/crashplan/install.sh
 
 # Perform some post-install fixes.
-mv "$CRASHPLAN_INSTALL_DIR"/nlib/libsdk.so "$CRASHPLAN_INSTALL_DIR"/nlib/libsdk.so.0
 chmod 755 "$CRASHPLAN_INSTALL_DIR"/bin/Code42Service
 cp /usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders.cache "$CRASHPLAN_INSTALL_DIR"/
 sed "s|/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders/|$CRASHPLAN_INSTALL_DIR/nlib/|" -i "$CRASHPLAN_INSTALL_DIR"/loaders.cache
@@ -62,7 +61,6 @@ sed "s|/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders/|$CRASHPLAN_INSTA
 # Remove unneeded libraries.
 find "$CRASHPLAN_INSTALL_DIR"/electron -type f -maxdepth 1 -name "*.so" -not -name "libffmpeg.so" -delete
 rm -r \
-    "$CRASHPLAN_INSTALL_DIR"/nlib/libboost_*.so \
     "$CRASHPLAN_INSTALL_DIR"/electron/swiftshader \
     "$CRASHPLAN_INSTALL_DIR"/jre/legal \
 

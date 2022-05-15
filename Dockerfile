@@ -30,6 +30,7 @@ RUN /build-yad.sh
 # Pull base image.
 FROM jlesage/baseimage-gui:alpine-3.14-v3.5.8
 ARG DOCKER_IMAGE_VERSION
+ARG CRASHPLAN_VERSION
 
 # Define container build variables.
 ARG TARGETDIR=/usr/local/crashplan

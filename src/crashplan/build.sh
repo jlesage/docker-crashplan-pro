@@ -35,6 +35,7 @@ apt install -y --no-install-recommends \
     libxss1 \
     libgtk-3-0 \
     libx11-xcb1 \
+    libxshmfence1 \
     libasound2 \
     libgbm1 \
     libgconf-2-4 \

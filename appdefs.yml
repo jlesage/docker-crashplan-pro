@@ -164,6 +164,10 @@ app:
           To fix this, [updating the container's image](#docker-image-update) to the
           latest version will also bring the latest version of CrashPlan.
   changelog:
+    - version: 22.10.2
+      date: 2022-10-29
+      changes:
+        - 'Do not prevent the container from starting if CrashPlan engine is taking too long to start.'
     - version: 22.10.1
       date: 2022-10-29
       changes:

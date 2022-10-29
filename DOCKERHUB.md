@@ -1,18 +1,14 @@
 # Docker container for CrashPlan PRO
-[![Docker Image Size](https://img.shields.io/microbadger/image-size/jlesage/crashplan-pro)](http://microbadger.com/#/images/jlesage/crashplan-pro) [![Build Status](https://drone.le-sage.com/api/badges/jlesage/docker-crashplan-pro/status.svg)](https://drone.le-sage.com/jlesage/docker-crashplan-pro) [![GitHub Release](https://img.shields.io/github/release/jlesage/docker-crashplan-pro.svg)](https://github.com/jlesage/docker-crashplan-pro/releases/latest) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage/0usd)
+[![Docker Image Size](https://img.shields.io/docker/image-size/jlesage/crashplan-pro/latest)](https://hub.docker.com/r/jlesage/crashplan-pro/tags) [![Build Status](https://github.com/jlesage/docker-crashplan-pro/actions/workflows/build-image.yml/badge.svg?branch=master)](https://github.com/jlesage/docker-crashplan-pro/actions/workflows/build-image.yml) [![GitHub Release](https://img.shields.io/github/release/jlesage/docker-crashplan-pro.svg)](https://github.com/jlesage/docker-crashplan-pro/releases/latest) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage)
 
-This is a Docker container for [CrashPlan PRO](https://www.crashplan.com/en-us/business/).
+This is a Docker container for [CrashPlan PRO](https://www.crashplan.com).
 
-The GUI of the application is accessed through a modern web browser (no installation or configuration needed on the client side) or via any VNC client.
-
-> **_IMPORTANT_**: This container can be used to migrate from *CrashPlan for 
-> Home*.  Make sure to read the
-> [Migrating From CrashPlan for Home](#migrating-from-crashplan-for-home)
-> section for more details.
+The GUI of the application is accessed through a modern web browser (no
+installation or configuration needed on the client side) or via any VNC client.
 
 ---
 
-[![CrashPlan PRO logo](https://images.weserv.nl/?url=raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/crashplan-pro-icon.png&w=200)](https://www.crashplan.com/en-us/business/)[![CrashPlan PRO](https://dummyimage.com/400x110/ffffff/575757&text=CrashPlan+PRO)](https://www.crashplan.com/en-us/business/)
+[![CrashPlan PRO logo](https://images.weserv.nl/?url=raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/crashplan-pro-icon.png&w=200)](https://www.crashplan.com)[![CrashPlan PRO](https://images.placeholders.dev/?width=416&height=110&fontFamily=Georgia,sans-serif&fontWeight=400&fontSize=52&text=CrashPlan%20PRO&bgColor=rgba(0,0,0,0.0)&textColor=rgba(121,121,121,1))](https://www.crashplan.com)
 
 CrashPlan offers the most comprehensive online backup solution to tens of
 thousands of businesses around the world.  The highly secure, automatic and
@@ -27,7 +23,7 @@ is protected and easily accessible.
 and parameters should be adjusted to your need.
 
 Launch the CrashPlan PRO docker container with the following command:
-```
+```shell
 docker run -d \
     --name=crashplan-pro \
     -p 5800:5800 \
@@ -37,8 +33,8 @@ docker run -d \
 ```
 
 Where:
-  - `/docker/appdata/crashplan-pro`: This is where the application stores its configuration, log and any files needing persistency.
-  - `$HOME`: This location contains files from your host that need to be accessible by the application.
+  - `/docker/appdata/crashplan-pro`: This is where the application stores its configuration, states, log and any files needing persistency.
+  - `$HOME`: This location contains files from your host that need to be accessible to the application.
 
 Browse to `http://your-host-ip:5800` to access the CrashPlan PRO GUI.
 Files from the host appear under the `/storage` folder in the container.

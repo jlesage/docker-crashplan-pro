@@ -1,11 +1,7 @@
-#!/usr/bin/with-contenv sh
+#!/bin/sh
 
 set -e # Exit immediately if a command exits with a non-zero status.
 set -u # Treat unset variables as an error.
-
-log() {
-    echo "[cont-init.d] $(basename $0): $*"
-}
 
 get_cp_max_mem() {
     if [ -f "$1" ]; then
@@ -17,13 +13,12 @@ get_cp_max_mem() {
 # NOTE: CrashPlan requires the machine-id to be the same to avoid re-login.
 # Thus, it needs to be saved into the config directory.
 if [ ! -f /config/machine-id ]; then
-    log "generating machine-id..."
+    echo "generating machine-id..."
     cat /proc/sys/kernel/random/uuid | tr -d '-' > /config/machine-id
 fi
-ln -sf /config/machine-id /etc/machine-id
 
 # Set a home directory in passwd, needed by the engine.
-sed-patch "s|app:x:$USER_ID:$GROUP_ID::/dev/null:|app:x:$USER_ID:$GROUP_ID::/config:|" /etc/passwd && \
+sed-patch "s|app::$USER_ID:$GROUP_ID::/dev/null:|app::$USER_ID:$GROUP_ID::/config:|" /etc/passwd
 
 # Make sure required directories exist.
 mkdir -p /config/bin
@@ -45,13 +40,13 @@ ln -sf /config/log /config/.code42/log
 FIRST_INSTALL=0
 UPGRADE=0
 if [ ! -d /config/conf ]; then
-    log "handling initial run..."
+    echo "handling initial run..."
     FIRST_INSTALL=1
 elif [ ! -f /config/cp_version ]; then
-    log "handling upgrade to CrashPlan version $(cat /defaults/cp_version)..."
+    echo "handling upgrade to CrashPlan version $(cat /defaults/cp_version)..."
     UPGRADE=1
 elif [ "$(cat /config/cp_version)" != "$(cat /defaults/cp_version)" ]; then
-    log "handling upgrade from CrashPlan version $(cat /config/cp_version) to $(cat /defaults/cp_version)..."
+    echo "handling upgrade from CrashPlan version $(cat /config/cp_version) to $(cat /defaults/cp_version)..."
     UPGRADE=1
 fi
 
@@ -77,7 +72,7 @@ if [ "${CRASHPLAN_SRV_MAX_MEM:-UNSET}" != "UNSET" ]; then
   # Validate the max memory value.
   if ! echo "$CRASHPLAN_SRV_MAX_MEM" | grep -q "^[0-9]\+[g|G|m|M|k|K]\?$"
   then
-    log "ERROR: invalid value for CRASHPLAN_SRV_MAX_MEM variable: '$CRASHPLAN_SRV_MAX_MEM'."
+    echo "ERROR: invalid value for CRASHPLAN_SRV_MAX_MEM variable: '$CRASHPLAN_SRV_MAX_MEM'."
     exit 1
   fi
 
@@ -90,7 +85,7 @@ if [ "${CRASHPLAN_SRV_MAX_MEM:-UNSET}" != "UNSET" ]; then
     CRASHPLAN_SRV_MAX_MEM="$(expr "$MEM_VALUE" / 1024)m"
   fi
 
-  log "setting CrashPlan Engine maximum memory to $CRASHPLAN_SRV_MAX_MEM"
+  echo "setting CrashPlan Engine maximum memory to $CRASHPLAN_SRV_MAX_MEM"
   echo "-Xmx$CRASHPLAN_SRV_MAX_MEM" > /config/conf/jvm_args
 fi
 
@@ -118,8 +113,5 @@ for LOGFILE in /config/log/service.log.0 /config/log/app.log
 do
     [ -f "$LOGFILE" ] || touch "$LOGFILE"
 done
-
-# Take ownership of the config directory content.
-find /config -mindepth 1 -exec chown $USER_ID:$GROUP_ID {} \;
 
 # vim: set ft=sh :

@@ -1,2 +1,2 @@
-#!/usr/bin/with-contenv sh
+#!/bin/sh
 echo "Real-time file watching failed to be setup on one or more path(s) because $APP_NAME doesn't have proper permissions."

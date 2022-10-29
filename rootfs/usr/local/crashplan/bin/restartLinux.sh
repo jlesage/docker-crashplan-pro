@@ -30,6 +30,7 @@ _log "$(pwd)/$(basename $0)"
 _log "Stopping $APP_DESC ... "
 PID_TO_KILL=`_findpid`
 if [ -n "$PID_TO_KILL" ]; then
+    touch /tmp/.cp_restart_requested
     kill $PID_TO_KILL
     for i in $(seq 1 10); do
         sleep 1

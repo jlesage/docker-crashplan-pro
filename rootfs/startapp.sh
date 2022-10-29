@@ -1,29 +1,20 @@
-#!/usr/bin/with-contenv sh
+#!/bin/sh
 
-#
-# CrashPlan is not shutting down when receiving a signal, unless it is sent
-# twice.
-#
-# This small wrapper is used to prevent CrashPlan to receive termination
-# signals directly.  Instead, the wrapper traps signals and send CTRL+q key
-# presses to CrashPlan, allowing the application to terminate.
-#
+while true
+do
+    # Start CrashPlan.
+    /usr/local/crashplan/bin/startCrashPlanGUI.sh &
 
-exit_crashplan() {
-    xdotool key "Escape"
-    xdotool key "ctrl+q"
-}
-trap 'exit_crashplan $PID' TERM INT QUIT
+    # Wait until it dies.
+    wait $!
+    RC=$?
 
-# Start CrashPlan in background.
-/usr/local/crashplan/bin/startCrashPlanGUI.sh &
+    # Exit now if exit was not requested by user.
+    if [ ! -f /tmp/.cp_restart_requested ]; then
+        exit $RC
+    fi
 
-# And wait for its termination.
-PID=$!
-wait $PID
-
-# Exit this script.
-EXIT_STATUS=$?
-exit $EXIT_STATUS
+    rm /tmp/.cp_restart_requested
+done
 
 # vim: set ft=sh :

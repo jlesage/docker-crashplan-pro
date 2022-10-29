@@ -67,7 +67,7 @@ rm -r \
 
 # Compile the wrapper.
 log "Compiling wrapper..."
-gcc -o "$CRASHPLAN_INSTALL_DIR"/nlib/libwrapper.so /crashplan-build/libwrapper.c -Wall -Werror -fPIC -shared -ldl
+gcc -o "$CRASHPLAN_INSTALL_DIR"/nlib/libwrapper.so /build/libwrapper.c -Wall -Werror -fPIC -shared -ldl
 strip /"$CRASHPLAN_INSTALL_DIR"/nlib/libwrapper.so
 
 # Extra libraries that need to be installed into the CrashPlan lib
@@ -80,6 +80,7 @@ EXTRA_LIBS="
     /lib/x86_64-linux-gnu/libudev.so.1
     /usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-svg.so
     /usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-png.so
+    /usr/lib/x86_64-linux-gnu/libX11-xcb.so.1
 "
 
 echo "Copying extra libraries..."
@@ -143,6 +144,7 @@ ROOTFS_CONTENT="\
     /usr/share/icons/Adwaita/index.theme
     /usr/share/icons/Adwaita/scalable
     /usr/lib/locale/locale-archive
+    /etc/fonts
     /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf
 "
 echo "$ROOTFS_CONTENT" | while read i

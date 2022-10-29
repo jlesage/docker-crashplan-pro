@@ -1,2 +1,2 @@
-#!/usr/bin/with-contenv sh
+#!/bin/sh
 echo "$APP_NAME is exceeding inotify's max watch limit."

@@ -164,6 +164,14 @@ app:
           To fix this, [updating the container's image](#docker-image-update) to the
           latest version will also bring the latest version of CrashPlan.
   changelog:
+    - version: 22.10.1
+      date: 2022-10-29
+      changes:
+        - 'Updated CrashPlan to version 10.4.0.'
+        - 'Versioning scheme of the Docker image changed to `YY.MM.SEQUENCE`.'
+        - 'Update of the baseimage to version 4.1.2 brings the following new features:'
+        - '2:Support for remote window resize.'
+        - '2:Updated the web UI with a new, simplified and less intrusive look.'
     - version: 2.17.2
       date: 2022-08-06
       changes:

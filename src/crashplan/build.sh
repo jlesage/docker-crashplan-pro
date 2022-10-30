@@ -145,6 +145,7 @@ ROOTFS_CONTENT="\
     /usr/share/icons/Adwaita/scalable
     /usr/lib/locale/locale-archive
     /etc/fonts
+    /usr/share/mime
     /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf
 "
 echo "$ROOTFS_CONTENT" | while read i

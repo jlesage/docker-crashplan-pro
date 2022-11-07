@@ -164,6 +164,11 @@ app:
           To fix this, [updating the container's image](#docker-image-update) to the
           latest version will also bring the latest version of CrashPlan.
   changelog:
+    - version: 22.11.2
+      date: 2022-11-07
+      changes:
+        - 'Fixed issue where the log monitor would use too much CPU.'
+        - 'Fixed issue where the same alert would be shown multiple times.'
     - version: 22.11.1
       date: 2022-11-02
       changes:

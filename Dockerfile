@@ -23,7 +23,7 @@ COPY src/crashplan /build
 RUN /build/build.sh "${CRASHPLAN_URL}"
 
 # Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.16-v4.2.2
+FROM jlesage/baseimage-gui:alpine-3.16-v4.3.1
 
 ARG DOCKER_IMAGE_VERSION
 ARG CRASHPLAN_VERSION
@@ -73,11 +73,6 @@ RUN \
     add-pkg \
         # For the monitor.
         bc
-
-# Enable log monitoring.
-RUN \
-    sed-patch 's|LOG_FILES=|LOG_FILES=/config/log/service.log.0|' /etc/logmonitor/logmonitor.conf && \
-    sed-patch 's|STATUS_FILES=|STATUS_FILES=/config/log/app.log|' /etc/logmonitor/logmonitor.conf
 
 # Generate and install favicons.
 RUN \

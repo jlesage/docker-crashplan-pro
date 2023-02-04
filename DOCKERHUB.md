@@ -8,7 +8,7 @@ installation or configuration needed on the client side) or via any VNC client.
 
 ---
 
-[![CrashPlan PRO logo](https://images.weserv.nl/?url=raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/crashplan-pro-icon.png&w=200)](https://www.crashplan.com)[![CrashPlan PRO](https://images.placeholders.dev/?width=416&height=110&fontFamily=Georgia,sans-serif&fontWeight=400&fontSize=52&text=CrashPlan%20PRO&bgColor=rgba(0,0,0,0.0)&textColor=rgba(121,121,121,1))](https://www.crashplan.com)
+[![CrashPlan PRO logo](https://images.weserv.nl/?url=raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/crashplan-pro-icon.png&w=110)](https://www.crashplan.com)[![CrashPlan PRO](https://images.placeholders.dev/?width=416&height=110&fontFamily=Georgia,sans-serif&fontWeight=400&fontSize=52&text=CrashPlan%20PRO&bgColor=rgba(0,0,0,0.0)&textColor=rgba(121,121,121,1))](https://www.crashplan.com)
 
 CrashPlan offers the most comprehensive online backup solution to tens of
 thousands of businesses around the world.  The highly secure, automatic and

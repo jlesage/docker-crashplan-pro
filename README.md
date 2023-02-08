@@ -64,13 +64,13 @@ docker run -d \
     --name=crashplan-pro \
     -p 5800:5800 \
     -v /docker/appdata/crashplan-pro:/config:rw \
-    -v $HOME:/storage:ro \
+    -v /home/user:/storage:ro \
     jlesage/crashplan-pro
 ```
 
 Where:
   - `/docker/appdata/crashplan-pro`: This is where the application stores its configuration, states, log and any files needing persistency.
-  - `$HOME`: This location contains files from your host that need to be accessible to the application.
+  - `/home/user`: This location contains files from your host that need to be accessible to the application.
 
 Browse to `http://your-host-ip:5800` to access the CrashPlan PRO GUI.
 Files from the host appear under the `/storage` folder in the container.
@@ -224,7 +224,7 @@ services:
       - "5800:5800"
     volumes:
       - "/docker/appdata/crashplan-pro:/config:rw"
-      - "$HOME:/storage:ro"
+      - "/home/user:/storage:ro"
 ```
 
 ## Docker Image Versioning
@@ -645,9 +645,10 @@ This folder is usually mapped to the host with *read-only* permission.  Thus,
 restoring files to `/storage` won't be allowed.  The solution is to temporarily
 change the permission of the volume to *read-write*.
 
-For example, if `/storage` is mapped to `$HOME` on the host, the container would
-need to be deleted and then re-created with the same arguments, with the exception
-of `-v $HOME:/storage:ro` that is replaced with `-v $HOME:/storage:rw`.
+For example, if `/storage` is mapped to `/home/user` on the host, the container
+would need to be deleted and then re-created with the same arguments, with the
+exception of `-v /home/user:/storage:ro` that is replaced with
+`-v /home/user:/storage:rw`.
 
 ### Upgrade Failed Error Message
 

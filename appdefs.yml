@@ -151,9 +151,10 @@ app:
           restoring files to `/storage` won't be allowed.  The solution is to temporarily
           change the permission of the volume to *read-write*.
 
-          For example, if `/storage` is mapped to `$HOME` on the host, the container would
-          need to be deleted and then re-created with the same arguments, with the exception
-          of `-v $HOME:/storage:ro` that is replaced with `-v $HOME:/storage:rw`.
+          For example, if `/storage` is mapped to `/home/user` on the host, the container
+          would need to be deleted and then re-created with the same arguments, with the
+          exception of `-v /home/user:/storage:ro` that is replaced with
+          `-v /home/user:/storage:rw`.
       - title: Upgrade Failed Error Message
         level: 3
         content: |-

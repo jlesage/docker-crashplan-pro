@@ -46,7 +46,7 @@ locale-gen en_US.UTF-8
 # Download CrashPlan.
 log "Downloading CrashPlan..."
 mkdir /tmp/crashplan
-curl -# -L ${CRASHPLAN_URL} | tar -xz --strip 1 -C /tmp/crashplan
+curl -# -L -f ${CRASHPLAN_URL} | tar -xz --strip 1 -C /tmp/crashplan
 
 # Install CrashPlan.
 log "Installing CrashPlan..."

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-APP_NAME="Code42Service"
+APP_NAME="CrashPlanService"
 APP_DESC="CrashPlan Engine"
 
 CRASHPLAN_DIR=/usr/local/crashplan

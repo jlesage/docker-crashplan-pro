@@ -8,15 +8,14 @@
 ARG DOCKER_IMAGE_VERSION=
 
 # Define software versions.
-ARG CRASHPLAN_VERSION=10.4.1
-ARG CRASHPLAN_TIMESTAMP=15252000061041
-ARG CRASHPLAN_BUILD=19
+ARG CRASHPLAN_VERSION=11.0.1
+ARG CRASHPLAN_BUILD=33
 
 # Define software download URLs.
-ARG CRASHPLAN_URL=https://download.crashplan.com/installs/agent/cloud/${CRASHPLAN_VERSION}/${CRASHPLAN_BUILD}/install/CrashPlanSmb_${CRASHPLAN_VERSION}_${CRASHPLAN_TIMESTAMP}_${CRASHPLAN_BUILD}_Linux.tgz
+ARG CRASHPLAN_URL=https://download.crashplan.com/installs/agent/cloud/${CRASHPLAN_VERSION}/${CRASHPLAN_BUILD}/install/CrashPlanSmb_${CRASHPLAN_VERSION}_${CRASHPLAN_BUILD}_Linux.tgz
 
 # Build CrashPlan.
-FROM ubuntu:20.04 AS crashplan
+FROM ubuntu:22.04 AS crashplan
 ARG CRASHPLAN_URL
 WORKDIR /tmp
 COPY src/crashplan /build

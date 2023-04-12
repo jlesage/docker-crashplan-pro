@@ -26,7 +26,11 @@ mkdir -p /config/log
 mkdir -p /config/cache
 mkdir -p /config/var
 mkdir -p /config/repository/metadata
-mkdir -p /config/.code42
+mkdir -p /config/.crashplan
+
+# Workaround for a crash that occurs with the enfine with version 11.0.1.33.
+# See https://github.com/jlesage/docker-crashplan-pro/issues/416
+mkdir -p /dev/input/by-path
 
 # Make sure the app can write files into /usr/local/crashplan.  This is needed
 # to restore files.
@@ -34,7 +38,7 @@ chgrp app /usr/local/crashplan
 chmod 0775 /usr/local/crashplan
 
 # Redirect log directory.
-ln -sf /config/log /config/.code42/log
+ln -sf /config/log /config/.crashplan/log
 
 # Determine if it's a first/initial installation or an upgrade.
 FIRST_INSTALL=0
@@ -114,4 +118,4 @@ do
     [ -f "$LOGFILE" ] || touch "$LOGFILE"
 done
 
-# vim: set ft=sh :
+# vim:ft=sh:ts=4:sw=4:et:sts=4

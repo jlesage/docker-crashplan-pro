@@ -10,6 +10,6 @@ export LD_PRELOAD=$CRASHPLAN_DIR/nlib/libwrapper.so
 export JAVACOMMON="$CRASHPLAN_DIR/jre/bin/java"
 
 cd $CRASHPLAN_DIR
-exec $CRASHPLAN_DIR/bin/Code42Service
+exec $CRASHPLAN_DIR/bin/CrashPlanService
 
 # vim: set ft=sh :

@@ -11,6 +11,6 @@ export LD_PRELOAD=$CRASHPLAN_DIR/nlib/libwrapper.so
 export GDK_PIXBUF_MODULE_FILE=/usr/local/crashplan/loaders.cache
 
 cd /config
-exec ${CRASHPLAN_DIR}/electron/code42 --no-sandbox >> /config/log/ui_output.log 2>> /config/log/ui_error.log
+exec ${CRASHPLAN_DIR}/electron/crashplan --no-sandbox >> /config/log/ui_output.log 2>> /config/log/ui_error.log
 
 # vim: set ft=sh :

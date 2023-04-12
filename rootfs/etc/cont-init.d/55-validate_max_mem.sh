@@ -34,4 +34,4 @@ if [ "$MEM_VALUE" -lt $(expr 1024 \* 1024 \* 1024) ]; then
     exit 1
 fi
 
-# vim: set ft=sh :
+# vim:ft=sh:ts=4:sw=4:et:sts=4

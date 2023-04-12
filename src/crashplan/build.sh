@@ -39,6 +39,8 @@ apt install -y --no-install-recommends \
     libasound2 \
     libgbm1 \
     libgconf-2-4 \
+    librsvg2-common \
+    libsqlite3-0 \
 
 # Generate locale.
 locale-gen en_US.UTF-8
@@ -55,7 +57,7 @@ sed 's/^start_service/#start_service/' -i /tmp/crashplan/install.sh
 /tmp/crashplan/install.sh
 
 # Perform some post-install fixes.
-chmod 755 "$CRASHPLAN_INSTALL_DIR"/bin/Code42Service
+chmod 755 "$CRASHPLAN_INSTALL_DIR"/bin/CrashPlanService
 cp /usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders.cache "$CRASHPLAN_INSTALL_DIR"/
 sed "s|/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders/|$CRASHPLAN_INSTALL_DIR/nlib/|" -i "$CRASHPLAN_INSTALL_DIR"/loaders.cache
 
@@ -79,7 +81,6 @@ EXTRA_LIBS="
     /lib/x86_64-linux-gnu/libnss_compat
     /lib/x86_64-linux-gnu/libudev.so.1
     /usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-svg.so
-    /usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-png.so
     /usr/lib/x86_64-linux-gnu/libX11-xcb.so.1
 "
 
@@ -90,7 +91,7 @@ do
 done
 
 # Extract dependencies of all binaries and libraries.
-find "$CRASHPLAN_INSTALL_DIR" -name Code42Service -or -name code42 -or -type f -name 'lib*.so*' | while read BIN
+find "$CRASHPLAN_INSTALL_DIR" -type f -and '(' -name CrashPlanService -or -name crashplan -or -name 'lib*.so*' ')' | while read BIN
 do
     RAW_DEPS="$(LD_LIBRARY_PATH="$CRASHPLAN_INSTALL_DIR"/nlib:"$CRASHPLAN_INSTALL_DIR"/jre/lib/server ldd "$BIN")"
     echo "Dependencies for $BIN:"
@@ -124,9 +125,9 @@ do
 done
 
 log "Patching ELF of binaries..."
-find "$CRASHPLAN_INSTALL_DIR" '(' -name Code42Service -or -name code42 ')' -exec echo "  -> Setting interpreter of {}..." ';' -exec patchelf --set-interpreter "$CRASHPLAN_INSTALL_DIR/nlib/ld-linux-x86-64.so.2" {} ';'
-find "$CRASHPLAN_INSTALL_DIR" -type f -name code42 -exec echo "  -> Setting rpath of {}..." ';' -exec patchelf --set-rpath '$ORIGIN:$ORIGIN/../nlib' {} ';'
-find "$CRASHPLAN_INSTALL_DIR" -type f -name Code42Service -exec echo "  -> Setting rpath of {}..." ';' -exec patchelf --set-rpath '$ORIGIN:$ORIGIN/../jre/lib:$ORIGIN/../jre/lib/jli:$ORIGIN/../jre/lib/server:$ORIGIN/../nlib' {} ';'
+find "$CRASHPLAN_INSTALL_DIR" -type f -and '(' -name CrashPlanService -or -name crashplan ')' -exec echo "  -> Setting interpreter of {}..." ';' -exec patchelf --set-interpreter "$CRASHPLAN_INSTALL_DIR/nlib/ld-linux-x86-64.so.2" {} ';'
+find "$CRASHPLAN_INSTALL_DIR" -type f -name crashplan -exec echo "  -> Setting rpath of {}..." ';' -exec patchelf --set-rpath '$ORIGIN:$ORIGIN/../nlib' {} ';'
+find "$CRASHPLAN_INSTALL_DIR" -type f -name CrashPlanService -exec echo "  -> Setting rpath of {}..." ';' -exec patchelf --set-rpath '$ORIGIN:$ORIGIN/../jre/lib:$ORIGIN/../jre/lib/jli:$ORIGIN/../jre/lib/server:$ORIGIN/../nlib' {} ';'
 
 log "Patching ELF of libraries..."
 find "$CRASHPLAN_INSTALL_DIR"/nlib -type f -name "*.so*" -exec echo "  -> Setting rpath of {}..." ';' -exec patchelf --set-rpath '$ORIGIN' {} ';'

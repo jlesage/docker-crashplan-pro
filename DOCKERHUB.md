@@ -1,5 +1,11 @@
 # Docker container for CrashPlan PRO
-[![Docker Image Size](https://img.shields.io/docker/image-size/jlesage/crashplan-pro/latest)](https://hub.docker.com/r/jlesage/crashplan-pro/tags) [![Build Status](https://github.com/jlesage/docker-crashplan-pro/actions/workflows/build-image.yml/badge.svg?branch=master)](https://github.com/jlesage/docker-crashplan-pro/actions/workflows/build-image.yml) [![GitHub Release](https://img.shields.io/github/release/jlesage/docker-crashplan-pro.svg)](https://github.com/jlesage/docker-crashplan-pro/releases/latest) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage)
+[![Release](https://img.shields.io/github/release/jlesage/docker-crashplan-pro.svg?logo=github&style=for-the-badge)](https://github.com/jlesage/docker-crashplan-pro/releases/latest)
+[![Docker Image Size](https://img.shields.io/docker/image-size/jlesage/crashplan-pro/latest?logo=docker&style=for-the-badge)](https://hub.docker.com/r/jlesage/crashplan-pro/tags)
+[![Docker Pulls](https://img.shields.io/docker/pulls/jlesage/crashplan-pro?label=Pulls&logo=docker&style=for-the-badge)](https://hub.docker.com/r/jlesage/crashplan-pro)
+[![Docker Stars](https://img.shields.io/docker/stars/jlesage/crashplan-pro?label=Stars&logo=docker&style=for-the-badge)](https://hub.docker.com/r/jlesage/crashplan-pro)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/jlesage/docker-crashplan-pro/build-image.yml?logo=github&branch=master&style=for-the-badge)](https://github.com/jlesage/docker-crashplan-pro/actions/workflows/build-image.yml)
+[![Source](https://img.shields.io/badge/Source-GitHub-blue?logo=github&style=for-the-badge)](https://github.com/jlesage/docker-crashplan-pro)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg?style=for-the-badge)](https://paypal.me/JocelynLeSage)
 
 This is a Docker container for [CrashPlan PRO](https://www.crashplan.com).
 

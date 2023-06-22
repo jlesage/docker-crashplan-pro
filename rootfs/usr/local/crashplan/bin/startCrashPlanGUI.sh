@@ -13,4 +13,4 @@ export GDK_PIXBUF_MODULE_FILE=/usr/local/crashplan/loaders.cache
 cd /config
 exec ${CRASHPLAN_DIR}/electron/crashplan --no-sandbox >> /config/log/ui_output.log 2>> /config/log/ui_error.log
 
-# vim: set ft=sh :
+# vim:ft=sh:ts=4:sw=4:et:sts=4

@@ -12,4 +12,4 @@ export JAVACOMMON="$CRASHPLAN_DIR/jre/bin/java"
 cd $CRASHPLAN_DIR
 exec $CRASHPLAN_DIR/bin/CrashPlanService
 
-# vim: set ft=sh :
+# vim:ft=sh:ts=4:sw=4:et:sts=4

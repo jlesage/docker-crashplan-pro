@@ -4,4 +4,4 @@ set -u # Treat unset variables as an error.
 # Service considered ready when port 4244 is open.
 nc -z -w5 127.0.0.1 4244
 
-# vim: set ft=sh :
+# vim:ft=sh:ts=4:sw=4:et:sts=4

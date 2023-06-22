@@ -8,4 +8,4 @@ rm -rf /config/log/native/logs
 
 exec /usr/local/crashplan/bin/startCrashPlanEngine.sh >> /config/log/engine_output.log 2>> /config/log/engine_error.log
 
-# vim: set ft=sh :
+# vim:ft=sh:ts=4:sw=4:et:sts=4

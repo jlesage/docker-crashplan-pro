@@ -23,4 +23,4 @@ fi
 # No match found.
 exit 1
 
-# vim: set ft=sh :
+# vim:ft=sh:ts=4:sw=4:et:sts=4

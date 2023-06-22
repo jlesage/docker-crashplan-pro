@@ -32,6 +32,7 @@ apt install -y --no-install-recommends \
     ca-certificates \
     patchelf \
     cpio \
+    file \
     libxss1 \
     libgtk-3-0 \
     libx11-xcb1 \
@@ -64,7 +65,6 @@ sed "s|/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders/|$CRASHPLAN_INSTA
 # Remove unneeded libraries.
 find "$CRASHPLAN_INSTALL_DIR"/electron -type f -maxdepth 1 -name "*.so" -not -name "libffmpeg.so" -delete
 rm -r \
-    "$CRASHPLAN_INSTALL_DIR"/electron/swiftshader \
     "$CRASHPLAN_INSTALL_DIR"/jre/legal \
 
 # Compile the wrapper.
@@ -125,9 +125,17 @@ do
 done
 
 log "Patching ELF of binaries..."
-find "$CRASHPLAN_INSTALL_DIR" -type f -and '(' -name CrashPlanService -or -name crashplan ')' -exec echo "  -> Setting interpreter of {}..." ';' -exec patchelf --set-interpreter "$CRASHPLAN_INSTALL_DIR/nlib/ld-linux-x86-64.so.2" {} ';'
-find "$CRASHPLAN_INSTALL_DIR" -type f -name crashplan -exec echo "  -> Setting rpath of {}..." ';' -exec patchelf --set-rpath '$ORIGIN:$ORIGIN/../nlib' {} ';'
-find "$CRASHPLAN_INSTALL_DIR" -type f -name CrashPlanService -exec echo "  -> Setting rpath of {}..." ';' -exec patchelf --set-rpath '$ORIGIN:$ORIGIN/../jre/lib:$ORIGIN/../jre/lib/jli:$ORIGIN/../jre/lib/server:$ORIGIN/../nlib' {} ';'
+find "$CRASHPLAN_INSTALL_DIR" -type f | xargs file | grep -w executable | grep "dynamically linked" | cut -d : -f 1 | while read FILE
+do
+    echo "  -> Setting interpreter of "$FILE"..."
+    patchelf --set-interpreter "$CRASHPLAN_INSTALL_DIR/nlib/ld-linux-x86-64.so.2" "$FILE"
+
+    echo "  -> Setting rpath of $FILE..."
+    patchelf --set-rpath '$ORIGIN:$ORIGIN/../nlib:$ORIGIN/../../nlib:$ORIGIN/../jre/lib:$ORIGIN/../jre/lib/jli:$ORIGIN/../jre/lib/server' "$FILE"
+
+    # Make sure the executable is executable by all.
+    chmod a+rx "$FILE"
+done
 
 log "Patching ELF of libraries..."
 find "$CRASHPLAN_INSTALL_DIR"/nlib -type f -name "*.so*" -exec echo "  -> Setting rpath of {}..." ';' -exec patchelf --set-rpath '$ORIGIN' {} ';'

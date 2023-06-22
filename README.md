@@ -567,7 +567,7 @@ Here is a summary of what needs to be done:
 visible in the *Manage Files* window.  By default, your files are now located
 under the `/storage` folder.
 
-[official documentation]: https://support.code42.com/CrashPlan/6/Configuring/Replace_your_device
+[official documentation]: https://support.code42.com/hc/en-us/articles/14827668736279-Replace-your-device
 
 ## Why CrashPlan Self Update Is Disabled
 
@@ -597,7 +597,7 @@ maximum amount of memory CrashPlan is allowed to use. This can be done by:
      [Environment Variables](#environment-variables) section for more details.
   2. Using the [solution provided by CrashPlan] from its support site.
 
-[solution provided by CrashPlan]: https://support.code42.com/CrashPlan/6/Troubleshooting/Adjust_Code42_app_settings_for_memory_usage_with_large_backups
+[solution provided by CrashPlan]: https://support.code42.com/hc/en-us/articles/14827635282583-Adjust-Code42-agent-settings-for-memory-usage-with-large-backups
 
 ### Inotify's Watch Limit
 
@@ -608,7 +608,7 @@ not the container.
 For more details, see the CrashPlan's [Linux real-time file watching errors]
 article.
 
-[Linux real-time file watching errors]: https://support.code42.com/CrashPlan/6/Troubleshooting/Linux_real-time_file_watching_errors
+[Linux real-time file watching errors]: https://support.code42.com/hc/en-us/articles/14827708807959-Linux-real-time-file-watching-errors
 
 #### Synology
 

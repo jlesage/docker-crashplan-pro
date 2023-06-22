@@ -142,7 +142,7 @@ While this can be useful for the user to adjust the value of environment
 variables to fit its needs, it can also be confusing and dangerous to keep all
 of them.
 
-A good pratice is to set/keep only the variables that are needed for the
+A good practice is to set/keep only the variables that are needed for the
 container to behave as desired in a specific setup.  If the value of variable is
 kept to its default value, it means that it can be removed.  Keep in mind that
 all variables are optional, meaning that none of them is required for the
@@ -163,7 +163,7 @@ Removing environment variables that are not needed provides some advantages:
     on Synology, where an environment variable without value might not be
     allowed.  This behavior is wrong: it's absolutely fine to have a variable
     without value.  In fact, this container does have variables without value by
-    default.  Thus, removing uneeded variables is a good way to prevent
+    default.  Thus, removing unneeded variables is a good way to prevent
     deployment issue on these devices.
 
 ### Data Volumes
@@ -551,7 +551,7 @@ Here is a summary of what needs to be done:
      is not mapped to a folder used by a different CrashPlan container.
   2. Sign in to your account.
   3. Click the **Replace Existing** button to start the wizard.
-  4. Skip *Step 2 - File Transfert*.
+  4. Skip *Step 2 - File Transfer*.
   4. Once done with the wizard, go to your device's details and click
      *Manage Files*.  You will probably see missing items in the file
      selection.  This is normal, since path to your files may be different in
@@ -582,7 +582,7 @@ the container has only the minimal set of libraries and tools required to run
 CrashPlan, it would be easy for an automatic update to break the container by
 requiring new dependencies.  Finally, the automatic update script is not adapted
 for Alpine Linux (the distribution on which this container is based on) and
-assumes it is running on a full-featured distibution.  For example, this image
+assumes it is running on a full-featured distribution.  For example, this image
 doesn't have a desktop like normal installations and some of the tools required
 to perform the update are missing.
 
@@ -612,7 +612,7 @@ article.
 
 #### Synology
 
-On Synology NAS, the instuctions provided by the article mentioned in the
+On Synology NAS, the instructions provided by the article mentioned in the
 previous section apply, except that the inotify's max watch limit must be set in
 `/etc.defaults/sysctl.conf` (instead of `/etc/sysctl.conf`) to make the setting
 permanent.

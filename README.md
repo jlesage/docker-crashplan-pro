@@ -60,8 +60,9 @@ is protected and easily accessible.
 
 ## Quick Start
 
-**NOTE**: The Docker command provided in this quick start is given as an example
-and parameters should be adjusted to your need.
+**NOTE**:
+    The Docker command provided in this quick start is given as an example
+    and parameters should be adjusted to your need.
 
 Launch the CrashPlan PRO docker container with the following command:
 ```shell
@@ -74,6 +75,7 @@ docker run -d \
 ```
 
 Where:
+
   - `/docker/appdata/crashplan-pro`: This is where the application stores its configuration, states, log and any files needing persistency.
   - `/home/user`: This location contains files from your host that need to be accessible to the application.
 
@@ -205,20 +207,23 @@ parameter(s) of an existing container.  The general idea is to destroy and
 re-create the container:
 
   1. Stop the container (if it is running):
-```
+```shell
 docker stop crashplan-pro
 ```
+
   2. Remove the container:
-```
+```shell
 docker rm crashplan-pro
 ```
+
   3. Create/start the container using the `docker run` command, by adjusting
      parameters as needed.
 
-**NOTE**: Since all application's data is saved under the `/config` container
-folder, destroying and re-creating a container is not a problem: nothing is lost
-and the application comes back with the same state (as long as the mapping of
-the `/config` folder remains the same).
+**NOTE**:
+    Since all application's data is saved under the `/config` container
+    folder, destroying and re-creating a container is not a problem: nothing is
+    lost and the application comes back with the same state (as long as the
+    mapping of the `/config` folder remains the same).
 
 ## Docker Compose File
 
@@ -270,17 +275,20 @@ Watchtower will seamlessly perform the necessary steps to update the container.
 Finally, the Docker image can be manually updated with these steps:
 
   1. Fetch the latest image:
-```
+```shell
 docker pull jlesage/crashplan-pro
 ```
+
   2. Stop the container:
-```
+```shell
 docker stop crashplan-pro
 ```
+
   3. Remove the container:
-```
+```shell
 docker rm crashplan-pro
 ```
+
   4. Create and start the container using the `docker run` command, with the
 the same parameters that were used when it was deployed initially.
 
@@ -331,7 +339,7 @@ user owning the data volume on the host:
     id <username>
 
 Which gives an output like this one:
-```
+```text
 uid=1000(myuser) gid=1000(myuser) groups=1000(myuser),4(adm),24(cdrom),27(sudo),46(plugdev),113(lpadmin)
 ```
 
@@ -345,13 +353,13 @@ graphical interface of the application can be accessed via:
 
   * A web browser:
 
-```
+```text
 http://<HOST IP ADDR>:5800
 ```
 
   * Any VNC client:
 
-```
+```text
 <HOST IP ADDR>:5900
 ```
 
@@ -380,7 +388,7 @@ few VNC clients support this method.  [SSVNC] is one of them.
 While the Linux version of [SSVNC] works well, the Windows version has some
 issues.  At the time of writing, the latest version `1.0.30` is not functional,
 as a connection fails with the following error:
-```
+```text
 ReadExact: Socket error while reading
 ```
 However, for your convenience, an unofficial and working version is provided
@@ -404,11 +412,13 @@ PEM encoded, x509 certificates.
 |`/config/certs/web-privkey.pem`  |HTTPs connection encryption.|Web server's private key.|
 |`/config/certs/web-fullchain.pem`|HTTPs connection encryption.|Web server's certificate, bundled with any root and intermediate certificates.|
 
-**NOTE**: To prevent any certificate validity warnings/errors from the browser
-or VNC client, make sure to supply your own valid certificates.
+**NOTE**:
+    To prevent any certificate validity warnings/errors from the browser
+    or VNC client, make sure to supply your own valid certificates.
 
-**NOTE**: Certificate files are monitored and relevant daemons are automatically
-restarted when changes are detected.
+**NOTE**:
+    Certificate files are monitored and relevant daemons are automatically
+    restarted when changes are detected.
 
 ### VNC Password
 
@@ -426,10 +436,11 @@ The level of security provided by the VNC password depends on two things:
 When using a VNC password, it is highly desirable to enable the secure
 connection to prevent sending the password in clear over an unencrypted channel.
 
-**ATTENTION**: Password is limited to 8 characters.  This limitation comes from
-the Remote Framebuffer Protocol [RFC](https://tools.ietf.org/html/rfc6143) (see
-section [7.2.2](https://tools.ietf.org/html/rfc6143#section-7.2.2)).  Any
-characters beyond the limit are ignored.
+**ATTENTION**:
+    Password is limited to 8 characters.  This limitation comes from
+    the Remote Framebuffer Protocol [RFC](https://tools.ietf.org/html/rfc6143)
+    (see section [7.2.2](https://tools.ietf.org/html/rfc6143#section-7.2.2)).
+    Any characters beyond the limit are ignored.
 
 ## Reverse Proxy
 
@@ -450,7 +461,7 @@ as this container.  The server would proxy all HTTP requests sent to
 Here are the relevant configuration elements that would be added to the NGINX
 configuration:
 
-```
+```nginx
 map $http_upgrade $connection_upgrade {
 	default upgrade;
 	''      close;
@@ -496,7 +507,7 @@ as this container.  The server would proxy all HTTP requests for
 Here are the relevant configuration elements that would be added to the NGINX
 configuration:
 
-```
+```nginx
 map $http_upgrade $connection_upgrade {
 	default upgrade;
 	''      close;

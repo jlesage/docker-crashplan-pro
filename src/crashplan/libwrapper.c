@@ -9,7 +9,7 @@
 #define DIM(a) (sizeof(a)/sizeof(a[0]))
 
 static const char *deny_domain_names[] = {
-    "download.code42.com",
+    "download.crashplan.com",
 };
 
 static void init(void) __attribute__((constructor));

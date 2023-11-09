@@ -12,6 +12,7 @@ app:
   name: crashplan-pro
   friendly_name: CrashPlan PRO
   gui_type: x11
+  base_os: alpine
   project:
     description: |-
       CrashPlan offers the most comprehensive online backup solution to tens of

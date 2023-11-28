@@ -1,4 +1,4 @@
-# Docker container for CrashPlan PRO
+# Docker container for CrashPlan
 [![Release](https://img.shields.io/github/release/jlesage/docker-crashplan-pro.svg?logo=github&style=for-the-badge)](https://github.com/jlesage/docker-crashplan-pro/releases/latest)
 [![Docker Image Size](https://img.shields.io/docker/image-size/jlesage/crashplan-pro/latest?logo=docker&style=for-the-badge)](https://hub.docker.com/r/jlesage/crashplan-pro/tags)
 [![Docker Pulls](https://img.shields.io/docker/pulls/jlesage/crashplan-pro?label=Pulls&logo=docker&style=for-the-badge)](https://hub.docker.com/r/jlesage/crashplan-pro)
@@ -6,19 +6,22 @@
 [![Build Status](https://img.shields.io/github/actions/workflow/status/jlesage/docker-crashplan-pro/build-image.yml?logo=github&branch=master&style=for-the-badge)](https://github.com/jlesage/docker-crashplan-pro/actions/workflows/build-image.yml)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg?style=for-the-badge)](https://paypal.me/JocelynLeSage)
 
-This project implements a Docker container for [CrashPlan PRO](https://www.crashplan.com).
+This project implements a Docker container for [CrashPlan](https://www.crashplan.com).
 
 The GUI of the application is accessed through a modern web browser (no
 installation or configuration needed on the client side) or via any VNC client.
 
+This Docker container can be used with all CrashPlan products: Essential,
+Professional, Enterprise, MSPs and Small Business (no longer sold).
+
 ---
 
-[![CrashPlan PRO logo](https://images.weserv.nl/?url=raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/crashplan-pro-icon.png&w=110)](https://www.crashplan.com)[![CrashPlan PRO](https://images.placeholders.dev/?width=416&height=110&fontFamily=monospace&fontWeight=400&fontSize=52&text=CrashPlan%20PRO&bgColor=rgba(0,0,0,0.0)&textColor=rgba(121,121,121,1))](https://www.crashplan.com)
+[![CrashPlan logo](https://images.weserv.nl/?url=raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/crashplan-pro-icon.png&w=110)](https://www.crashplan.com)[![CrashPlan](https://images.placeholders.dev/?width=288&height=110&fontFamily=monospace&fontWeight=400&fontSize=52&text=CrashPlan&bgColor=rgba(0,0,0,0.0)&textColor=rgba(121,121,121,1))](https://www.crashplan.com)
 
-CrashPlan offers the most comprehensive online backup solution to tens of
-thousands of businesses around the world.  The highly secure, automatic and
-continuous service provides customers the peace of mind that their digital life
-is protected and easily accessible.
+CrashPlan provides peace of mind through secure, scalable, and
+straightforward endpoint data backup. We help organizations recover from
+any worst-case scenario, whether it is a disaster, simple human error, a
+stolen laptop, ransomware or an as-of-yet undiscovered calamity.
 
 ---
 
@@ -64,7 +67,7 @@ is protected and easily accessible.
     The Docker command provided in this quick start is given as an example
     and parameters should be adjusted to your need.
 
-Launch the CrashPlan PRO docker container with the following command:
+Launch the CrashPlan docker container with the following command:
 ```shell
 docker run -d \
     --name=crashplan-pro \
@@ -79,7 +82,7 @@ Where:
   - `/docker/appdata/crashplan-pro`: This is where the application stores its configuration, states, log and any files needing persistency.
   - `/home/user`: This location contains files from your host that need to be accessible to the application.
 
-Browse to `http://your-host-ip:5800` to access the CrashPlan PRO GUI.
+Browse to `http://your-host-ip:5800` to access the CrashPlan GUI.
 Files from the host appear under the `/storage` folder in the container.
 
 ## Usage
@@ -130,6 +133,7 @@ of this parameter has the format `<VARIABLE_NAME>=<VALUE>`.
 |`VNC_PASSWORD`| Password needed to connect to the application's GUI.  See the [VNC Password](#vnc-password) section for more details. | (no value) |
 |`ENABLE_CJK_FONT`| When set to `1`, open-source computer font `WenQuanYi Zen Hei` is installed.  This font contains a large range of Chinese/Japanese/Korean characters. | `0` |
 |`CRASHPLAN_SRV_MAX_MEM`| Maximum amount of memory the CrashPlan Engine is allowed to use. One of the following memory unit (case insensitive) should be added as a suffix to the size: `G`, `M` or `K`.  By default, when this variable is not set, a maximum of 1024MB (`1024M`) of memory is allowed. **NOTE**: Setting this variable as the same effect as running the `java mx VALUE, restart` command from the CrashPlan command line. | `1024M` |
+|`CRASHPLAN_SERVER_ADDRESS`| The CrashPlan server address to use.  This is provided by CrashPlan when subscribing to a plan. **NOTE**: CrashPlan for Small Business version requires this variable to be set to `SMB`.  This edition comes with a specific, pre-defined server address. | (no value) |
 
 #### Deployment Considerations
 
@@ -306,7 +310,7 @@ container image.
   4.  Select the image, click *Download* and then choose the `latest` tag.
   5.  Wait for the download to complete.  A  notification will appear once done.
   6.  Click on *Container* in the left pane.
-  7.  Select your CrashPlan PRO container.
+  7.  Select your CrashPlan container.
   8.  Stop it by clicking *Action*->*Stop*.
   9.  Clear the container by clicking *Action*->*Reset* (or *Action*->*Clear* if
       you don't have the latest *Docker* application).  This removes the

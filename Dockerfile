@@ -12,7 +12,7 @@ ARG CRASHPLAN_VERSION=11.2.0
 ARG CRASHPLAN_BUILD=520
 
 # Define software download URLs.
-ARG CRASHPLAN_URL=https://download.crashplan.com/installs/agent/cloud/${CRASHPLAN_VERSION}/${CRASHPLAN_BUILD}/install/CrashPlanSmb_${CRASHPLAN_VERSION}_${CRASHPLAN_BUILD}_Linux.tgz
+ARG CRASHPLAN_URL=https://download.crashplan.com/installs/agent/cloud/${CRASHPLAN_VERSION}/${CRASHPLAN_BUILD}/install/CrashPlan_${CRASHPLAN_VERSION}_${CRASHPLAN_BUILD}_Linux.tgz
 
 # Build CrashPlan.
 FROM ubuntu:22.04 AS crashplan
@@ -39,9 +39,9 @@ RUN \
     # Keep a copy of the default config.
     mv ${TARGETDIR}/conf /defaults/conf && \
     # Make sure the UI connects by default to the engine using the loopback IP address (127.0.0.1).
-    sed-patch '/<orgType>BUSINESS<\/orgType>/a \\t<serviceUIConfig>\n\t\t<serviceHost>127.0.0.1<\/serviceHost>\n\t<\/serviceUIConfig>' /defaults/conf/default.service.xml && \
+    sed-patch '/<\/serviceBackupConfig>/a \\t<serviceUIConfig>\n\t\t<serviceHost>127.0.0.1<\/serviceHost>\n\t<\/serviceUIConfig>' /defaults/conf/default.service.xml && \
     # Add the javaMemoryHeapMax setting to the default service file.
-    sed-patch '/<serviceUIConfig>/i\\t<javaMemoryHeapMax nil="true"/>' /defaults/conf/default.service.xml && \
+    #sed-patch '/<serviceUIConfig>/i\\t<javaMemoryHeapMax nil="true"/>' /defaults/conf/default.service.xml && \
     # Prevent automatic updates.
     rm -r /usr/local/crashplan/upgrade && \
     touch /usr/local/crashplan/upgrade && chmod 400 /usr/local/crashplan/upgrade && \
@@ -83,14 +83,15 @@ COPY rootfs/ /
 
 # Set internal environment variables.
 RUN \
-    set-cont-env APP_NAME "CrashPlan for Small Business" && \
+    set-cont-env APP_NAME "CrashPlan" && \
     set-cont-env APP_VERSION "$CRASHPLAN_VERSION" && \
     set-cont-env DOCKER_IMAGE_VERSION "$DOCKER_IMAGE_VERSION" && \
     true
 
 # Set public environment variables.
 ENV \
-    CRASHPLAN_SRV_MAX_MEM=1024M
+    CRASHPLAN_SRV_MAX_MEM=1024M \
+    CRASHPLAN_SERVER_ADDRESS=
 
 # Define mountable directories.
 VOLUME ["/storage"]
@@ -98,7 +99,7 @@ VOLUME ["/storage"]
 # Metadata.
 LABEL \
     org.label-schema.name="crashplan-pro" \
-    org.label-schema.description="Docker container for CrashPlan PRO" \
+    org.label-schema.description="Docker container for CrashPlan" \
     org.label-schema.version="${DOCKER_IMAGE_VERSION:-unknown}" \
     org.label-schema.vcs-url="https://github.com/jlesage/docker-crashplan-pro" \
     org.label-schema.schema-version="1.0"

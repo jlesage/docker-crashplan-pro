@@ -10,17 +10,18 @@
 app:
   id: 10
   name: crashplan-pro
-  friendly_name: CrashPlan PRO
+  friendly_name: CrashPlan
   gui_type: x11
   base_os: alpine
   project:
     description: |-
-      CrashPlan offers the most comprehensive online backup solution to tens of
-      thousands of businesses around the world.  The highly secure, automatic and
-      continuous service provides customers the peace of mind that their digital life
-      is protected and easily accessible.
+      CrashPlan provides peace of mind through secure, scalable, and
+      straightforward endpoint data backup. We help organizations recover from
+      any worst-case scenario, whether it is a disaster, simple human error, a
+      stolen laptop, ransomware or an as-of-yet undiscovered calamity.
     url: https://www.crashplan.com
   unraid:
+    name: CrashPlanPRO
     extra_description: >-
       **Warning**: Make sure to read the *Taking Over Existing Backup* section of the
       documentation if you are installing this container to replace another CrashPlan
@@ -28,6 +29,9 @@ app:
     support_url: https://forums.unraid.net/topic/59647-support-crashplan-pro/
     category: "Backup:"
   documentation:
+    overview: |-
+      This Docker container can be used with all CrashPlan products: Essential,
+      Professional, Enterprise, MSPs and Small Business (no longer sold).
     sections:
       - title: Taking Over Existing Backup
         level: 2
@@ -618,6 +622,25 @@ container:
           of the following memory unit (case insensitive) should be added as a
           suffix to the size: G, M or K.
         display: advanced
+        required: false
+        mask: false
+    - name: CRASHPLAN_SERVER_ADDRESS
+      description: >-
+        The CrashPlan server address to use.  This is provided by CrashPlan when
+        subscribing to a plan.
+        **NOTE**: CrashPlan for Small Business version requires this variable
+        to be set to `SMB`.  This edition comes with a specific, pre-defined
+        server address.
+      type: public
+      unraid_template:
+        title: CrashPlan Server Address
+        description: >-
+          The CrashPlan server address to use.  This is provided by CrashPlan
+          when subscribing to a plan.
+          **NOTE**: CrashPlan for Small Business version requires this variable
+          to be set to "SMB".  This edition comes with a specific, pre-defined
+          server address.
+        display: always
         required: false
         mask: false
   # Volumes

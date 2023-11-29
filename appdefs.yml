@@ -170,6 +170,11 @@ app:
           To fix this, [updating the container's image](#docker-image-update) to the
           latest version will also bring the latest version of CrashPlan.
   changelog:
+    - version: 23.11.4
+      date: 2023-11-28
+      changes:
+        - 'Added support for new CrashPlan products.'
+        - 'The CrashPlan server address can be set via the `CRASHPLAN_SERVER_ADDRESS` environment variable.'
     - version: 23.11.3
       date: 2023-11-19
       changes:

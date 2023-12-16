@@ -170,6 +170,10 @@ app:
           To fix this, [updating the container's image](#docker-image-update) to the
           latest version will also bring the latest version of CrashPlan.
   changelog:
+    - version: 23.12.1
+      date: 2023-12-16
+      changes:
+        - 'Make sure the server used for the Small Business edition is configured, even when the container is not upgrading or running for the first time.'
     - version: 23.11.4
       date: 2023-11-28
       changes:

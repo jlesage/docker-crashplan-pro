@@ -86,6 +86,12 @@ if [ "$FIRST_INSTALL" -eq 1 ] || [ "$UPGRADE" -eq 1 ]; then
     elif [ -n "${CRASHPLAN_SERVER_ADDRESS:-}" ]; then
         sed-patch 's|<authority .*|<authority address="'$CRASHPLAN_SERVER_ADDRESS'" hideAddress="true" lockAddress="false" />|' /config/conf/default.service.xml
     fi
+elif [ "${CRASHPLAN_SERVER_ADDRESS:-}" = "SMB" ]; then
+    # Make sure to re-apply changes related to the SMB version.  Some people
+    # might not have set the `CRASHPLAN_SERVER_ADDRESS` to `SMB` during the
+    # first launch.
+    sed -i 's|<orgType>ENTERPRISE</orgType>|<orgType>BUSINESS</orgType>|' /config/conf/default.service.xml
+    sed -i 's|<authority .*|<authority address="central.crashplanpro.com:4287" hideAddress="true" lockAddress="true" />|' /config/conf/default.service.xml
 fi
 
 # run.conf was used before CrashPlan 7.0.0.

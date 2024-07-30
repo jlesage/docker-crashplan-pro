@@ -70,6 +70,9 @@ RUN  \
 # Install dependencies.
 RUN \
     add-pkg \
+        # For the login.
+        curl \
+        jq \
         # For the monitor.
         bc
 

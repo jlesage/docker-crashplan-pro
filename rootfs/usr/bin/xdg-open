@@ -1,0 +1,21 @@
+#!/bin/sh
+
+ARG="$1"
+
+die() {
+    echo "$1" >&2
+    exit 1
+}
+
+if [ -z "$ARG" ]; then
+    die "no argument provided"
+fi
+
+case "$ARG" in
+    https://*/login/*)
+        /usr/local/crashplan/bin/loginCrashPlan.sh "$ARG"
+        ;;
+    *)
+        die "don't know how to open: $ARG"
+        ;;
+esac

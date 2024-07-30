@@ -48,25 +48,6 @@ elif [ "$(cat /config/cp_version)" != "$(cat /defaults/cp_version)" ]; then
     UPGRADE=1
 fi
 
-# Determine if the "SMB" version (for Small Business) of the CrashPlan app is needed.
-IS_SMB=0
-if [ -f /config/conf/default.service.xml ]; then
-    if grep -q '<orgType>BUSINESS</orgType>' /config/conf/default.service.xml
-    then
-        # The existing installation is the SMB version.
-        IS_SMB=1
-    fi
-elif [ "${CRASHPLAN_SERVER_ADDRESS:-}" = "SMB" ]; then
-    # New installation for the SMB version.
-    IS_SMB=1
-fi
-
-if [ "$IS_SMB" -eq 1 ]; then
-    echo "running the CrashPlan for Small Business version"
-elif [ -n "${CRASHPLAN_SERVER_ADDRESS:-}" ]; then
-    echo "using CrashPlan server $CRASHPLAN_SERVER_ADDRESS"
-fi
-
 # Install defaults.
 if [ "$FIRST_INSTALL" -eq 1 ] || [ "$UPGRADE" -eq 1 ]; then
     # Copy default config files.
@@ -77,21 +58,6 @@ if [ "$FIRST_INSTALL" -eq 1 ] || [ "$UPGRADE" -eq 1 ]; then
 
     # Clear the cache.
     rm -rf /config/cache/*
-
-    # Adjust the default.service.xml file.
-    if [ "$IS_SMB" -eq 1 ]; then
-        # The SMB version has a hard-coded server address.
-        sed-patch 's|<orgType>ENTERPRISE</orgType>|<orgType>BUSINESS</orgType>|' /config/conf/default.service.xml
-        sed-patch 's|<authority .*|<authority address="central.crashplanpro.com:4287" hideAddress="true" lockAddress="true" />|' /config/conf/default.service.xml
-    elif [ -n "${CRASHPLAN_SERVER_ADDRESS:-}" ]; then
-        sed-patch 's|<authority .*|<authority address="'$CRASHPLAN_SERVER_ADDRESS'" hideAddress="true" lockAddress="false" />|' /config/conf/default.service.xml
-    fi
-elif [ "${CRASHPLAN_SERVER_ADDRESS:-}" = "SMB" ]; then
-    # Make sure to re-apply changes related to the SMB version.  Some people
-    # might not have set the `CRASHPLAN_SERVER_ADDRESS` to `SMB` during the
-    # first launch.
-    sed -i 's|<orgType>ENTERPRISE</orgType>|<orgType>BUSINESS</orgType>|' /config/conf/default.service.xml
-    sed -i 's|<authority .*|<authority address="central.crashplanpro.com:4287" hideAddress="true" lockAddress="true" />|' /config/conf/default.service.xml
 fi
 
 # run.conf was used before CrashPlan 7.0.0.

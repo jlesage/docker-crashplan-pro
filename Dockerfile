@@ -8,8 +8,8 @@
 ARG DOCKER_IMAGE_VERSION=
 
 # Define software versions.
-ARG CRASHPLAN_VERSION=11.2.1
-ARG CRASHPLAN_BUILD=23
+ARG CRASHPLAN_VERSION=11.4.0
+ARG CRASHPLAN_BUILD=503
 
 # Define software download URLs.
 ARG CRASHPLAN_URL=https://download.crashplan.com/installs/agent/cloud/${CRASHPLAN_VERSION}/${CRASHPLAN_BUILD}/install/CrashPlan_${CRASHPLAN_VERSION}_${CRASHPLAN_BUILD}_Linux.tgz
@@ -90,8 +90,7 @@ RUN \
 
 # Set public environment variables.
 ENV \
-    CRASHPLAN_SRV_MAX_MEM=1024M \
-    CRASHPLAN_SERVER_ADDRESS=
+    CRASHPLAN_SRV_MAX_MEM=1024M
 
 # Define mountable directories.
 VOLUME ["/storage"]

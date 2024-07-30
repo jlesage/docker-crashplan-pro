@@ -133,7 +133,6 @@ of this parameter has the format `<VARIABLE_NAME>=<VALUE>`.
 |`VNC_PASSWORD`| Password needed to connect to the application's GUI.  See the [VNC Password](#vnc-password) section for more details. | (no value) |
 |`ENABLE_CJK_FONT`| When set to `1`, open-source computer font `WenQuanYi Zen Hei` is installed.  This font contains a large range of Chinese/Japanese/Korean characters. | `0` |
 |`CRASHPLAN_SRV_MAX_MEM`| Maximum amount of memory the CrashPlan Engine is allowed to use. One of the following memory unit (case insensitive) should be added as a suffix to the size: `G`, `M` or `K`.  By default, when this variable is not set, a maximum of 1024MB (`1024M`) of memory is allowed. **NOTE**: Setting this variable as the same effect as running the `java mx VALUE, restart` command from the CrashPlan command line. | `1024M` |
-|`CRASHPLAN_SERVER_ADDRESS`| The CrashPlan server address to use.  This is provided by CrashPlan when subscribing to a plan. **NOTE**: CrashPlan for Small Business version requires this variable to be set to `SMB`.  This edition comes with a specific, pre-defined server address. | (no value) |
 
 #### Deployment Considerations
 

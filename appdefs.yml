@@ -640,25 +640,6 @@ container:
         display: advanced
         required: false
         mask: false
-    - name: CRASHPLAN_SERVER_ADDRESS
-      description: >-
-        The CrashPlan server address to use.  This is provided by CrashPlan when
-        subscribing to a plan.
-        **NOTE**: CrashPlan for Small Business version requires this variable
-        to be set to `SMB`.  This edition comes with a specific, pre-defined
-        server address.
-      type: public
-      unraid_template:
-        title: CrashPlan Server Address
-        description: >-
-          The CrashPlan server address to use.  This is provided by CrashPlan
-          when subscribing to a plan.
-          **NOTE**: CrashPlan for Small Business version requires this variable
-          to be set to "SMB".  This edition comes with a specific, pre-defined
-          server address.
-        display: always
-        required: false
-        mask: false
   # Volumes
   volumes: []
 

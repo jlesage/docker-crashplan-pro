@@ -8,8 +8,8 @@
 ARG DOCKER_IMAGE_VERSION=
 
 # Define software versions.
-ARG CRASHPLAN_VERSION=11.4.1
-ARG CRASHPLAN_BUILD=11
+ARG CRASHPLAN_VERSION=11.5.0
+ARG CRASHPLAN_BUILD=445
 
 # Define software download URLs.
 ARG CRASHPLAN_URL=https://download.crashplan.com/installs/agent/cloud/${CRASHPLAN_VERSION}/${CRASHPLAN_BUILD}/install/CrashPlan_${CRASHPLAN_VERSION}_${CRASHPLAN_BUILD}_Linux.tgz

@@ -170,6 +170,10 @@ app:
           To fix this, [updating the container's image](#docker-image-update) to the
           latest version will also bring the latest version of CrashPlan.
   changelog:
+    - version: 25.02.2
+      date: 2025-02-24
+      changes:
+        - 'Fixed crash that would occur when opening a file/folder selection dialog.'
     - version: 25.02.1
       date: 2025-02-09
       changes:

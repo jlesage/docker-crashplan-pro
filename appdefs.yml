@@ -170,6 +170,10 @@ app:
           To fix this, [updating the container's image](#docker-image-update) to the
           latest version will also bring the latest version of CrashPlan.
   changelog:
+    - version: 25.11.1
+      date: 2025-11-20
+      changes:
+        - 'Updated CrashPlan to version 11.8.0.'
     - version: 25.07.2
       date: 2025-07-24
       changes:

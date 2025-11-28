@@ -15,6 +15,8 @@ modern web browser, requiring no installation or configuration on the client
 This Docker container can be used with all CrashPlan products: Essential,
 Professional, Enterprise, MSPs and Small Business (no longer sold).
 
+> This Docker container is entirely unofficial and not made by the creators of CrashPlan.
+
 ---
 
 [![CrashPlan logo](https://images.weserv.nl/?url=raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/crashplan-pro-icon.png&w=110)](https://www.crashplan.com)[![CrashPlan](https://images.placeholders.dev/?width=288&height=110&fontFamily=monospace&fontWeight=400&fontSize=52&text=CrashPlan&bgColor=rgba(0,0,0,0.0)&textColor=rgba(121,121,121,1))](https://www.crashplan.com)

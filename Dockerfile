@@ -22,7 +22,7 @@ COPY src/crashplan /build
 RUN /build/build.sh "${CRASHPLAN_URL}"
 
 # Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.21-v4.10.5
+FROM jlesage/baseimage-gui:alpine-3.21-v4.10.6
 
 ARG DOCKER_IMAGE_VERSION
 ARG CRASHPLAN_VERSION

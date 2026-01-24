@@ -16,7 +16,8 @@ This Docker container can be used with all CrashPlan products: Essential,
 Professional, Enterprise, MSPs and Small Business (no longer sold).
 
 > [!NOTE]
-> This Docker container is entirely unofficial and not made by the creators of CrashPlan.
+> This Docker container is entirely unofficial and not made by the creators of
+> CrashPlan.
 
 ---
 
@@ -746,6 +747,7 @@ To enable GPU acceleration, the host must have compatible open-source kernel
 drivers installed, and the GPU device `/dev/dri` must be exposed to the
 container. For example, this is done by adding the `--device /dev/dri`
 argument to the `docker run` command.
+
 ## Shell Access
 
 To access the shell of a running container, execute the following command:

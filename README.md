@@ -131,7 +131,7 @@ the `-e` parameter in the format `<VARIABLE_NAME>=<VALUE>`.
 |`LANG`| Sets the [locale](https://en.wikipedia.org/wiki/Locale_(computer_software)), defining the application's language, if supported. Format is `language[_territory][.codeset]`, where language is an [ISO 639 language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), territory is an [ISO 3166 country code](https://en.wikipedia.org/wiki/ISO_3166-1#Current_codes), and codeset is a character set, like `UTF-8`. For example, Australian English using UTF-8 is `en_AU.UTF-8`. | `en_US.UTF-8` |
 |`TZ`| [TimeZone](http://en.wikipedia.org/wiki/List_of_tz_database_time_zones) used by the container. The timezone can also be set by mapping `/etc/localtime` between the host and the container. | `Etc/UTC` |
 |`KEEP_APP_RUNNING`| When set to `1`, the application is automatically restarted if it crashes or terminates. | `0` |
-|`APP_NICENESS`| Priority at which the application runs. A niceness value of -20 is the highest, 19 is the lowest and 0 the default. **NOTE**: A negative niceness (priority increase) requires additional permissions. The container must be run with the Docker option `--cap-add=SYS_NICE`. | `0` |
+|`APP_NICENESS`| Priority at which the application runs. A niceness value of `-20` is the highest, `19` is the lowest and `0` the default. **NOTE**: A negative niceness (priority increase) requires additional permissions. The container must be run with the Docker option `--cap-add=SYS_NICE`. | `0` |
 |`INSTALL_PACKAGES`| Space-separated list of packages to install during container startup. List of available packages can be found at https://pkgs.alpinelinux.org. | (no value) |
 |`PACKAGES_MIRROR`| Mirror of the repository to use when installing packages. List of mirrors is available at https://mirrors.alpinelinux.org. | (no value) |
 |`CONTAINER_DEBUG`| When set to `1`, enables debug logging. | `0` |
@@ -156,7 +156,7 @@ the `-e` parameter in the format `<VARIABLE_NAME>=<VALUE>`.
 |`VNC_LISTENING_PORT`| Port used by the VNC server to serve the application's GUI. This port is internal to the container and typically does not need to be changed. By default, a container uses the default bridge network, requiring each internal port to be mapped to an external port (using the `-p` or `--publish` argument). If another network type is used, changing this port may prevent conflicts with other services/containers. **NOTE**: A value of `-1` disables VNC access to the application's GUI. | `5900` |
 |`VNC_PASSWORD`| Password required to connect to the application's GUI. See the [VNC Password](#vnc-password) section for details. | (no value) |
 |`ENABLE_CJK_FONT`| When set to `1`, installs the open-source font `WenQuanYi Zen Hei`, supporting a wide range of Chinese/Japanese/Korean characters. | `0` |
-|`CRASHPLAN_SRV_MAX_MEM`| Maximum amount of memory the CrashPlan Engine is allowed to use. One of the following memory unit (case insensitive) should be added as a suffix to the size: `G`, `M` or `K`.  By default, when this variable is not set, a maximum of 1024MB (`1024M`) of memory is allowed. **NOTE**: Setting this variable as the same effect as running the `java mx VALUE, restart` command from the CrashPlan command line. | `1024M` |
+|`CRASHPLAN_SRV_MAX_MEM`| Maximum amount of memory the CrashPlan Engine is allowed to use. One of the following memory unit (case insensitive) should be added as a suffix to the size: `G`, `M` or `K`. By default, when this variable is not set, a maximum of 1024MB (`1024M`) of memory is allowed. **NOTE**: Setting this variable as the same effect as running the `java mx VALUE, restart` command from the CrashPlan command line. | `1024M` |
 
 #### Deployment Considerations
 
@@ -768,24 +768,24 @@ avoid re-uploading all your data.
 To proceed, make sure to carefully read the [official documentation].
 
 Here is a summary of what needs to be done:
-  1. Start CrashPlan Docker container.  Make sure the configuration directory
+  1. Start CrashPlan Docker container. Make sure the configuration directory
      is not mapped to a folder used by a different CrashPlan container.
   2. Sign in to your account.
   3. Click the **Replace Existing** button to start the wizard.
   4. Skip *Step 2 - File Transfer*.
   4. Once done with the wizard, go to your device's details and click
-     *Manage Files*.  You will probably see missing items in the file
-     selection.  This is normal, since path to your files may be different in
+     *Manage Files*. You will probably see missing items in the file
+     selection. This is normal, since path to your files may be different in
      the container.
-  5. Update the file selection by re-adding your files.  **Do not unselect
+  5. Update the file selection by re-adding your files. **Do not unselect
      missing items yet**.
-  6. Perform a backup.  Because of deduplication, files will not be uploaded
+  6. Perform a backup. Because of deduplication, files will not be uploaded
      again.
   7. Once the backup is terminated, you can remove missing items **if you
-     don't care about file versions**.  Else, keep missing items.
+     don't care about file versions**. Else, keep missing items.
 
 **NOTE**: Don't be confused by the directory structure from your old being
-visible in the *Manage Files* window.  By default, your files are now located
+visible in the *Manage Files* window. By default, your files are now located
 under the `/storage` folder.
 
 [official documentation]: https://support.code42.com/hc/en-us/articles/14827668736279-Replace-your-device
@@ -793,17 +793,17 @@ under the `/storage` folder.
 ## Why CrashPlan Self Update Is Disabled
 
 One advantage of a Docker image is that it can be versioned and predictable,
-meaning that a specific version of the image always behaves the same way.  So
+meaning that a specific version of the image always behaves the same way. So
 if, for any reason, a new image version has a problem and doesn't work as
 expected, it's easy for one to revert to the previous version and be back on
 track.
 
-Allowing CrashPlan to update itself obviously breaks this benefit.  Also, since
+Allowing CrashPlan to update itself obviously breaks this benefit. Also, since
 the container has only the minimal set of libraries and tools required to run
 CrashPlan, it would be easy for an automatic update to break the container by
-requiring new dependencies.  Finally, the automatic update script is not adapted
+requiring new dependencies. Finally, the automatic update script is not adapted
 for Alpine Linux (the distribution on which this container is based on) and
-assumes it is running on a full-featured distribution.  For example, this image
+assumes it is running on a full-featured distribution. For example, this image
 doesn't have a desktop like normal installations and some of the tools required
 to perform the update are missing.
 
@@ -814,7 +814,7 @@ to perform the update are missing.
 If CrashPlan crashes unexpectedly with large backups, try to increase the
 maximum amount of memory CrashPlan is allowed to use. This can be done by:
 
-  1. Setting the `CRASHPLAN_SRV_MAX_MEM` environment variable.  See the
+  1. Setting the `CRASHPLAN_SRV_MAX_MEM` environment variable. See the
      [Environment Variables](#environment-variables) section for more details.
   2. Using the [solution provided by CrashPlan] from its support site.
 
@@ -845,12 +845,12 @@ file has not been overwritten.
 
 If the `/storage` folder inside the container is empty:
 
-  - Make sure the folder is properly mapped to the host.  This is done via the
-    `-v` parameter of the `docker run` command.  See the [Usage](#usage)
+  - Make sure the folder is properly mapped to the host. This is done via the
+    `-v` parameter of the `docker run` command. See the [Usage](#usage)
     section.
   - Make sure permissions and ownership of files on the host are correct and are
     compatible with the user under which the container application is running
-    (defined by the `USER_ID` and `GROUP_ID` environment variables).  See the
+    (defined by the `USER_ID` and `GROUP_ID` environment variables). See the
     [User/Group IDs](#usergroup-ids) section.
 
 NOTE: If running the application as root (`USER_ID=0` and `GROUP_ID=0`) makes
@@ -863,7 +863,7 @@ the cache of CrashPlan can help resolve the issue:
 
   - Stop the container.
   - Remove all the content of the `cache` directory found under the container's
-    configuration directory.  For example, if the `/config` folder of the
+    configuration directory. For example, if the `/config` folder of the
     container is mapped to `/docker/appdata/crashplan-pro` on the host, the
     following command (ran on the host) would clear the cache:
     ```
@@ -877,8 +877,8 @@ If CrashPlan fails to restore files, make sure the location where files are
 restored have write permission.
 
 A typical installation has the data to be backup under the `/storage` folder.
-This folder is usually mapped to the host with *read-only* permission.  Thus,
-restoring files to `/storage` won't be allowed.  The solution is to temporarily
+This folder is usually mapped to the host with *read-only* permission. Thus,
+restoring files to `/storage` won't be allowed. The solution is to temporarily
 change the permission of the volume to *read-write*.
 
 For example, if `/storage` is mapped to `/home/user` on the host, the container

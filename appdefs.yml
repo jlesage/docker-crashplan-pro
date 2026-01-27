@@ -43,24 +43,24 @@ app:
           To proceed, make sure to carefully read the [official documentation].
 
           Here is a summary of what needs to be done:
-            1. Start CrashPlan Docker container.  Make sure the configuration directory
+            1. Start CrashPlan Docker container. Make sure the configuration directory
                is not mapped to a folder used by a different CrashPlan container.
             2. Sign in to your account.
             3. Click the **Replace Existing** button to start the wizard.
             4. Skip *Step 2 - File Transfer*.
             4. Once done with the wizard, go to your device's details and click
-               *Manage Files*.  You will probably see missing items in the file
-               selection.  This is normal, since path to your files may be different in
+               *Manage Files*. You will probably see missing items in the file
+               selection. This is normal, since path to your files may be different in
                the container.
-            5. Update the file selection by re-adding your files.  **Do not unselect
+            5. Update the file selection by re-adding your files. **Do not unselect
                missing items yet**.
-            6. Perform a backup.  Because of deduplication, files will not be uploaded
+            6. Perform a backup. Because of deduplication, files will not be uploaded
                again.
             7. Once the backup is terminated, you can remove missing items **if you
-               don't care about file versions**.  Else, keep missing items.
+               don't care about file versions**. Else, keep missing items.
 
           **NOTE**: Don't be confused by the directory structure from your old being
-          visible in the *Manage Files* window.  By default, your files are now located
+          visible in the *Manage Files* window. By default, your files are now located
           under the `/storage` folder.
 
           [official documentation]: https://support.code42.com/hc/en-us/articles/14827668736279-Replace-your-device
@@ -68,17 +68,17 @@ app:
         level: 2
         content: |-
           One advantage of a Docker image is that it can be versioned and predictable,
-          meaning that a specific version of the image always behaves the same way.  So
+          meaning that a specific version of the image always behaves the same way. So
           if, for any reason, a new image version has a problem and doesn't work as
           expected, it's easy for one to revert to the previous version and be back on
           track.
 
-          Allowing CrashPlan to update itself obviously breaks this benefit.  Also, since
+          Allowing CrashPlan to update itself obviously breaks this benefit. Also, since
           the container has only the minimal set of libraries and tools required to run
           CrashPlan, it would be easy for an automatic update to break the container by
-          requiring new dependencies.  Finally, the automatic update script is not adapted
+          requiring new dependencies. Finally, the automatic update script is not adapted
           for Alpine Linux (the distribution on which this container is based on) and
-          assumes it is running on a full-featured distribution.  For example, this image
+          assumes it is running on a full-featured distribution. For example, this image
           doesn't have a desktop like normal installations and some of the tools required
           to perform the update are missing.
       - title: Troubleshooting
@@ -89,7 +89,7 @@ app:
           If CrashPlan crashes unexpectedly with large backups, try to increase the
           maximum amount of memory CrashPlan is allowed to use. This can be done by:
 
-            1. Setting the `CRASHPLAN_SRV_MAX_MEM` environment variable.  See the
+            1. Setting the `CRASHPLAN_SRV_MAX_MEM` environment variable. See the
                [Environment Variables](#environment-variables) section for more details.
             2. Using the [solution provided by CrashPlan] from its support site.
 
@@ -120,12 +120,12 @@ app:
         content: |-
           If the `/storage` folder inside the container is empty:
 
-            - Make sure the folder is properly mapped to the host.  This is done via the
-              `-v` parameter of the `docker run` command.  See the [Usage](#usage)
+            - Make sure the folder is properly mapped to the host. This is done via the
+              `-v` parameter of the `docker run` command. See the [Usage](#usage)
               section.
             - Make sure permissions and ownership of files on the host are correct and are
               compatible with the user under which the container application is running
-              (defined by the `USER_ID` and `GROUP_ID` environment variables).  See the
+              (defined by the `USER_ID` and `GROUP_ID` environment variables). See the
               [User/Group IDs](#usergroup-ids) section.
 
           NOTE: If running the application as root (`USER_ID=0` and `GROUP_ID=0`) makes
@@ -138,7 +138,7 @@ app:
 
             - Stop the container.
             - Remove all the content of the `cache` directory found under the container's
-              configuration directory.  For example, if the `/config` folder of the
+              configuration directory. For example, if the `/config` folder of the
               container is mapped to `/docker/appdata/crashplan-pro` on the host, the
               following command (ran on the host) would clear the cache:
               ```
@@ -152,8 +152,8 @@ app:
           restored have write permission.
 
           A typical installation has the data to be backup under the `/storage` folder.
-          This folder is usually mapped to the host with *read-only* permission.  Thus,
-          restoring files to `/storage` won't be allowed.  The solution is to temporarily
+          This folder is usually mapped to the host with *read-only* permission. Thus,
+          restoring files to `/storage` won't be allowed. The solution is to temporarily
           change the permission of the volume to *read-write*.
 
           For example, if `/storage` is mapped to `/home/user` on the host, the container
@@ -363,7 +363,7 @@ app:
     - version: 22.12.2
       date: 2022-12-11
       changes:
-        - 'Implemented workaround for issue seen with Synology devices where container would not start after an image update.  The problem is caused by Synology explicitly setting all environment variables and keeping values from the old version.'
+        - 'Implemented workaround for issue seen with Synology devices where container would not start after an image update. The problem is caused by Synology explicitly setting all environment variables and keeping values from the old version.'
     - version: 22.12.1
       date: 2022-12-10
       changes:
@@ -735,7 +735,7 @@ container:
       description: >-
         Maximum amount of memory the CrashPlan Engine is allowed to use. One of
         the following memory unit (case insensitive) should be added as a suffix
-        to the size: `G`, `M` or `K`.  By default, when this variable is not
+        to the size: `G`, `M` or `K`. By default, when this variable is not
         set, a maximum of 1024MB (`1024M`) of memory is allowed. **NOTE**:
         Setting this variable as the same effect as running the `java mx VALUE,
         restart` command from the CrashPlan command line.
@@ -744,9 +744,9 @@ container:
       unraid_template:
         title: Maximum Memory
         description: >-
-          Maximum amount of memory the CrashPlan Engine is allowed to use.  One
+          Maximum amount of memory the CrashPlan Engine is allowed to use. One
           of the following memory unit (case insensitive) should be added as a
-          suffix to the size: G, M or K.
+          suffix to the size: `G`, `M` or `K`.
         display: advanced
         required: false
         mask: false

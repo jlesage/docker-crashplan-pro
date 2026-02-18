@@ -5,7 +5,7 @@ set -o pipefail
 
 export DEBIAN_FRONTEND=noninteractive
 
-function log {
+log() {
     echo ">>> $*"
 }
 

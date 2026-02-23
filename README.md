@@ -873,7 +873,27 @@ previous section apply, except that the inotify's max watch limit must be set in
 permanent.
 
 **NOTE**: After an upgrade of the DSM software, verify that the content of the
-file has not been overwritten.
+file has not been overwritten. See the following section to ensure this setting
+is automatically updated during boot up.
+
+##### Synology script
+
+To make sure this setting stays configured permanently the following script can
+be configured to automatically run during boot with the Synology Task Scheduler:
+
+```
+echo /etc/sysctl.conf before update:
+cat /etc/sysctl.conf
+grep -v 'fs.inotify.max_user_watches=.*' /etc/sysctl.conf | echo -e "$(cat)\nfs.inotify.max_user_watches=67108864" > sysctl.conf
+sudo cp sysctl.conf /etc/sysctl.conf
+echo
+echo /etc/sysctl.conf after update:
+cat /etc/sysctl.conf
+```
+
+| 1. Add Task | 2. Configure Task |
+|:--------:|:---------:|
+| ![AddTask](readmeimages/AddTask.png) | ![EditTask](readmeimages/EditTask.png) |
 
 ### Empty `/storage`
 

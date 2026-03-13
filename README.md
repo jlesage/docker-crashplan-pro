@@ -6,11 +6,16 @@
 [![Build Status](https://img.shields.io/github/actions/workflow/status/jlesage/docker-crashplan-pro/build-image.yml?logo=github&branch=master&style=for-the-badge)](https://github.com/jlesage/docker-crashplan-pro/actions/workflows/build-image.yml)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg?style=for-the-badge)](https://paypal.me/JocelynLeSage)
 
-This project provides a Docker container for [CrashPlan](https://www.crashplan.com).
+This project provides a lightweight and secure Docker container for
+[CrashPlan](https://www.crashplan.com).
 
-The graphical user interface (GUI) of the application can be accessed through a
-modern web browser, requiring no installation or configuration on the client
-side, or via any VNC client.
+Access the application's full graphical interface directly from any modern web
+browser - no downloads, installs, or setup required on the client side - or
+connect with any VNC client.
+
+The web interface also offers audio playback, seamless clipboard sharing, an
+integrated file manager and terminal for accessing the container's files and
+shell, desktop notifications, and more.
 
 This Docker container can be used with all CrashPlan products: Essential,
 Professional, Enterprise, MSPs and Small Business (no longer sold).
@@ -45,6 +50,7 @@ stolen laptop, ransomware or an as-of-yet undiscovered calamity.
       * [Synology](#synology)
       * [unRAID](#unraid)
    * [User/Group IDs](#usergroup-ids)
+   * [Shell Access](#shell-access)
    * [Accessing the GUI](#accessing-the-gui)
    * [Security](#security)
       * [SSVNC](#ssvnc)
@@ -60,9 +66,8 @@ stolen laptop, ransomware or an as-of-yet undiscovered calamity.
    * [Web Audio](#web-audio)
    * [Web File Manager](#web-file-manager)
    * [Web Notifications](#web-notifications)
-      * [Web Terminal](#web-terminal)
+   * [Web Terminal](#web-terminal)
    * [GPU Acceleration Support](#gpu-acceleration-support)
-   * [Shell Access](#shell-access)
    * [Taking Over Existing Backup](#taking-over-existing-backup)
    * [Why CrashPlan Self Update Is Disabled](#why-crashplan-self-update-is-disabled)
    * [Troubleshooting](#troubleshooting)
@@ -256,7 +261,6 @@ Adjust the configuration to suit your needs. Only mandatory settings are
 included in this example.
 
 ```yaml
-version: '3'
 services:
   crashplan-pro:
     image: jlesage/crashplan-pro
@@ -373,6 +377,17 @@ uid=1000(myuser) gid=1000(myuser) groups=1000(myuser),4(adm),24(cdrom),27(sudo),
 ```
 
 Use the `uid` (user ID) and `gid` (group ID) values to configure the container.
+
+## Shell Access
+
+To access the shell of a running container, execute the following command:
+
+```shell
+docker exec -ti CONTAINER sh
+```
+
+Where `CONTAINER` is the ID or the name of the container used during its
+creation.
 
 ## Accessing the GUI
 
@@ -634,7 +649,7 @@ window to open it.
 | **Keyboard** icon | Toggle the on-screen keyboard. Visible only on touch devices. |
 | **Fullscreen** icon | Toggle fullscreen mode for the browser window. |
 | **Hand** icon| Allows dragging/moving the application window. Visible only when **Scaling Mode** is *None* and **Clip to Window** is enabled.
-| **Folder** icon | Opens the intgegrated file browser. Visible only when the [file manager](#web-file-manager) is enabled. |
+| **Folder** icon | Opens the integrated file browser. Visible only when the [file manager](#web-file-manager) is enabled. |
 | **Terminal** icon | Opens the integrated terminal. Visibile only when the [terminal](#web-terminal) is enabled. |
 | **Clipboard** text box| Mirrors the application’s clipboard. Any text typed or pasted here is sent to the application, and text copied inside the application automatically appears here. Hidden when [automatic clipboard synchronization](#automatic-clipboard-sync) is active. |
 | **Clear** button | Clears the clipboard. Hidden when [automatic clipboard synchronization](#automatic-clipboard-sync) is active. |
@@ -744,7 +759,7 @@ configuring environment variables.
 > [!NOTE]
 > This feature is not available to VNC clients.
 
-### Web Terminal
+## Web Terminal
 
 The container includes a web-based terminal, allowing users to easily obtain
 shell access to the running container through a web browser.
@@ -781,17 +796,6 @@ To enable GPU acceleration, the host must have compatible open-source kernel
 drivers installed, and the GPU device `/dev/dri` must be exposed to the
 container. For example, this is done by adding the `--device /dev/dri`
 argument to the `docker run` command.
-
-## Shell Access
-
-To access the shell of a running container, execute the following command:
-
-```shell
-docker exec -ti CONTAINER sh
-```
-
-Where `CONTAINER` is the ID or the name of the container used during its
-creation.
 
 ## Taking Over Existing Backup
 

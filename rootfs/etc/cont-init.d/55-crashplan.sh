@@ -11,9 +11,6 @@ if [ ! -f /config/machine-id ]; then
     cat /proc/sys/kernel/random/uuid | tr -d '-' > /config/machine-id
 fi
 
-# Set a home directory in passwd, needed by the engine.
-sed-patch "s|app::$USER_ID:$GROUP_ID::/dev/null:|app::$USER_ID:$GROUP_ID::/config:|" /etc/passwd
-
 # Make sure required directories exist.
 mkdir -p /config/bin
 mkdir -p /config/log

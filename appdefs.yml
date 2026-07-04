@@ -174,8 +174,6 @@ app:
       date: 2026-07-04
       changes:
         - 'Updated CrashPlan to version 12.0.0.'
-        - 'Added support for the Chromium remote debugging interface.'
-        - 'Added the ability to specify custom arguments to Chromium.'
         - 'Updated baseimage to version 4.12.5, bringing the following changes:'
         - '2:Added the ability to run the container with read-only filesystem.'
         - '2:Added the ability to configure the shell used by the web terminal.'
